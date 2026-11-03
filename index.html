@@ -39,6 +39,7 @@
             margin-bottom: 32px;
             padding-bottom: 16px;
             border-bottom: 1px solid var(--border-color);
+            position: relative;
         }
 
         .logo-area {
@@ -58,6 +59,10 @@
             font-size: 20px;
         }
 
+        .lang-dropdown-wrapper {
+            position: relative;
+        }
+
         .lang-btn {
             border: 1px solid var(--border-color);
             background: transparent;
@@ -66,6 +71,43 @@
             font-size: 14px;
             cursor: pointer;
             color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .lang-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 40px;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            width: 150px;
+            z-index: 100;
+            overflow: hidden;
+        }
+
+        .lang-menu.show {
+            display: block;
+        }
+
+        .lang-option {
+            padding: 10px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.2s;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .lang-option:last-child {
+            border-bottom: none;
+        }
+
+        .lang-option:hover {
+            background-color: #f8f8f8;
         }
 
         .subtitle {
@@ -215,18 +257,28 @@
         <div class="logo-area">
             Food <span class="logo-ok">OK</span>
         </div>
-        <button class="lang-btn">한국어</button>
+        <div class="lang-dropdown-wrapper">
+            <button class="lang-btn" id="langBtn">🇰🇷 한국어 ▾</button>
+            <div class="lang-menu" id="langMenu">
+                <div class="lang-option" onclick="changeLang('ko', '한국어')">🇰🇷 한국어</div>
+                <div class="lang-option" onclick="changeLang('en', 'English')">🇺🇸 English</div>
+                <div class="lang-option" onclick="changeLang('zh', '简体中文')">🇨🇳 中文 (간체)</div>
+                <div class="lang-option" onclick="changeLang('ja', '日本語')">🇯🇵 日本語</div>
+                <div class="lang-option" onclick="changeLang('es', 'Español')">🇪🇸 Español</div>
+                <div class="lang-option" onclick="changeLang('fr', 'Français')">🇫🇷 Français</div>
+            </div>
+        </div>
     </header>
 
-    <div class="subtitle">
+    <div class="subtitle" id="txt-subtitle">
         No sign-up, free, official sources only
     </div>
 
     <div class="search-section">
-        <div class="search-title">What food do you want to check?</div>
+        <div class="search-title" id="txt-search-title">What food do you want to check?</div>
         <div class="search-bar-wrapper">
-            <input type="text" class="search-input" placeholder="e.g. rice, shrimp, Vietnam">
-            <button class="search-submit">Search</button>
+            <input type="text" class="search-input" id="searchInput" placeholder="e.g. rice, shrimp, Vietnam">
+            <button class="search-submit" id="txt-search-btn">Search</button>
         </div>
         <div class="tag-list">
             <span class="tag">rice</span>
@@ -239,21 +291,114 @@
     </div>
 
     <div>
-        <div class="section-title">Latest alerts</div>
+        <div class="section-title" id="txt-latest-alerts">Latest alerts</div>
         <div class="filter-pills">
-            <div class="filter-pill active">All</div>
+            <div class="filter-pill active" id="txt-filter-all">All</div>
             <div class="filter-pill">US FDA</div>
             <div class="filter-pill">Japan</div>
         </div>
-        <div class="source-info">
+        <div class="source-info" id="txt-source-info">
             Sources: US FDA food recalls, Japan MHLW import violations (original text)
         </div>
 
         <div class="alert-card">
-            <span class="badge-allergen">Undeclared allergen</span>
+            <span class="badge-allergen" id="txt-badge">Undeclared allergen</span>
             <div class="alert-title">Jovy Gummy Worms Neon; packaged in 1lb plastic units. UPC 712199083411</div>
         </div>
     </div>
 
+    <script>
+        const langBtn = document.getElementById('langBtn');
+        const langMenu = document.getElementById('langMenu');
+
+        langBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            langMenu.classList.toggle('show');
+        });
+
+        window.addEventListener('click', () => {
+            langMenu.classList.remove('show');
+        });
+
+        const translations = {
+            ko: {
+                subtitle: "회원가입 없음, 무료, 공식 출처 데이터만 제공",
+                searchTitle: "어떤 식품 안전 정보를 확인하시겠습니까?",
+                searchBtn: "검색",
+                placeholder: "예: 쌀, 새우, 베트남",
+                latestAlerts: "최신 경고 및 리콜",
+                filterAll: "전체",
+                sourceInfo: "출처: 미국 FDA 리콜, 일본 후생노동성 수입 위반 정보",
+                badge: "미표기 알레르겐"
+            },
+            en: {
+                subtitle: "No sign-up, free, official sources only",
+                searchTitle: "What food do you want to check?",
+                searchBtn: "Search",
+                placeholder: "e.g. rice, shrimp, Vietnam",
+                latestAlerts: "Latest alerts",
+                filterAll: "All",
+                sourceInfo: "Sources: US FDA food recalls, Japan MHLW import violations",
+                badge: "Undeclared allergen"
+            },
+            zh: {
+                subtitle: "无需注册，免费，仅限官方来源",
+                searchTitle: "您想查询什么食品安全信息？",
+                searchBtn: "搜索",
+                placeholder: "例如：大米、虾、越南",
+                latestAlerts: "最新警告",
+                filterAll: "全部",
+                sourceInfo: "来源：美国FDA食品召回，日本厚生劳动省进口违规信息",
+                badge: "未申报过敏原"
+            },
+            ja: {
+                subtitle: "登録不要、無料、公式ソースのみ",
+                searchTitle: "どの食品の安全情報を確認しますか？",
+                searchBtn: "検索",
+                placeholder: "例：米、エビ、ベトナム",
+                latestAlerts: "最新のアラート",
+                filterAll: "すべて",
+                sourceInfo: "出典：米国FDAリコール情報、日本厚生労働省輸入違反情報",
+                badge: "アレルゲン未表記"
+            },
+            es: {
+                subtitle: "Sin registro, gratis, solo fuentes oficiales",
+                searchTitle: "¿Qué alimento deseas consultar?",
+                searchBtn: "Buscar",
+                placeholder: "ej. arroz, camarón, Vietnam",
+                latestAlerts: "Últimas alertas",
+                filterAll: "Todos",
+                sourceInfo: "Fuentes: Retiradas de alimentos de la FDA de EE. UU., infracciones de importación del MHLW de Japón",
+                badge: "Alérgeno no declarado"
+            },
+            fr: {
+                subtitle: "Sans inscription, gratuit, sources officielles uniquement",
+                searchTitle: "Quel aliment souhaitez-vous vérifier ?",
+                searchBtn: "Rechercher",
+                placeholder: "ex. riz, crevettes, Vietnam",
+                latestAlerts: "Dernières alertes",
+                filterAll: "Tout",
+                sourceInfo: "Sources : Rappels alimentaires de la FDA américaine, infractions à l'importation du MHLW japonais",
+                badge: "Allergène non déclaré"
+            }
+        };
+
+        function changeLang(langCode, langLabel) {
+            langBtn.innerHTML = `${langLabel} ▾`;
+            langMenu.classList.remove('show');
+
+            const t = translations[langCode];
+            if (!t) return;
+
+            document.getElementById('txt-subtitle').innerText = t.subtitle;
+            document.getElementById('txt-search-title').innerText = t.searchTitle;
+            document.getElementById('txt-search-btn').innerText = t.searchBtn;
+            document.getElementById('searchInput').placeholder = t.placeholder;
+            document.getElementById('txt-latest-alerts').innerText = t.latestAlerts;
+            document.getElementById('txt-filter-all').innerText = t.filterAll;
+            document.getElementById('txt-source-info').innerText = t.sourceInfo;
+            document.getElementById('txt-badge').innerText = t.badge;
+        }
+    </script>
 </body>
 </html>
