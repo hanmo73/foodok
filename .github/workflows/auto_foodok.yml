@@ -31,7 +31,8 @@ jobs:
           git config --global user.name 'FoodOK Bot'
           git config --global user.email 'bot@foodok.org'
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
-          git pull origin main --rebase --allow-unrelated-histories || true
+          git fetch origin main
+          git reset --soft origin/main || true
           git add .
           git commit -m "Nightly global food safety auto-update [skip ci]" || exit 0
-          git push origin main --force
+          git push origin HEAD:main --force
