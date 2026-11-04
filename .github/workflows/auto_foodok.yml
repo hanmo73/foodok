@@ -11,9 +11,6 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -27,12 +24,8 @@ jobs:
         run: python scripts/collect_all.py
 
       - name: Save to site
-        run: |
-          git config --global user.name 'FoodOK Bot'
-          git config --global user.email 'bot@foodok.org'
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
-          git fetch origin main
-          git reset --soft origin/main || true
-          git add .
-          git commit -m "Nightly global food safety auto-update [skip ci]" || exit 0
-          git push origin HEAD:main --force
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Nightly global food safety auto-update [skip ci]"
+          branch: main
+          file_pattern: data/latest.json
