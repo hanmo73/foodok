@@ -5,399 +5,102 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FoodOK - Global Food Safety & Recalls</title>
     <style>
-        :root {
-            --bg-color: #ffffff;
-            --text-main: #111111;
-            --text-sub: #666666;
-            --border-color: #e5e5e5;
-            --brand-green: #1b5e20;
-            --brand-green-bg: #1b5e20;
-            --pill-bg: #f4f4f4;
-            --card-bg: #fafafa;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.5;
-            padding: 24px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 32px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid var(--border-color);
-            position: relative;
-        }
-
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 24px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
-
-        .logo-ok {
-            background-color: var(--brand-green-bg);
-            color: #ffffff;
-            padding: 2px 10px;
-            border-radius: 6px;
-            font-size: 20px;
-        }
-
-        .lang-dropdown-wrapper {
-            position: relative;
-        }
-
-        .lang-btn {
-            border: 1px solid var(--border-color);
-            background: transparent;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 14px;
-            cursor: pointer;
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .lang-menu {
-            display: none;
-            position: absolute;
-            right: 0;
-            top: 40px;
-            background: #ffffff;
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            width: 150px;
-            z-index: 100;
-            overflow: hidden;
-        }
-
-        .lang-menu.show {
-            display: block;
-        }
-
-        .lang-option {
-            padding: 10px 16px;
-            font-size: 14px;
-            cursor: pointer;
-            transition: background 0.2s;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .lang-option:last-child {
-            border-bottom: none;
-        }
-
-        .lang-option:hover {
-            background-color: #f8f8f8;
-        }
-
-        .subtitle {
-            font-size: 14px;
-            color: var(--text-sub);
-            margin-bottom: 24px;
-        }
-
-        .search-section {
-            margin-bottom: 36px;
-        }
-
-        .search-title {
-            font-size: 22px;
-            font-weight: 600;
-            margin-bottom: 16px;
-            letter-spacing: -0.5px;
-        }
-
-        .search-bar-wrapper {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 12px;
-        }
-
-        .search-input {
-            flex: 1;
-            padding: 12px 16px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            font-size: 15px;
-            outline: none;
-        }
-
-        .search-input:focus {
-            border-color: var(--brand-green);
-        }
-
-        .search-submit {
-            background-color: var(--brand-green);
-            color: white;
-            border: none;
-            padding: 0 20px;
-            border-radius: 8px;
-            font-size: 15px;
-            font-weight: 500;
-            cursor: pointer;
-        }
-
-        .tag-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .tag {
-            background-color: var(--pill-bg);
-            border: 1px solid var(--border-color);
-            padding: 6px 14px;
-            border-radius: 18px;
-            font-size: 13px;
-            color: var(--text-main);
-            cursor: pointer;
-            text-decoration: none;
-            transition: background 0.2s;
-        }
-
-        .tag:hover {
-            background-color: #ebebeb;
-        }
-
-        .section-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 16px;
-        }
-
-        .filter-pills {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 16px;
-        }
-
-        .filter-pill {
-            padding: 6px 16px;
-            border-radius: 18px;
-            font-size: 13px;
-            border: 1px solid var(--border-color);
-            background: var(--pill-bg);
-            cursor: pointer;
-        }
-
-        .filter-pill.active {
-            background-color: var(--brand-green);
-            color: white;
-            border-color: var(--brand-green);
-        }
-
-        .source-info {
-            font-size: 13px;
-            color: var(--text-sub);
-            margin-bottom: 16px;
-        }
-
-        .alert-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 16px;
-        }
-
-        .badge-allergen {
-            display: inline-block;
-            background-color: #faedcd;
-            color: #856404;
-            font-size: 11px;
-            font-weight: 600;
-            padding: 4px 8px;
-            border-radius: 4px;
-            margin-bottom: 10px;
-        }
-
-        .alert-title {
-            font-size: 15px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--text-main);
-        }
-
-        @media (max-width: 600px) {
-            body {
-                padding: 16px;
-            }
-            .search-bar-wrapper {
-                flex-direction: column;
-            }
-            .search-submit {
-                padding: 12px;
-            }
-        }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background: #f9f9f9; color: #333; }
+        header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        h1 { color: #2e7d32; margin: 0; }
+        .lang-select { padding: 5px 10px; border-radius: 4px; border: 1px solid #ccc; }
+        .search-box { display: flex; gap: 10px; margin-bottom: 20px; }
+        input[type="text"] { flex: 1; padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 4px; }
+        button { padding: 10px 20px; background: #2e7d32; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
+        button:hover { background: #1b5e20; }
+        .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+        .tag { background: #e0e0e0; padding: 6px 12px; border-radius: 20px; cursor: pointer; font-size: 14px; }
+        .tag.active { background: #2e7d32; color: white; }
+        .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+        .filter-btn { background: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; padding: 6px 14px; border-radius: 16px; cursor: pointer; font-size: 14px; font-weight: bold; }
+        .filter-btn.active { background: #2e7d32; color: white; }
+        .alert-card { background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 5px solid #d32f2f; }
+        .alert-card.warning { border-left-color: #f57c00; }
+        .alert-title { font-weight: bold; font-size: 16px; margin-bottom: 5px; }
+        .alert-meta { font-size: 13px; color: #666; margin-bottom: 8px; }
+        .alert-desc { font-size: 14px; line-height: 1.4; }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo-area">
-            Food <span class="logo-ok">OK</span>
-        </div>
-        <div class="lang-dropdown-wrapper">
-            <button class="lang-btn" id="langBtn">🇰🇷 한국어 ▾</button>
-            <div class="lang-menu" id="langMenu">
-                <div class="lang-option" onclick="changeLang('ko', '한국어')">🇰🇷 한국어</div>
-                <div class="lang-option" onclick="changeLang('en', 'English')">🇺🇸 English</div>
-                <div class="lang-option" onclick="changeLang('zh', '简体中文')">🇨🇳 中文 (간체)</div>
-                <div class="lang-option" onclick="changeLang('ja', '日本語')">🇯🇵 日本語</div>
-                <div class="lang-option" onclick="changeLang('es', 'Español')">🇪🇸 Español</div>
-                <div class="lang-option" onclick="changeLang('fr', 'Français')">🇫🇷 Français</div>
-            </div>
-        </div>
+        <h1>Food OK</h1>
+        <select class="lang-select" id="langSelect" onchange="changeLanguage()">
+            <option value="ko">한국어</option>
+            <option value="en">English</option>
+        </select>
     </header>
 
-    <div class="subtitle" id="txt-subtitle">
-        No sign-up, free, official sources only
+    <p id="subText">No sign-up, free, official sources only</p>
+
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="e.g. rice, shrimp, Vietnam">
+        <button onclick="searchData()" id="searchBtn">Search</button>
     </div>
 
-    <div class="search-section">
-        <div class="search-title" id="txt-search-title">What food do you want to check?</div>
-        <div class="search-bar-wrapper">
-            <input type="text" class="search-input" id="searchInput" placeholder="e.g. rice, shrimp, Vietnam">
-            <button class="search-submit" id="txt-search-btn">Search</button>
-        </div>
-        <div class="tag-list">
-            <span class="tag">rice</span>
-            <span class="tag">chili</span>
-            <span class="tag">shrimp</span>
-            <span class="tag">coffee</span>
-            <span class="tag">peanut</span>
-            <span class="tag">Vietnam</span>
-        </div>
+    <div class="tags">
+        <span class="tag" onclick="quickSearch('rice')">rice</span>
+        <span class="tag" onclick="quickSearch('chili')">chili</span>
+        <span class="tag" onclick="quickSearch('shrimp')">shrimp</span>
+        <span class="tag" onclick="quickSearch('coffee')">coffee</span>
+        <span class="tag" onclick="quickSearch('peanut')">peanut</span>
+        <span class="tag" onclick="quickSearch('Vietnam')">Vietnam</span>
     </div>
 
-    <div>
-        <div class="section-title" id="txt-latest-alerts">Latest alerts</div>
-        <div class="filter-pills">
-            <div class="filter-pill active" id="txt-filter-all">All</div>
-            <div class="filter-pill">US FDA</div>
-            <div class="filter-pill">Japan</div>
-        </div>
-        <div class="source-info" id="txt-source-info">
-            Sources: US FDA food recalls, Japan MHLW import violations (original text)
-        </div>
+    <h3 id="alertsHeading">Latest alerts</h3>
 
+    <div class="filters">
+        <button class="filter-btn active" onclick="filterCountry('all', this)">All</button>
+        <button class="filter-btn" onclick="filterCountry('US', this)">🇺🇸 US FDA</button>
+        <button class="filter-btn" onclick="filterCountry('JP', this)">🇯🇵 Japan</button>
+        <button class="filter-btn" onclick="filterCountry('EU', this)">🇪🇺 Europe</button>
+        <button class="filter-btn" onclick="filterCountry('KR', this)">🇰🇷 Korea</button>
+    </div>
+
+    <div id="resultsContainer">
         <div class="alert-card">
-            <span class="badge-allergen" id="txt-badge">Undeclared allergen</span>
             <div class="alert-title">Jovy Gummy Worms Neon; packaged in 1lb plastic units. UPC 712199083411</div>
+            <div class="alert-meta">US FDA / Origin: United States | Firm: El Ruisenor De Mexico, Inc.</div>
+            <div class="alert-desc">undeclared allergen ingredient (Red#40, Yellow#5, Yellow#6, Blue#1)</div>
         </div>
     </div>
 
     <script>
-        const langBtn = document.getElementById('langBtn');
-        const langMenu = document.getElementById('langMenu');
+        function changeLanguage() {
+            const lang = document.getElementById('langSelect').value;
+            const subText = document.getElementById('subText');
+            const searchInput = document.getElementById('searchInput');
+            const searchBtn = document.getElementById('searchBtn');
+            const alertsHeading = document.getElementById('alertsHeading');
 
-        langBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            langMenu.classList.toggle('show');
-        });
-
-        window.addEventListener('click', () => {
-            langMenu.classList.remove('show');
-        });
-
-        const translations = {
-            ko: {
-                subtitle: "회원가입 없음, 무료, 공식 출처 데이터만 제공",
-                searchTitle: "어떤 식품 안전 정보를 확인하시겠습니까?",
-                searchBtn: "검색",
-                placeholder: "예: 쌀, 새우, 베트남",
-                latestAlerts: "최신 경고 및 리콜",
-                filterAll: "전체",
-                sourceInfo: "출처: 미국 FDA 리콜, 일본 후생노동성 수입 위반 정보",
-                badge: "미표기 알레르겐"
-            },
-            en: {
-                subtitle: "No sign-up, free, official sources only",
-                searchTitle: "What food do you want to check?",
-                searchBtn: "Search",
-                placeholder: "e.g. rice, shrimp, Vietnam",
-                latestAlerts: "Latest alerts",
-                filterAll: "All",
-                sourceInfo: "Sources: US FDA food recalls, Japan MHLW import violations",
-                badge: "Undeclared allergen"
-            },
-            zh: {
-                subtitle: "无需注册，免费，仅限官方来源",
-                searchTitle: "您想查询什么食品安全信息？",
-                searchBtn: "搜索",
-                placeholder: "例如：大米、虾、越南",
-                latestAlerts: "最新警告",
-                filterAll: "全部",
-                sourceInfo: "来源：美国FDA食品召回，日本厚生劳动省进口违规信息",
-                badge: "未申报过敏原"
-            },
-            ja: {
-                subtitle: "登録不要、無料、公式ソースのみ",
-                searchTitle: "どの食品の安全情報を確認しますか？",
-                searchBtn: "検索",
-                placeholder: "例：米、エビ、ベトナム",
-                latestAlerts: "最新のアラート",
-                filterAll: "すべて",
-                sourceInfo: "出典：米国FDAリコール情報、日本厚生労働省輸入違反情報",
-                badge: "アレルゲン未表記"
-            },
-            es: {
-                subtitle: "Sin registro, gratis, solo fuentes oficiales",
-                searchTitle: "¿Qué alimento deseas consultar?",
-                searchBtn: "Buscar",
-                placeholder: "ej. arroz, camarón, Vietnam",
-                latestAlerts: "Últimas alertas",
-                filterAll: "Todos",
-                sourceInfo: "Fuentes: Retiradas de alimentos de la FDA de EE. UU., infracciones de importación del MHLW de Japón",
-                badge: "Alérgeno no declarado"
-            },
-            fr: {
-                subtitle: "Sans inscription, gratuit, sources officielles uniquement",
-                searchTitle: "Quel aliment souhaitez-vous vérifier ?",
-                searchBtn: "Rechercher",
-                placeholder: "ex. riz, crevettes, Vietnam",
-                latestAlerts: "Dernières alertes",
-                filterAll: "Tout",
-                sourceInfo: "Sources : Rappels alimentaires de la FDA américaine, infractions à l'importation du MHLW japonais",
-                badge: "Allergène non déclaré"
+            if (lang === 'ko') {
+                subText.innerText = "회원가입 없음, 무료, 공식 출처만 제공";
+                searchInput.placeholder = "예: 쌀, 새우, 베트남, 고추";
+                searchBtn.innerText = "검색";
+                alertsHeading.innerText = "최신 경고 알림";
+            } else {
+                subText.innerText = "No sign-up, free, official sources only";
+                searchInput.placeholder = "e.g. rice, shrimp, Vietnam";
+                searchBtn.innerText = "Search";
+                alertsHeading.innerText = "Latest alerts";
             }
-        };
+        }
 
-        function changeLang(langCode, langLabel) {
-            langBtn.innerHTML = `${langLabel} ▾`;
-            langMenu.classList.remove('show');
+        function filterCountry(country, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
 
-            const t = translations[langCode];
-            if (!t) return;
+        function quickSearch(keyword) {
+            document.getElementById('searchInput').value = keyword;
+        }
 
-            document.getElementById('txt-subtitle').innerText = t.subtitle;
-            document.getElementById('txt-search-title').innerText = t.searchTitle;
-            document.getElementById('txt-search-btn').innerText = t.searchBtn;
-            document.getElementById('searchInput').placeholder = t.placeholder;
-            document.getElementById('txt-latest-alerts').innerText = t.latestAlerts;
-            document.getElementById('txt-filter-all').innerText = t.filterAll;
-            document.getElementById('txt-source-info').innerText = t.sourceInfo;
-            document.getElementById('txt-badge').innerText = t.badge;
+        function searchData() {
         }
     </script>
 </body>
