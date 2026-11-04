@@ -7,14 +7,17 @@
     <style>
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background: #f9f9f9; color: #333; }
         
-        /* 제작 목적 강조 최상단 배너 박스 */
+        /* 목적 배너 */
         .purpose-banner { background: #1b5e20; color: white; padding: 18px 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         .purpose-banner h2 { margin: 0 0 8px 0; font-size: 18px; color: #a5d6a7; display: flex; align-items: center; gap: 6px; }
         .purpose-banner p { margin: 0; font-size: 15px; line-height: 1.5; color: #ffffff; font-weight: 500; }
 
         header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
         h1 { color: #2e7d32; margin: 0; }
-        .lang-select { padding: 5px 10px; border-radius: 4px; border: 1px solid #ccc; background: white; font-weight: bold; }
+        
+        /* 다국어 선택 드롭다운 스타일 */
+        .lang-select { padding: 6px 12px; border-radius: 6px; border: 1px solid #ccc; background: white; font-weight: bold; font-size: 14px; cursor: pointer; }
+        
         .search-box { display: flex; gap: 10px; margin-bottom: 20px; }
         input[type="text"] { flex: 1; padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 4px; }
         button { padding: 10px 20px; background: #2e7d32; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
@@ -32,7 +35,7 @@
 </head>
 <body>
 
-    <!-- 사이트 최상단: 지인이 물어본 '만든 목적' 명시 -->
+    <!-- 사이트 최상단 목적 배너 -->
     <div class="purpose-banner" id="purposeBanner">
         <h2>🛡️ FoodOK의 목적</h2>
         <p>전 세계 정부가 공개한 농약·중금속·위험 식품 정보를 검색창 하나로 1초 만에 찾아주는 글로벌 식품 안전 플랫폼입니다.</p>
@@ -40,9 +43,15 @@
 
     <header>
         <h1>Food OK</h1>
+        <!-- 7개 주요 언어 선택 셀렉트박스 -->
         <select class="lang-select" id="langSelect" onchange="changeLanguage()">
-            <option value="ko" selected>한국어</option>
-            <option value="en">English</option>
+            <option value="ko" selected>🇰🇷 한국어</option>
+            <option value="en">🇺🇸 English</option>
+            <option value="ja">🇯🇵 日本語</option>
+            <option value="zh">🇨🇳 中文</option>
+            <option value="es">🇪🇸 Español</option>
+            <option value="fr">🇫🇷 Français</option>
+            <option value="ar">🇸🇦 العربية</option>
         </select>
     </header>
 
@@ -65,7 +74,7 @@
     <h3 id="alertsHeading">최신 경고 알림</h3>
 
     <div class="filters">
-        <button class="filter-btn active" onclick="filterCountry('all', this)">전체</button>
+        <button class="filter-btn active" onclick="filterCountry('all', this)" id="filterAll">전체</button>
         <button class="filter-btn" onclick="filterCountry('US', this)">🇺🇸 미국 FDA</button>
         <button class="filter-btn" onclick="filterCountry('JP', this)">🇯🇵 일본</button>
         <button class="filter-btn" onclick="filterCountry('EU', this)">🇪🇺 유럽</button>
@@ -81,33 +90,96 @@
     </div>
 
     <script>
+        const translations = {
+            ko: {
+                purposeTitle: "🛡️ FoodOK의 목적",
+                purposeDesc: "전 세계 정부가 공개한 농약·중금속·위험 식품 정보를 검색창 하나로 1초 만에 찾아주는 글로벌 식품 안전 플랫폼입니다.",
+                subText: "회원가입 없음, 무료, 공식 출처만 제공",
+                placeholder: "예: 쌀, 새우, 베트남, 고추",
+                searchBtn: "검색",
+                alertsHeading: "최신 경고 알림",
+                filterAll: "전체",
+                dir: "ltr"
+            },
+            en: {
+                purposeTitle: "🛡️ Purpose of FoodOK",
+                purposeDesc: "A global food safety platform that instantly searches pesticide, heavy metal, and hazard food recalls released by governments worldwide.",
+                subText: "No sign-up, free, official sources only",
+                placeholder: "e.g. rice, shrimp, Vietnam",
+                searchBtn: "Search",
+                alertsHeading: "Latest alerts",
+                filterAll: "All",
+                dir: "ltr"
+            },
+            ja: {
+                purposeTitle: "🛡️ FoodOKの目的",
+                purposeDesc: "世界各国の政府が公開した農薬・重金属・危険食品の情報を、検索窓一つで1秒で探せるグローバル食品安全プラットフォームです。",
+                subText: "会員登録不要、無料、公式ソースのみ提供",
+                placeholder: "例: 米, エビ, ベトナム, 唐辛子",
+                searchBtn: "検索",
+                alertsHeading: "最新の警告通知",
+                filterAll: "すべて",
+                dir: "ltr"
+            },
+            zh: {
+                purposeTitle: "🛡️ FoodOK 的宗旨",
+                purposeDesc: "一个全球食品安全平台，只需一个搜索框即可在 1 秒内查找全球各国政府发布的农药、重金属和危害食品召回信息。",
+                subText: "无需注册，免费，仅提供官方来源",
+                placeholder: "例如：大米、虾、越南、辣椒",
+                searchBtn: "搜索",
+                alertsHeading: "最新警报",
+                filterAll: "全部",
+                dir: "ltr"
+            },
+            es: {
+                purposeTitle: "🛡️ Propósito de FoodOK",
+                purposeDesc: "Una plataforma global de seguridad alimentaria que busca instantáneamente retiradas de alimentos por pesticidas, metales pesados ​​y riesgos.",
+                subText: "Sin registro, gratis, solo fuentes oficiales",
+                placeholder: "ej. arroz, camarón, Vietnam",
+                searchBtn: "Buscar",
+                alertsHeading: "Últimas alertas",
+                filterAll: "Todo",
+                dir: "ltr"
+            },
+            fr: {
+                purposeTitle: "🛡️ Objectif de FoodOK",
+                purposeDesc: "Une plateforme mondiale de sécurité alimentaire qui recherche instantanément les rappels de produits alimentaires dangereux.",
+                subText: "Sans inscription, gratuit, sources officielles uniquement",
+                placeholder: "ex. riz, crevettes, Vietnam",
+                searchBtn: "Rechercher",
+                alertsHeading: "Dernières alertes",
+                filterAll: "Tout",
+                dir: "ltr"
+            },
+            ar: {
+                purposeTitle: "🛡️ غرض FoodOK",
+                purposeDesc: "منصة عالمية لسلامة الأغذية تبحث فوراً عن معلومات استدعاء الأغذية الخطرة والمبيدات الحشرية التي تصدرها الحكومات في جميع أنحاء العالم.",
+                subText: "بدون تسجيل، مجاني، مصادر رسمية فقط",
+                placeholder: "مثال: أرز، جمبري، فيتنام",
+                searchBtn: "بحث",
+                alertsHeading: "أحدث تنبيهات",
+                filterAll: "الكل",
+                dir: "rtl"
+            }
+        };
+
         function changeLanguage() {
             const lang = document.getElementById('langSelect').value;
-            const purposeBanner = document.getElementById('purposeBanner');
-            const subText = document.getElementById('subText');
-            const searchInput = document.getElementById('searchInput');
-            const searchBtn = document.getElementById('searchBtn');
-            const alertsHeading = document.getElementById('alertsHeading');
+            const t = translations[lang];
+            
+            // 문서 방향 설정 (아랍어 등 RTL 대응)
+            document.documentElement.dir = t.dir;
 
-            if (lang === 'ko') {
-                purposeBanner.innerHTML = `
-                    <h2>🛡️ FoodOK의 목적</h2>
-                    <p>전 세계 정부가 공개한 농약·중금속·위험 식품 정보를 검색창 하나로 1초 만에 찾아주는 글로벌 식품 안전 플랫폼입니다.</p>
-                `;
-                subText.innerText = "회원가입 없음, 무료, 공식 출처만 제공";
-                searchInput.placeholder = "예: 쌀, 새우, 베트남, 고추";
-                searchBtn.innerText = "검색";
-                alertsHeading.innerText = "최신 경고 알림";
-            } else {
-                purposeBanner.innerHTML = `
-                    <h2>🛡️ Purpose of FoodOK</h2>
-                    <p>A global food safety platform that instantly searches pesticide, heavy metal, and hazard food recalls released by governments worldwide.</p>
-                `;
-                subText.innerText = "No sign-up, free, official sources only";
-                searchInput.placeholder = "e.g. rice, shrimp, Vietnam";
-                searchBtn.innerText = "Search";
-                alertsHeading.innerText = "Latest alerts";
-            }
+            // 텍스트 일괄 업데이트
+            document.getElementById('purposeBanner').innerHTML = `
+                <h2>${t.purposeTitle}</h2>
+                <p>${t.purposeDesc}</p>
+            `;
+            document.getElementById('subText').innerText = t.subText;
+            document.getElementById('searchInput').placeholder = t.placeholder;
+            document.getElementById('searchBtn').innerText = t.searchBtn;
+            document.getElementById('alertsHeading').innerText = t.alertsHeading;
+            document.getElementById('filterAll').innerText = t.filterAll;
         }
 
         function filterCountry(country, btn) {
