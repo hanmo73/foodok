@@ -29,6 +29,7 @@ jobs:
         run: |
           git config --global user.name 'FoodOK Bot'
           git config --global user.email 'bot@foodok.org'
+          git pull origin main --rebase
           git add .
           git commit -m "Nightly global food safety auto-update [skip ci]" || exit 0
           git push
