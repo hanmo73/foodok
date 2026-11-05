@@ -118,6 +118,18 @@ h2.kicker{font-family:var(--serif);font-size:22px;line-height:1.2;margin:0 0 12p
 @keyframes sh{to{background-position:-200% 0}}
 @media (prefers-reduced-motion:reduce){.skel{animation:none}}
 
+/* coverage */
+.cov{margin-top:44px}
+.covgroup{font:600 12px var(--sans);letter-spacing:.08em;text-transform:uppercase;margin:22px 0 2px;color:var(--ink)}
+.covrow{display:grid;grid-template-columns:2.2fr 1.1fr 1.3fr;gap:14px;padding:14px 0;border-bottom:1px solid var(--hair);align-items:baseline}
+.covrow .n{font-family:var(--serif);font-weight:700;font-size:19px;line-height:1.25}
+.covrow .m{font-size:13.5px;color:var(--muted)}
+.tag{font:700 11px var(--sans);letter-spacing:.08em;display:inline-block;padding:4px 9px}
+.tag.live{background:var(--red);color:#fff}
+.tag.plan{background:#e4e4df;color:var(--ink)}
+.tag.down{background:#5b5b58;color:#fff}
+@media (max-width:640px){.covrow{grid-template-columns:1fr;gap:6px}}
+
 footer{margin-top:60px;border-top:1px solid var(--rule);padding:26px 0 48px;font-size:13px;color:var(--muted)}
 footer .cols{display:grid;grid-template-columns:1.4fr 1fr;gap:30px}
 footer h4{margin:0 0 6px;font:600 12px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
@@ -248,6 +260,18 @@ footer p{margin:0 0 10px}
     <p class="asof" id="asof"></p>
     <div class="grid" id="grid"></div>
     <button class="more" id="more" hidden>Load more alerts</button>
+  </section>
+
+  <section class="cov" aria-label="Data coverage">
+    <div class="wirehead">
+      <h2>Data Coverage</h2>
+      <span class="badge" id="covbadge">STATUS</span>
+    </div>
+    <p class="asof" id="covasof">Which agencies are connected today, and which are next.</p>
+    <div class="covgroup">Connected</div>
+    <div id="covlive"></div>
+    <div class="covgroup">In preparation</div>
+    <div id="covplan"></div>
   </section>
 
   <footer>
@@ -457,7 +481,45 @@ footer p{margin:0 0 10px}
   });
   $("more").addEventListener("click",function(){ load(true); });
 
-  loadStats(); loadLead(); load(false);
+  /* coverage */
+  var LIVE_ROWS = [
+    { id:"fda", name:"United States · Food and Drug Administration (FDA)", how:"Official open data service (openFDA)" },
+    { id:"uk", name:"United Kingdom · Food Standards Agency (FSA)", how:"Official food alerts data service" },
+    { id:"cfia", name:"Canada · Food Inspection Agency (CFIA)", how:"Official alerts and recalls feed" },
+    { id:"rasff", name:"European Union · RASFF", how:"Alert system notifications" }
+  ];
+  var PLAN_ROWS = [
+    { name:"Japan · Ministry of Health, Labour and Welfare (MHLW)", how:"Import violation notices" },
+    { name:"South Korea · Ministry of Food and Drug Safety (MFDS)", how:"Official open data API" },
+    { name:"China · Customs General Administration (GACC)", how:"Official notices" },
+    { name:"ASEAN · Singapore SFA, Thailand FDA, Malaysia MOH", how:"Official agency portals" },
+    { name:"Australia · DAFF and FSANZ", how:"Recall notices" },
+    { name:"South America", how:"Regional agencies" }
+  ];
+  function covRow(name, how, tagCls, tagTxt){
+    return '<div class="covrow"><div class="n">'+esc(name)+'</div><div class="m">'+esc(how)+'</div><div><span class="tag '+tagCls+'">'+esc(tagTxt)+'</span></div></div>';
+  }
+  function loadCoverage(){
+    $("covplan").innerHTML = PLAN_ROWS.map(function(r){ return covRow(r.name, r.how, "plan", "PLANNED"); }).join("");
+    $("covlive").innerHTML = LIVE_ROWS.map(function(r){ return covRow(r.name, r.how, "plan", "CHECKING"); }).join("");
+    if(!API_BASE) return;
+    fetch(API_BASE.replace(/\/$/,"")+"/api/status").then(function(r){
+      if(!r.ok) throw new Error("HTTP "+r.status); return r.json();
+    }).then(function(d){
+      var n = 0, src = d.sources || {};
+      $("covlive").innerHTML = LIVE_ROWS.map(function(r){
+        var x = src[r.id];
+        if(x && x.ok){ n++; return covRow(r.name, r.how+" · "+x.count+" recent alerts loaded", "live", "LIVE"); }
+        return covRow(r.name, r.how, "down", "TEMPORARILY UNAVAILABLE");
+      }).join("");
+      $("covbadge").textContent = n+" OF "+LIVE_ROWS.length+" LIVE";
+      $("covasof").textContent = "Checked "+new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"})+". Alerts are pulled directly from each agency’s official data.";
+    }).catch(function(){
+      $("covbadge").textContent = "STATUS UNAVAILABLE";
+    });
+  }
+
+  loadStats(); loadLead(); load(false); loadCoverage();
 })();
 
 /* Google Translate widget (optional, fails silently) */
