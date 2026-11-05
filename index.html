@@ -29,7 +29,7 @@
             letter-spacing: -0.01em;
         }
 
-        /* 네비게이션바 */
+        /* 상단 네비게이션바 (모노클 스타일) */
         header {
             border-bottom: 2px solid var(--border-color);
             padding: 20px 60px;
@@ -125,32 +125,47 @@
             align-items: center;
         }
 
-        /* 투자자 강조: 국가별 커버리지 뱃지 목록 */
-        .coverage-grid {
+        /* 국가별 필터 탭 (스크린 넘침 방지 및 콤팩트 선택형 바) */
+        .filter-bar {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 50px;
-            padding: 25px;
+            gap: 8px;
+            margin-bottom: 40px;
+            padding: 20px;
             border: 1px solid var(--border-color);
             background: var(--gray-light);
+            align-items: center;
         }
 
-        .coverage-badge {
+        .filter-label {
             font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-right: 10px;
+            letter-spacing: 0.05em;
+        }
+
+        .filter-btn {
+            font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
             border: 1px solid var(--border-color);
             background: #ffffff;
             padding: 6px 12px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            letter-spacing: 0.05em;
         }
 
-        .coverage-badge span {
-            color: var(--brand-green);
-            font-size: 10px;
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--text-color);
+            color: var(--bg-color);
+        }
+
+        .filter-btn.all-btn {
+            background: var(--brand-green);
+            color: #ffffff;
+            border-color: var(--brand-green);
         }
 
         /* 뉴스 및 데이터 그리드 */
@@ -293,38 +308,35 @@
 
         <div class="content-container">
             
-            <!-- 투자자 소명용: 수집 국가 및 언론사 범위 전체 명시 -->
+            <!-- 국가별 선택 필터 바 (모두 보기 + 국가별 콤팩트 뱃지) -->
             <div class="section-heading">
-                <span>Automated Data Coverage (Government & Global Media)</span>
+                <span>Global Intelligence & Media Pipeline</span>
                 <span>24/7 Live Sync</span>
             </div>
-            
-            <div class="coverage-grid">
-                <div class="coverage-badge">🇺🇸 United States <span>FDA / USDA + Media</span></div>
-                <div class="coverage-badge">🇯🇵 Japan <span>MHLW + Media</span></div>
-                <div class="coverage-badge">🇪🇺 European Union <span>RASFF + Media</span></div>
-                <div class="coverage-badge">🇦🇺 Australia <span>FSANZ + Media</span></div>
-                <div class="coverage-badge">🇨🇦 Canada <span>CFIA + Media</span></div>
-                <div class="coverage-badge">🇦🇪 Middle East (GCC) <span>Food Safety + Media</span></div>
-                <div class="coverage-badge">🇹🇭 Thailand <span>FDA Thai + Media</span></div>
-                <div class="coverage-badge">🇲🇾 Malaysia <span>BKKM + Media</span></div>
-                <div class="coverage-badge">🇻🇳 Vietnam <span>VFA + Local Media</span></div>
-                <div class="coverage-badge">🇰🇭 Cambodia <span>Camcontrol + Media</span></div>
-                <div class="coverage-badge">🇱🇦 Laos <span>FDD Laos + Media</span></div>
-                <div class="coverage-badge">🇸🇬 Singapore <span>SFA + Media</span></div>
-                <div class="coverage-badge">🇧🇳 Brunei <span>KFSO + Media</span></div>
-                <div class="coverage-badge">🇮🇩 Indonesia <span>BPOM + Media</span></div>
-                <div class="coverage-badge">🇧🇷 Brazil <span>ANVISA + Media</span></div>
-                <div class="coverage-badge">🇦🇷 Argentina <span>ANMAT + Media</span></div>
-                <div class="coverage-badge">🇵🇹 Portugal <span>ASAE + Media</span></div>
+
+            <div class="filter-bar">
+                <span class="filter-label">Filter Regions:</span>
+                <button class="filter-btn all-btn active">전체 (All)</button>
+                <button class="filter-btn">🇺🇸 United States</button>
+                <button class="filter-btn">🇯🇵 Japan</button>
+                <button class="filter-btn">🇪🇺 European Union</button>
+                <button class="filter-btn">🇦🇺 Australia</button>
+                <button class="filter-btn">🇨🇦 Canada</button>
+                <button class="filter-btn">🇦🇪 Middle East (GCC)</button>
+                <button class="filter-btn">🇹🇭 Thailand</button>
+                <button class="filter-btn">🇲🇾 Malaysia</button>
+                <button class="filter-btn">🇻🇳 Vietnam</button>
+                <button class="filter-btn">🇰🇭 Cambodia</button>
+                <button class="filter-btn">🇱🇦 Laos</button>
+                <button class="filter-btn">🇸🇬 Singapore</button>
+                <button class="filter-btn">🇧🇳 Brunei</button>
+                <button class="filter-btn">🇮🇩 Indonesia</button>
+                <button class="filter-btn">🇧🇷 Brazil</button>
+                <button class="filter-btn">🇦🇷 Argentina</button>
+                <button class="filter-btn">🇵🇹 Portugal</button>
             </div>
 
-            <div class="section-heading">
-                <span>Live Intelligence & Media Feed Blocks</span>
-                <span>Real-Time Ingestion</span>
-            </div>
-
-            <!-- 국가별/미디어 피드 블록 -->
+            <!-- 라이브 피드 블록 -->
             <div class="country-grid">
                 
                 <!-- 미국 (FDA & Media) -->
