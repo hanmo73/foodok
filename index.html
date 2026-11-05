@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FoodOK.org - Global Food Safety Intelligence</title>
+    <title>FoodOK.org - Global Food Safety Intelligence & Media Pipeline</title>
     <style>
         :root {
             --bg-color: #ffffff;
@@ -11,8 +11,8 @@
             --border-color: #111111;
             --gray-light: #f7f7f7;
             --gray-text: #555555;
-            --brand-green: #0d7a5f; /* 자연을 상징하는 진한 녹색 */
-            --hero-yellow: #f4efd5; /* 모노클 감성의 부드러운 노란색 배경 */
+            --brand-green: #0d7a5f;
+            --hero-yellow: #f4efd5;
         }
 
         * {
@@ -29,7 +29,7 @@
             letter-spacing: -0.01em;
         }
 
-        /* 상단 네비게이션바 (양쪽 끝을 꽉 채우는 모노클 스타일) */
+        /* 네비게이션바 */
         header {
             border-bottom: 2px solid var(--border-color);
             padding: 20px 60px;
@@ -62,18 +62,11 @@
             letter-spacing: 0.05em;
         }
 
-        /* 메인 컨테이너 (좌우 여백을 넓혀 화면을 꽉 채우는 구조) */
-        main {
-            max-width: 100%;
-            margin: 0;
-            padding: 0;
-        }
-
-        /* 2번 요청: 모노클 스타일의 부드러운 노란색 히어로 배너 (설립 이유: For Everyone + Business) */
+        /* 히어로 배너 (설립 이유) */
         .hero-banner {
             background-color: var(--hero-yellow);
             border-bottom: 2px solid var(--border-color);
-            padding: 60px 60px;
+            padding: 60px;
             display: grid;
             grid-template-columns: 2fr 1fr;
             gap: 40px;
@@ -81,7 +74,7 @@
         }
 
         .hero-title {
-            font-size: 36px;
+            font-size: 34px;
             font-weight: 800;
             line-height: 1.2;
             margin-bottom: 20px;
@@ -90,10 +83,10 @@
         }
 
         .hero-desc {
-            font-size: 16px;
+            font-size: 15px;
             color: #333333;
             line-height: 1.6;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .hero-side {
@@ -110,11 +103,11 @@
         }
 
         .hero-side p {
-            font-size: 14px;
+            font-size: 13px;
             color: var(--gray-text);
         }
 
-        /* 콘텐츠 영역 래퍼 */
+        /* 컨테이너 */
         .content-container {
             padding: 50px 60px;
         }
@@ -124,14 +117,43 @@
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 10px;
             display: flex;
             justify-content: space-between;
+            align-items: center;
         }
 
-        /* 나라별 블록 그리드 레이아웃 (모노클 격자 스타일) */
+        /* 투자자 강조: 국가별 커버리지 뱃지 목록 */
+        .coverage-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 50px;
+            padding: 25px;
+            border: 1px solid var(--border-color);
+            background: var(--gray-light);
+        }
+
+        .coverage-badge {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border: 1px solid var(--border-color);
+            background: #ffffff;
+            padding: 6px 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .coverage-badge span {
+            color: var(--brand-green);
+            font-size: 10px;
+        }
+
+        /* 뉴스 및 데이터 그리드 */
         .country-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -145,7 +167,6 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: transform 0.2s ease;
         }
 
         .block-header {
@@ -173,13 +194,11 @@
             padding: 2px 6px;
         }
 
-        /* 미디어(사진/영상 프리뷰 영역) */
         .block-media {
             width: 100%;
-            height: 180px;
+            height: 160px;
             background: #eaeaea;
             border-bottom: 1px solid var(--border-color);
-            position: relative;
             overflow: hidden;
         }
 
@@ -255,113 +274,140 @@
     </header>
 
     <main>
-        <!-- 모노클 스타일 노란색 배경 히어로 배너 (설립 이유: For Everyone + Business) -->
+        <!-- 히어로 배너 (설립 이유) -->
         <section class="hero-banner">
             <div>
-                <h1 class="hero-title">Food Safety Intelligence, 전 세계를 한눈에.</h1>
+                <h1 class="hero-title">Automated Global Food Safety & Media Pipeline.</h1>
                 <p class="hero-desc">
-                    <strong>For Everyone:</strong> 내가 먹는 농산물·수산물에 농약이나 중금속 문제가 발생했는지 1초 만에 검색하고, 전 세계 식품 사고 뉴스를 실시간으로 확인하는 앱입니다.
+                    <strong>For Everyone:</strong> 내가 먹는 농산물·수산물에 농약이나 중금속 문제가 발생했는지 1초 만에 검색하고, 전 세계 정부 및 언론사 식품 사고 뉴스를 실시간으로 확인합니다.
                 </p>
                 <p class="hero-desc">
-                    <strong>Business:</strong> 복잡한 전 세계 정부의 검역 데이터와 뉴스 피드를 하나로 모아, 농·수산물 위험 정보를 한눈에 보는 글로벌 무역·소비자 플랫폼입니다.
+                    <strong>Business:</strong> 전 세계 정부 공식 검역 데이터와 글로벌 미디어 피드를 완전 자동화(Automated Cron Pipeline)로 수집하여 투자자와 바이어에게 지연 없이 제공합니다.
                 </p>
             </div>
             <div class="hero-side">
-                <h3>Platform Mission</h3>
-                <p>정부 사이트는 찾기 어렵잖아? 전 세계 데이터를 모아 검색창 하나로 쉽고 빠르게 확인하는 차세대 글로벌 푸드 세이프티 플랫폼.</p>
+                <h3>Pipeline Architecture</h3>
+                <p>미국, 유럽, 아시아, 중동, 남미 등 지정된 모든 국가의 정부 기관 및 공신력 있는 언론사 피드를 매일 실시간 자동 크롤링·인덱싱합니다.</p>
             </div>
         </section>
 
         <div class="content-container">
+            
+            <!-- 투자자 소명용: 수집 국가 및 언론사 범위 전체 명시 -->
             <div class="section-heading">
-                <span>Global Intelligence & Visual Archives</span>
-                <span>Live Feed</span>
+                <span>Automated Data Coverage (Government & Global Media)</span>
+                <span>24/7 Live Sync</span>
+            </div>
+            
+            <div class="coverage-grid">
+                <div class="coverage-badge">🇺🇸 United States <span>FDA / USDA + Media</span></div>
+                <div class="coverage-badge">🇯🇵 Japan <span>MHLW + Media</span></div>
+                <div class="coverage-badge">🇪🇺 European Union <span>RASFF + Media</span></div>
+                <div class="coverage-badge">🇦🇺 Australia <span>FSANZ + Media</span></div>
+                <div class="coverage-badge">🇨🇦 Canada <span>CFIA + Media</span></div>
+                <div class="coverage-badge">🇦🇪 Middle East (GCC) <span>Food Safety + Media</span></div>
+                <div class="coverage-badge">🇹🇭 Thailand <span>FDA Thai + Media</span></div>
+                <div class="coverage-badge">🇲🇾 Malaysia <span>BKKM + Media</span></div>
+                <div class="coverage-badge">🇻🇳 Vietnam <span>VFA + Local Media</span></div>
+                <div class="coverage-badge">🇰🇭 Cambodia <span>Camcontrol + Media</span></div>
+                <div class="coverage-badge">🇱🇦 Laos <span>FDD Laos + Media</span></div>
+                <div class="coverage-badge">🇸🇬 Singapore <span>SFA + Media</span></div>
+                <div class="coverage-badge">🇧🇳 Brunei <span>KFSO + Media</span></div>
+                <div class="coverage-badge">🇮🇩 Indonesia <span>BPOM + Media</span></div>
+                <div class="coverage-badge">🇧🇷 Brazil <span>ANVISA + Media</span></div>
+                <div class="coverage-badge">🇦🇷 Argentina <span>ANMAT + Media</span></div>
+                <div class="coverage-badge">🇵🇹 Portugal <span>ASAE + Media</span></div>
             </div>
 
-            <!-- 나라별 소식 블록 그리드 (사진/미디어 포함) -->
+            <div class="section-heading">
+                <span>Live Intelligence & Media Feed Blocks</span>
+                <span>Real-Time Ingestion</span>
+            </div>
+
+            <!-- 국가별/미디어 피드 블록 -->
             <div class="country-grid">
                 
-                <!-- 미국 블록 -->
+                <!-- 미국 (FDA & Media) -->
                 <div class="country-block">
                     <div>
                         <div class="block-header">
                             <span class="country-name">United States</span>
-                            <span class="compliance-badge">US FDA Compliant</span>
+                            <span class="compliance-badge">FDA + Media Pipeline</span>
                         </div>
                         <div class="block-media">
-                            <img src="https://images.unsplash.com/photo-1584727638096-042c45049ebe?auto=format&fit=crop&w=600&q=80" alt="FDA Inspection">
+                            <img src="https://images.unsplash.com/photo-1584727638096-042c45049ebe?auto=format&fit=crop&w=600&q=80" alt="US FDA">
                         </div>
                         <div class="block-content">
-                            <h3 class="news-title">Jovy Gummy Worms Neon Recall Notice</h3>
-                            <p class="news-snippet">Packaged in 1lb plastic units. UPC 712199083411. Unlisted allergen detected (Red#40, Yellow#5, Yellow#6, Blue#1).</p>
+                            <h3 class="news-title">Jovy Gummy Worms Neon Recall Notice & Media Alert</h3>
+                            <p class="news-snippet">Automated ingestion from US FDA official database and major economic media wires. Unlisted allergen detected.</p>
                         </div>
                     </div>
                     <div class="block-footer">
-                        <span>Source: US FDA Official</span>
-                        <span>2026.11</span>
+                        <span>Source: US FDA & Global Media</span>
+                        <span>Auto-Synced Today</span>
                     </div>
                 </div>
 
-                <!-- 일본 블록 -->
+                <!-- 동남아시아 (베트남/태국 등 농산물 수출입) -->
                 <div class="country-block">
                     <div>
                         <div class="block-header">
-                            <span class="country-name">Japan</span>
-                            <span class="compliance-badge">Japan MHLW</span>
+                            <span class="country-name">Southeast Asia (VN·TH·SG)</span>
+                            <span class="compliance-badge">VFA / SFA + Media</span>
                         </div>
                         <div class="block-media">
-                            <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=600&q=80" alt="Japan Customs">
+                            <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80" alt="ASEAN Agriculture">
                         </div>
                         <div class="block-content">
-                            <h3 class="news-title">Import Food Inspection Alert: Pesticide Residue</h3>
-                            <p class="news-snippet">Enhanced border inspection initiated for agricultural exports arriving at designated ports under strict safety protocols.</p>
+                            <h3 class="news-title">Pyeongport Arrival & Regional Inspection Feed</h3>
+                            <p class="news-snippet">Real-time automated tracking of agricultural exports (Chili varieties) across Vietnam, Thailand, and destination ports.</p>
                         </div>
                     </div>
                     <div class="block-footer">
-                        <span>Source: MHLW Japan</span>
-                        <span>2026.11</span>
+                        <span>Source: ASEAN Authorities & Media</span>
+                        <span>Auto-Synced Today</span>
                     </div>
                 </div>
 
-                <!-- 대한민국 블록 -->
+                <!-- 유럽 & 중동 -->
                 <div class="country-block">
                     <div>
                         <div class="block-header">
-                            <span class="country-name">South Korea</span>
-                            <span class="compliance-badge">Korea MFDS</span>
-                        </div>
-                        <div class="block-media">
-                            <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80" alt="Pyeongport Arrival">
-                        </div>
-                        <div class="block-content">
-                            <h3 class="news-title">Pyeongport Arrival Safety Verification</h3>
-                            <p class="news-snippet">Real-time customs clearance safety monitoring for incoming chili pepper varieties and agricultural commodities.</p>
-                        </div>
-                    </div>
-                    <div class="block-footer">
-                        <span>Source: MFDS Korea</span>
-                        <span>2026.11</span>
-                    </div>
-                </div>
-
-                <!-- 유럽 블록 -->
-                <div class="country-block">
-                    <div>
-                        <div class="block-header">
-                            <span class="country-name">European Union</span>
-                            <span class="compliance-badge">EU CE Standard</span>
+                            <span class="country-name">EU & Middle East (GCC)</span>
+                            <span class="compliance-badge">RASFF / GCC + Media</span>
                         </div>
                         <div class="block-media">
                             <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=600&q=80" alt="EU RASFF">
                         </div>
                         <div class="block-content">
-                            <h3 class="news-title">RASFF Border Rejection Update</h3>
-                            <p class="news-snippet">Strict heavy metal and chemical contaminant threshold enforcement across member states for global food distributors.</p>
+                            <h3 class="news-title">RASFF Border Rejection & Middle East Import Alerts</h3>
+                            <p class="news-snippet">Continuous automated scraping of chemical contaminant thresholds and trade media bulletins across European and GCC markets.</p>
                         </div>
                     </div>
                     <div class="block-footer">
-                        <span>Source: EU RASFF</span>
-                        <span>2026.11</span>
+                        <span>Source: EU RASFF & Trade Media</span>
+                        <span>Auto-Synced Today</span>
+                    </div>
+                </div>
+
+                <!-- 남미 & 포르투갈 -->
+                <div class="country-block">
+                    <div>
+                        <div class="block-header">
+                            <span class="country-name">Latin America & Portugal</span>
+                            <span class="compliance-badge">ANVISA / ASAE + Media</span>
+                        </div>
+                        <div class="block-media">
+                            <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=600&q=80" alt="Global Trade">
+                        </div>
+                        <div class="block-content">
+                            <h3 class="news-title">ANVISA & ASAE Agricultural Safety Feed</h3>
+                            <p class="news-snippet">Automated data collection from Brazilian, Argentinean, and Portuguese food safety regulators and regional press.</p>
+                        </div>
+                    </div>
+                    <div class="block-footer">
+                        <span>Source: ANVISA/ASAE & Press</span>
+                        <span>Auto-Synced Today</span>
                     </div>
                 </div>
 
