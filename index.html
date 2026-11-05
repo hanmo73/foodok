@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FoodOK - Global Food Safety Intelligence</title>
+    <title>FoodOK.org - Global Food Safety Intelligence</title>
     <style>
         :root {
             --bg-color: #ffffff;
             --text-color: #111111;
             --border-color: #111111;
             --gray-light: #f7f7f7;
-            --gray-text: #666666;
+            --gray-text: #555555;
+            --brand-green: #0d7a5f; /* 자연을 상징하는 진한 녹색 */
+            --hero-yellow: #f4efd5; /* 모노클 감성의 부드러운 노란색 배경 */
         }
 
         * {
@@ -27,10 +29,10 @@
             letter-spacing: -0.01em;
         }
 
-        /* 상단 네비게이션바 (모노클 스타일) */
+        /* 상단 네비게이션바 (양쪽 끝을 꽉 채우는 모노클 스타일) */
         header {
             border-bottom: 2px solid var(--border-color);
-            padding: 20px 40px;
+            padding: 20px 60px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -41,12 +43,16 @@
         }
 
         .logo {
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.05em;
             text-decoration: none;
             color: var(--text-color);
+        }
+
+        .logo .ok-green {
+            color: var(--brand-green);
         }
 
         .header-meta {
@@ -56,39 +62,79 @@
             letter-spacing: 0.05em;
         }
 
-        /* 메인 컨테이너 (화면 꽉 채우기) */
+        /* 메인 컨테이너 (좌우 여백을 넓혀 화면을 꽉 채우는 구조) */
         main {
-            max-width: 1600px;
-            margin: 0 auto;
-            padding: 40px;
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
         }
 
-        /* 인트로 섹션 */
-        .intro-section {
-            border: 1px solid var(--border-color);
-            padding: 40px;
-            margin-bottom: 50px;
-            background: var(--gray-light);
+        /* 2번 요청: 모노클 스타일의 부드러운 노란색 히어로 배너 (설립 이유: For Everyone + Business) */
+        .hero-banner {
+            background-color: var(--hero-yellow);
+            border-bottom: 2px solid var(--border-color);
+            padding: 60px 60px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            align-items: center;
         }
 
-        .intro-title {
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 12px;
+        .hero-title {
+            font-size: 36px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+            color: #1a1a1a;
+        }
+
+        .hero-desc {
+            font-size: 16px;
+            color: #333333;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .hero-side {
+            border-left: 1px solid var(--border-color);
+            padding-left: 40px;
+        }
+
+        .hero-side h3 {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 10px;
+            color: var(--brand-green);
+        }
+
+        .hero-side p {
+            font-size: 14px;
+            color: var(--gray-text);
+        }
+
+        /* 콘텐츠 영역 래퍼 */
+        .content-container {
+            padding: 50px 60px;
+        }
+
+        .section-heading {
+            font-size: 18px;
+            font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.05em;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
         }
 
-        .intro-desc {
-            font-size: 15px;
-            color: var(--gray-text);
-            max-width: 1000px;
-        }
-
-        /* 나라별 블록 그리드 레이아웃 */
+        /* 나라별 블록 그리드 레이아웃 (모노클 격자 스타일) */
         .country-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 30px;
             margin-bottom: 60px;
         }
@@ -99,16 +145,12 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: background 0.2s ease;
-        }
-
-        .country-block:hover {
-            background: var(--gray-light);
+            transition: transform 0.2s ease;
         }
 
         .block-header {
             border-bottom: 1px solid var(--border-color);
-            padding: 15px 25px;
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -117,61 +159,90 @@
         }
 
         .country-name {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.1em;
         }
 
         .compliance-badge {
-            font-size: 11px;
+            font-size: 10px;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             border: 1px solid var(--bg-color);
-            padding: 2px 8px;
+            padding: 2px 6px;
+        }
+
+        /* 미디어(사진/영상 프리뷰 영역) */
+        .block-media {
+            width: 100%;
+            height: 180px;
+            background: #eaeaea;
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .block-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(20%);
         }
 
         .block-content {
-            padding: 30px 25px;
+            padding: 25px 20px;
             flex-grow: 1;
         }
 
         .news-title {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 700;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             line-height: 1.3;
         }
 
         .news-snippet {
-            font-size: 14px;
+            font-size: 13px;
             color: var(--gray-text);
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .block-footer {
             border-top: 1px solid var(--border-color);
-            padding: 15px 25px;
-            font-size: 12px;
+            padding: 12px 20px;
+            font-size: 11px;
             color: var(--gray-text);
             display: flex;
             justify-content: space-between;
+            background: var(--gray-light);
         }
 
         /* 푸터 */
         footer {
             border-top: 2px solid var(--border-color);
-            padding: 40px;
+            padding: 40px 60px;
             text-align: center;
             font-size: 12px;
             color: var(--gray-text);
             text-transform: uppercase;
             letter-spacing: 0.05em;
+            background: var(--gray-light);
         }
 
-        @media (max-width: 768px) {
-            header, main, footer {
-                padding: 20px;
+        @media (max-width: 1024px) {
+            header, .hero-banner, .content-container, footer {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+            .hero-banner {
+                grid-template-columns: 1fr;
+            }
+            .hero-side {
+                border-left: none;
+                border-top: 1px solid var(--border-color);
+                padding-left: 0;
+                padding-top: 20px;
             }
         }
     </style>
@@ -179,94 +250,122 @@
 <body>
 
     <header>
-        <a href="#" class="logo">FoodOK</a>
+        <a href="#" class="logo">Food<span class="ok-green">OK</span>.org</a>
         <div class="header-meta">Global Food Safety Intelligence &middot; Investor Edition</div>
     </header>
 
     <main>
-        <!-- 인트로/머리말 섹션 -->
-        <section class="intro-section">
-            <h1 class="intro-title">Platform Purpose</h1>
-            <p class="intro-desc">
-                전 세계 정부가 공개한 농약·중금속·위험 식품 정보를 검색창 하나로 1초 만에 찾아주는 글로벌 식품 안전 플랫폼입니다. 투자자와 바이어를 위한 투명하고 정확한 인사이트를 제공합니다.
-            </p>
+        <!-- 모노클 스타일 노란색 배경 히어로 배너 (설립 이유: For Everyone + Business) -->
+        <section class="hero-banner">
+            <div>
+                <h1 class="hero-title">Food Safety Intelligence, 전 세계를 한눈에.</h1>
+                <p class="hero-desc">
+                    <strong>For Everyone:</strong> 내가 먹는 농산물·수산물에 농약이나 중금속 문제가 발생했는지 1초 만에 검색하고, 전 세계 식품 사고 뉴스를 실시간으로 확인하는 앱입니다.
+                </p>
+                <p class="hero-desc">
+                    <strong>Business:</strong> 복잡한 전 세계 정부의 검역 데이터와 뉴스 피드를 하나로 모아, 농·수산물 위험 정보를 한눈에 보는 글로벌 무역·소비자 플랫폼입니다.
+                </p>
+            </div>
+            <div class="hero-side">
+                <h3>Platform Mission</h3>
+                <p>정부 사이트는 찾기 어렵잖아? 전 세계 데이터를 모아 검색창 하나로 쉽고 빠르게 확인하는 차세대 글로벌 푸드 세이프티 플랫폼.</p>
+            </div>
         </section>
 
-        <!-- 나라별 소식 블록 그리드 -->
-        <div class="country-grid">
-            
-            <!-- 미국 블록 -->
-            <div class="country-block">
-                <div>
-                    <div class="block-header">
-                        <span class="country-name">United States</span>
-                        <span class="compliance-badge">US FDA Compliant</span>
-                    </div>
-                    <div class="block-content">
-                        <h3 class="news-title">Jovy Gummy Worms Neon Recall Notice</h3>
-                        <p class="news-snippet">Packaged in 1lb plastic units. UPC 712199083411. Unlisted allergen detected (Red#40, Yellow#5, Yellow#6, Blue#1).</p>
-                    </div>
-                </div>
-                <div class="block-footer">
-                    <span>Source: US FDA Official</span>
-                    <span>2026.11</span>
-                </div>
+        <div class="content-container">
+            <div class="section-heading">
+                <span>Global Intelligence & Visual Archives</span>
+                <span>Live Feed</span>
             </div>
 
-            <!-- 일본 블록 -->
-            <div class="country-block">
-                <div>
-                    <div class="block-header">
-                        <span class="country-name">Japan</span>
-                        <span class="compliance-badge">Japan MHLW</span>
+            <!-- 나라별 소식 블록 그리드 (사진/미디어 포함) -->
+            <div class="country-grid">
+                
+                <!-- 미국 블록 -->
+                <div class="country-block">
+                    <div>
+                        <div class="block-header">
+                            <span class="country-name">United States</span>
+                            <span class="compliance-badge">US FDA Compliant</span>
+                        </div>
+                        <div class="block-media">
+                            <img src="https://images.unsplash.com/photo-1584727638096-042c45049ebe?auto=format&fit=crop&w=600&q=80" alt="FDA Inspection">
+                        </div>
+                        <div class="block-content">
+                            <h3 class="news-title">Jovy Gummy Worms Neon Recall Notice</h3>
+                            <p class="news-snippet">Packaged in 1lb plastic units. UPC 712199083411. Unlisted allergen detected (Red#40, Yellow#5, Yellow#6, Blue#1).</p>
+                        </div>
                     </div>
-                    <div class="block-content">
-                        <h3 class="news-title">Import Food Inspection Alert: Pesticide Residue</h3>
-                        <p class="news-snippet">Enhanced border inspection initiated for agricultural exports arriving at designated ports under strict safety protocols.</p>
+                    <div class="block-footer">
+                        <span>Source: US FDA Official</span>
+                        <span>2026.11</span>
                     </div>
                 </div>
-                <div class="block-footer">
-                    <span>Source: MHLW Japan</span>
-                    <span>2026.11</span>
-                </div>
-            </div>
 
-            <!-- 대한민국 블록 -->
-            <div class="country-block">
-                <div>
-                    <div class="block-header">
-                        <span class="country-name">South Korea</span>
-                        <span class="compliance-badge">Korea MFDS</span>
+                <!-- 일본 블록 -->
+                <div class="country-block">
+                    <div>
+                        <div class="block-header">
+                            <span class="country-name">Japan</span>
+                            <span class="compliance-badge">Japan MHLW</span>
+                        </div>
+                        <div class="block-media">
+                            <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=600&q=80" alt="Japan Customs">
+                        </div>
+                        <div class="block-content">
+                            <h3 class="news-title">Import Food Inspection Alert: Pesticide Residue</h3>
+                            <p class="news-snippet">Enhanced border inspection initiated for agricultural exports arriving at designated ports under strict safety protocols.</p>
+                        </div>
                     </div>
-                    <div class="block-content">
-                        <h3 class="news-title">Pyeongport Arrival Safety Verification</h3>
-                        <p class="news-snippet">Real-time customs clearance safety monitoring for incoming chili pepper varieties and agricultural commodities.</p>
+                    <div class="block-footer">
+                        <span>Source: MHLW Japan</span>
+                        <span>2026.11</span>
                     </div>
                 </div>
-                <div class="block-footer">
-                    <span>Source: MFDS Korea</span>
-                    <span>2026.11</span>
-                </div>
-            </div>
 
-            <!-- 유럽 블록 -->
-            <div class="country-block">
-                <div>
-                    <div class="block-header">
-                        <span class="country-name">European Union</span>
-                        <span class="compliance-badge">EU CE Standard</span>
+                <!-- 대한민국 블록 -->
+                <div class="country-block">
+                    <div>
+                        <div class="block-header">
+                            <span class="country-name">South Korea</span>
+                            <span class="compliance-badge">Korea MFDS</span>
+                        </div>
+                        <div class="block-media">
+                            <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80" alt="Pyeongport Arrival">
+                        </div>
+                        <div class="block-content">
+                            <h3 class="news-title">Pyeongport Arrival Safety Verification</h3>
+                            <p class="news-snippet">Real-time customs clearance safety monitoring for incoming chili pepper varieties and agricultural commodities.</p>
+                        </div>
                     </div>
-                    <div class="block-content">
-                        <h3 class="news-title">RASFF Border Rejection Update</h3>
-                        <p class="news-snippet">Strict heavy metal and chemical contaminant threshold enforcement across member states for global food distributors.</p>
+                    <div class="block-footer">
+                        <span>Source: MFDS Korea</span>
+                        <span>2026.11</span>
                     </div>
                 </div>
-                <div class="block-footer">
-                    <span>Source: EU RASFF</span>
-                    <span>2026.11</span>
-                </div>
-            </div>
 
+                <!-- 유럽 블록 -->
+                <div class="country-block">
+                    <div>
+                        <div class="block-header">
+                            <span class="country-name">European Union</span>
+                            <span class="compliance-badge">EU CE Standard</span>
+                        </div>
+                        <div class="block-media">
+                            <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=600&q=80" alt="EU RASFF">
+                        </div>
+                        <div class="block-content">
+                            <h3 class="news-title">RASFF Border Rejection Update</h3>
+                            <p class="news-snippet">Strict heavy metal and chemical contaminant threshold enforcement across member states for global food distributors.</p>
+                        </div>
+                    </div>
+                    <div class="block-footer">
+                        <span>Source: EU RASFF</span>
+                        <span>2026.11</span>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </main>
 
