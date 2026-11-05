@@ -96,7 +96,7 @@ h2.kicker{font-family:var(--serif);font-size:22px;line-height:1.2;margin:0 0 12p
 .hubs .live .code{background:var(--red);color:#fff}
 
 /* wire */
-.wire{margin-top:44px}
+.wire{margin-top:44px;scroll-margin-top:8px}
 .wirehead{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;border-bottom:3px double var(--rule);padding-bottom:10px}
 .wirehead h2{margin:0;font-family:var(--serif);font-size:clamp(26px,3.4vw,36px);font-weight:700}
 .badge{font:700 11px var(--sans);letter-spacing:.1em;background:var(--red);color:#fff;padding:6px 10px;white-space:nowrap}
@@ -189,7 +189,12 @@ footer p{margin:0 0 10px}
     <form id="sform" role="search">
       <select id="agency" aria-label="Agency">
         <option value="all">All agencies</option>
-        <option value="fda">US FDA</option>
+        <option value="US FDA">US FDA</option>
+        <option value="UK FSA">UK FSA</option>
+        <option value="Canada CFIA">Canada CFIA</option>
+        <option value="EU RASFF">EU RASFF</option>
+        <option value="HK CFS Irregularity">Hong Kong CFS · Irregularity</option>
+        <option value="HK CFS Incidents">Hong Kong CFS · Incidents</option>
       </select>
       <input id="qinput" type="search" placeholder="Search product, firm, chemical (e.g. chili, lead, peanut)" autocomplete="off" aria-label="Search">
       <button type="submit">Search</button>
@@ -248,11 +253,12 @@ footer p{margin:0 0 10px}
         <li><a href="https://www.sfa.gov.sg/" target="_blank" rel="noopener"><span>Singapore (Food Agency)</span><span class="code">SFA</span></a></li>
         <li><a href="https://en.fda.moph.go.th/" target="_blank" rel="noopener"><span>Thailand (Food and Drug Administration)</span><span class="code">FDA Thai</span></a></li>
         <li><a href="https://www.moh.gov.my/" target="_blank" rel="noopener"><span>Malaysia (Ministry of Health)</span><span class="code">MOH</span></a></li>
+        <li class="live"><a href="https://www.cfs.gov.hk/english/index.html" target="_blank" rel="noopener"><span>Hong Kong (Centre for Food Safety)</span><span class="code">HK CFS · LIVE</span></a></li>
       </ul>
     </div>
   </section>
 
-  <section class="wire" aria-live="polite">
+  <section class="wire" id="wire" aria-live="polite">
     <div class="wirehead">
       <h2 id="wtitle">Live Global Food Safety Wire</h2>
       <span class="badge" id="wbadge">LIVE FEED · US FDA</span>
@@ -278,7 +284,7 @@ footer p{margin:0 0 10px}
     <div class="cols">
       <div>
         <h4>About the data</h4>
-        <p>Live alerts come directly from the U.S. FDA food enforcement reports through the public openFDA service. Other agencies are linked to their official portals while direct feeds are being connected. Dates shown are the agency’s report dates.</p>
+        <p>Live alerts come directly from official government sources: the U.S. FDA (openFDA), UK Food Standards Agency, Canada CFIA, EU RASFF and the Hong Kong Centre for Food Safety. Other agencies are linked to their official portals while direct feeds are being connected. Dates shown are the agency’s report dates.</p>
       </div>
       <div>
         <h4>Notice</h4>
@@ -333,6 +339,19 @@ footer p{margin:0 0 10px}
     });
   }
 
+  /* 탭/검색을 누르면 결과가 나오는 아래 영역으로 화면을 이동시킨다 */
+  function scrollToWire(){
+    var w = $("wire"); if(!w) return;
+    var calm = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    try{ w.scrollIntoView({behavior: calm ? "auto" : "smooth", block:"start"}); }catch(e){ w.scrollIntoView(); }
+  }
+  function selectTab(name){
+    state.tab = name;
+    Array.prototype.forEach.call(document.querySelectorAll("nav.sections button"),function(x){
+      x.setAttribute("aria-selected", x.getAttribute("data-tab")===name ? "true" : "false");
+    });
+  }
+
   /* date line */
   $("today").textContent = new Date().toLocaleDateString("en-US",{weekday:"long",year:"numeric",month:"long",day:"numeric"}).toUpperCase();
 
@@ -381,15 +400,14 @@ footer p{margin:0 0 10px}
 
   var PENDING = {
     gacc:{ name:"China GACC", url:"http://english.customs.gov.cn/", note:"Direct GACC alerts are being connected. Official notices are available on the GACC portal." },
-    asean:{ name:"ASEAN & Asia", url:"https://www.sfa.gov.sg/", note:"Singapore SFA, Thailand FDA, Malaysia MOH and Japan MHLW feeds are being connected. Use the Regulatory Hubs list for the official portals." },
     sa:{ name:"South America", url:"https://www.fda.gov/", note:"South American agency feeds are planned. Until then, US FDA alerts involving imports are available in World Wire." }
   };
 
-  function usingApi(){ return !!API_BASE && !apiDown && ["world","chem","asean"].indexOf(state.tab)>-1; }
+  function usingApi(){ return !!API_BASE && !apiDown && ["world","chem","asean","fda"].indexOf(state.tab)>-1; }
   function setHead(){
     var api = usingApi();
     $("wtitle").textContent = TITLES[state.tab]||TITLES.world;
-    $("wbadge").textContent = api ? "LIVE FEED · MULTI-AGENCY" : (PENDING[state.tab] ? "IN PREPARATION" : "LIVE FEED · US FDA");
+    $("wbadge").textContent = api ? (state.tab==="fda" ? "LIVE FEED · US FDA" : "LIVE FEED · MULTI-AGENCY") : (PENDING[state.tab] ? "IN PREPARATION" : "LIVE FEED · US FDA");
     $("wbadge").style.background = (!api && PENDING[state.tab]) ? "#5b5b58" : "";
   }
   function fmtISO(s){
@@ -409,8 +427,11 @@ footer p{margin:0 0 10px}
   }
   function loadUnified(append){
     if(!append){ state.skip = 0; skeleton(); }
+    var src = state.tab==="fda" ? "US FDA" : $("agency").value;
+    if(src==="all") src = "";
     var params = "limit="+PAGE+"&offset="+state.skip+
       (state.tab==="chem"?"&chem=1":"")+(state.tab==="asean"?"&region=asia":"")+
+      (src?"&source="+encodeURIComponent(src):"")+
       (state.q?"&q="+encodeURIComponent(state.q):"");
     fetch(API_BASE.replace(/\/$/,"")+"/api/alerts?"+params).then(function(r){
       if(!r.ok) throw new Error("HTTP "+r.status); return r.json();
@@ -418,14 +439,15 @@ footer p{margin:0 0 10px}
       var rows = d.items||[]; state.total = d.total||0;
       if(!append) $("grid").innerHTML = "";
       if(!rows.length && !append){
-        var msg = state.tab==="asean" ? "No Asian agency feed is connected yet. Use the Regulatory Hubs list for official portals." : "No alerts found"+(state.q?' for “'+esc(state.q)+'”':'')+". Try a broader term.";
+        var msg = "No alerts found"+(state.q?' for “'+esc(state.q)+'”':'')+". Try a broader term, another agency, or switch to World Wire.";
         $("grid").innerHTML = '<div class="empty">'+msg+'</div>'; $("more").hidden = true; $("asof").textContent = ""; return;
       }
       $("grid").insertAdjacentHTML("beforeend", rows.map(uCardHTML).join(""));
       state.skip += rows.length;
       $("more").hidden = state.skip >= state.total;
       var live = Object.keys(d.sources||{}).filter(function(k){return d.sources[k].ok;}).map(function(k){return d.sources[k].name;});
-      $("asof").textContent = state.total.toLocaleString()+" matching alerts · showing "+state.skip.toLocaleString()+" · sources: "+(live.join(", ")||"none")+" · checked "+new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});
+      var shown = src ? src : (live.join(", ")||"none");
+      $("asof").textContent = state.total.toLocaleString()+" matching alerts · showing "+state.skip.toLocaleString()+" · sources: "+shown+" · checked "+new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});
     }).catch(function(){ apiDown = true; load(append); });
   }
 
@@ -464,17 +486,20 @@ footer p{margin:0 0 10px}
   /* events */
   Array.prototype.forEach.call(document.querySelectorAll("nav.sections button"),function(b){
     b.addEventListener("click",function(){
-      Array.prototype.forEach.call(document.querySelectorAll("nav.sections button"),function(x){ x.setAttribute("aria-selected","false"); });
-      b.setAttribute("aria-selected","true");
-      state.tab = b.getAttribute("data-tab");
+      selectTab(b.getAttribute("data-tab"));
       load(false);
+      scrollToWire();
     });
   });
   $("sform").addEventListener("submit",function(e){
     e.preventDefault();
     state.q = $("qinput").value.trim();
-    if(state.q && PENDING[state.tab]){ state.tab="world"; Array.prototype.forEach.call(document.querySelectorAll("nav.sections button"),function(x){ x.setAttribute("aria-selected", x.getAttribute("data-tab")==="world"?"true":"false"); }); }
+    if((state.q || $("agency").value!=="all") && PENDING[state.tab]) selectTab("world");
     load(false);
+    scrollToWire();
+  });
+  $("agency").addEventListener("change",function(){
+    $("sform").dispatchEvent(new Event("submit",{cancelable:true}));
   });
   Array.prototype.forEach.call(document.querySelectorAll("#chips button"),function(b){
     b.addEventListener("click",function(){ $("qinput").value=b.getAttribute("data-q"); $("sform").dispatchEvent(new Event("submit",{cancelable:true})); });
@@ -486,7 +511,9 @@ footer p{margin:0 0 10px}
     { id:"fda", name:"United States · Food and Drug Administration (FDA)", how:"Official open data service (openFDA)" },
     { id:"uk", name:"United Kingdom · Food Standards Agency (FSA)", how:"Official food alerts data service" },
     { id:"cfia", name:"Canada · Food Inspection Agency (CFIA)", how:"Official alerts and recalls feed" },
-    { id:"rasff", name:"European Union · RASFF", how:"Alert system notifications" }
+    { id:"rasff", name:"European Union · RASFF", how:"Alert system notifications" },
+    { id:"hk-irr", name:"Hong Kong · Centre for Food Safety · Sample irregularities", how:"Official test results of non-compliant samples" },
+    { id:"hk-fi", name:"Hong Kong · Centre for Food Safety · Food incidents", how:"Official food incident posts" }
   ];
   var PLAN_ROWS = [
     { name:"Japan · Ministry of Health, Labour and Welfare (MHLW)", how:"Import violation notices" },
@@ -509,7 +536,7 @@ footer p{margin:0 0 10px}
       var n = 0, src = d.sources || {};
       $("covlive").innerHTML = LIVE_ROWS.map(function(r){
         var x = src[r.id];
-        if(x && x.ok){ n++; return covRow(r.name, r.how+" · "+x.count+" recent alerts loaded", "live", "LIVE"); }
+        if(x && x.ok){ n++; return covRow(r.name, r.how+" · "+x.count+" alerts stored", "live", "LIVE"); }
         return covRow(r.name, r.how, "down", "TEMPORARILY UNAVAILABLE");
       }).join("");
       $("covbadge").textContent = n+" OF "+LIVE_ROWS.length+" LIVE";
