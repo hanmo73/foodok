@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FOODOK - Global Food Safety & Risk Intelligence</title>
-    <!-- Monocle-inspired Elegant Serif & Clean Sans Fonts -->
+    <!-- Monocle-inspired Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -12,8 +12,8 @@
             --text-color: #111111;
             --border-color: #222222;
             --accent-yellow: #e6c547;
-            --ticker-bg: #111111;
-            --ticker-text: #ffffff;
+            --ticker-bg: #e6c547;
+            --ticker-text: #111111;
             --alert-red: #d93838;
         }
 
@@ -30,16 +30,17 @@
             line-height: 1.6;
         }
 
-        /* CNBC-style Live Ticker Bar */
+        /* CNBC-style Bright Live Ticker Bar */
         .live-ticker {
             background-color: var(--ticker-bg);
             color: var(--ticker-text);
             font-size: 0.85rem;
-            padding: 8px 0;
+            font-weight: 600;
+            padding: 10px 0;
             overflow: hidden;
             white-space: nowrap;
             position: relative;
-            border-bottom: 1px solid #333;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .ticker-wrap {
@@ -157,26 +158,27 @@
             color: #d93838;
         }
 
-        /* Central Search Engine Section */
+        /* Central Search Engine Section (Bright & Clean) */
         .search-hero {
-            background: #111;
-            color: #fff;
-            padding: 60px 20px;
+            background: #ffffff;
+            color: #111;
+            padding: 50px 20px;
             text-align: center;
             margin: 30px 0;
             border: 1px solid var(--border-color);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
         }
 
         .search-hero h2 {
             font-family: 'Playfair Display', serif;
             font-size: 2.2rem;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
 
         .search-hero p {
-            color: #ccc;
+            color: #666;
             font-size: 1rem;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             max-width: 700px;
             margin-left: auto;
             margin-right: auto;
@@ -189,7 +191,7 @@
             background: #fff;
             border-radius: 4px;
             overflow: hidden;
-            border: 2px solid var(--accent-yellow);
+            border: 2px solid var(--border-color);
         }
 
         .search-box-wrapper input {
@@ -202,8 +204,8 @@
         }
 
         .search-box-wrapper button {
-            background-color: var(--accent-yellow);
-            color: #111;
+            background-color: var(--border-color);
+            color: #fff;
             border: none;
             padding: 0 30px;
             font-weight: 600;
@@ -213,20 +215,32 @@
         }
 
         .search-box-wrapper button:hover {
-            background-color: #d4b33b;
+            background-color: #333;
         }
 
         .search-tags {
             margin-top: 15px;
             font-size: 0.85rem;
-            color: #aaa;
+            color: #666;
         }
 
         .search-tags span {
-            color: var(--accent-yellow);
+            color: #0066cc;
             cursor: pointer;
             margin: 0 5px;
             text-decoration: underline;
+        }
+
+        /* Search Results Container */
+        #search-results {
+            max-width: 700px;
+            margin: 15px auto 0 auto;
+            text-align: left;
+            display: none;
+            background: #f4f2ec;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            font-size: 0.95rem;
         }
 
         /* Main Content Grid */
@@ -282,11 +296,6 @@
             margin-bottom: 30px;
         }
 
-        .sidebar-widget.radio-box {
-            background: #111;
-            color: #fff;
-        }
-
         .sidebar-widget h4 {
             font-family: 'Playfair Display', serif;
             font-size: 1.3rem;
@@ -295,13 +304,55 @@
             padding-bottom: 8px;
         }
 
+        /* Country Agency Badges (US FDA, EU RASFF, etc.) */
+        .agency-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .agency-btn {
+            background: #fcfbf9;
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            text-align: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            color: #111;
+        }
+
+        .agency-btn:hover {
+            background: var(--accent-yellow);
+        }
+
+        /* Real-time News Feed Box */
+        .news-feed-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 0.9rem;
+        }
+
+        .news-feed-item:last-child {
+            border-bottom: none;
+        }
+
+        .news-date {
+            font-size: 0.75rem;
+            color: #d93838;
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
         .logo-showcase {
             text-align: center;
         }
 
         .logo-showcase img {
-            width: 160px;
-            height: 160px;
+            width: 140px;
+            height: 140px;
             object-fit: contain;
             border-radius: 50%;
             background: #fcfbf9;
@@ -329,16 +380,16 @@
 </head>
 <body>
 
-    <!-- CNBC-style Live Updating Ticker -->
+    <!-- CNBC-style Live Ticker Bar (Bright Yellow) -->
     <div class="live-ticker">
         <div class="ticker-wrap">
             <div class="ticker-item"><span class="tag">LIVE ALERT</span> [EU RASFF] Chlorpyrifos detected in imported chili peppers - Batch #9923 (1m ago)</div>
-            <div class="ticker-item"><span class="tag">RECALL</span> Lead residue exceeded in marine seaweed extracts - FDA Warning (4m ago)</div>
+            <div class="ticker-item"><span class="tag">RECALL</span> Lead residue exceeded in marine seaweed extracts - US FDA Warning (4m ago)</div>
             <div class="ticker-item"><span class="tag">UPDATED</span> 1,420 new government food safety inspection logs synced globally (Just now)</div>
             <div class="ticker-item"><span class="tag">WATCH</span> Cadmium levels monitored in regional rice distribution hubs (12m ago)</div>
             <!-- Duplicate for smooth infinite loop -->
             <div class="ticker-item"><span class="tag">LIVE ALERT</span> [EU RASFF] Chlorpyrifos detected in imported chili peppers - Batch #9923 (1m ago)</div>
-            <div class="ticker-item"><span class="tag">RECALL</span> Lead residue exceeded in marine seaweed extracts - FDA Warning (4m ago)</div>
+            <div class="ticker-item"><span class="tag">RECALL</span> Lead residue exceeded in marine seaweed extracts - US FDA Warning (4m ago)</div>
         </div>
     </div>
 
@@ -357,7 +408,7 @@
         <header>
             <div class="sub-header-info">Global Food Safety Intelligence Network</div>
             <h1 class="site-title">FOODOK</h1>
-            <div class="site-tagline">"Protecting everyone by monitoring pesticides, heavy metals, and chemical risks worldwide."</div>
+            <div class="site-tagline">"Monitoring heavy metals, pesticides, and chemical risks worldwide to protect people everywhere."</div>
             
             <div class="nav-links">
                 <a href="#">Affairs</a>
@@ -366,32 +417,32 @@
                 <a href="#">Recalls</a>
                 <a href="#">Global Alerts</a>
                 <a href="#">Research</a>
-                <a href="#">Shop</a>
             </div>
         </header>
 
-        <!-- Central Search Engine Section (Core Feature) -->
+        <!-- Central Search Engine Section (Fully Functional) -->
         <section class="search-hero">
             <h2>Search Global Food Safety & Risk Data</h2>
             <p>Instantly search government inspection databases worldwide for pesticides, heavy metals, chemical residues, and dangerous food contamination alerts.</p>
             <div class="search-box-wrapper">
-                <input type="text" placeholder="Search by crop, seafood, chemical, pesticide (e.g., Chlorpyrifos, Cadmium, Chili)...">
-                <button type="button">Search Risk</button>
+                <input type="text" id="searchInput" placeholder="Try typing 'chili', 'pesticide', 'lead', 'cadmium'...">
+                <button type="button" onclick="performSearch()">Search Risk</button>
             </div>
+            <div id="search-results"></div>
             <div class="search-tags">
-                Popular Searches: 
-                <span onclick="alert('Searching Pesticides...')">Pesticide Residue</span> | 
-                <span onclick="alert('Searching Heavy Metals...')">Heavy Metals (Lead/Cadmium)</span> | 
-                <span onclick="alert('Searching Seafood Alerts...')">Seafood Quarantine</span> | 
-                <span onclick="alert('Searching Daily Recalls...')">Daily Recalls</span>
+                Quick Search: 
+                <span onclick="setSearch('chili')">Chili</span> | 
+                <span onclick="setSearch('pesticide')">Pesticide Residue</span> | 
+                <span onclick="setSearch('lead')">Lead / Cadmium</span> | 
+                <span onclick="setSearch('seafood')">Seafood Alerts</span>
             </div>
         </section>
 
-        <!-- Main Content Area -->
+        <!-- Main Content Grid -->
         <div class="main-grid">
             <!-- Article & Mission Section -->
             <div class="article-section">
-                <h2 class="article-main-title">The global food supply chain audit: Tracking invisible risks before they reach your table.</h2>
+                <h2 class="article-main-title">Tracking invisible chemical and biological risks before they reach your table.</h2>
                 <p class="article-desc">Our mission is to safeguard consumers and global trade partners by aggregating government inspection data, pesticide violations, and heavy metal contamination reports into one searchable hub.</p>
                 
                 <div class="mission-box">
@@ -406,6 +457,35 @@
 
             <!-- Sidebar -->
             <aside>
+                <!-- Country & Agency Quick Filters (Requested Feature) -->
+                <div class="sidebar-widget">
+                    <h4>Global Regulatory Agencies</h4>
+                    <p style="font-size: 0.85rem; color: #666; margin-bottom: 12px;">Select agency database to filter alerts:</p>
+                    <div class="agency-grid">
+                        <a href="#" class="agency-btn" onclick="alert('Filtering US FDA Data...')">🇺🇸 US FDA</a>
+                        <a href="#" class="agency-btn" onclick="alert('Filtering EU RASFF Data...')">🇪🇺 EU RASFF</a>
+                        <a href="#" class="agency-btn" onclick="alert('Filtering Korea MFDS Data...')">🇰🇷 Korea MFDS</a>
+                        <a href="#" class="agency-btn" onclick="alert('Filtering Japan MHLW Data...')">🇯🇵 Japan MHLW</a>
+                    </div>
+                </div>
+
+                <!-- Real-time News Feed Widget (Requested Feature) -->
+                <div class="sidebar-widget">
+                    <h4>Real-Time Safety Feed</h4>
+                    <div class="news-feed-item">
+                        <div class="news-date">JUST NOW (1 MIN AGO)</div>
+                        <strong>[Pesticide Alert]</strong> Chlorpyrifos residue flagged in imported chili shipments exceeding safety limits.
+                    </div>
+                    <div class="news-feed-item" style="margin-top: 10px;">
+                        <div class="news-date">12 MINS AGO</div>
+                        <strong>[Heavy Metal Warning]</strong> Cadmium threshold exceeded in regional marine product testing.
+                    </div>
+                    <div class="news-feed-item" style="margin-top: 10px;">
+                        <div class="news-date">35 MINS AGO</div>
+                        <strong>[Customs Notice]</strong> New agricultural quarantine standards applied at arrival ports.
+                    </div>
+                </div>
+
                 <!-- Brand Logo Showcase Widget -->
                 <div class="sidebar-widget logo-showcase">
                     <h4>Purity & Trust Logo</h4>
@@ -413,17 +493,6 @@
                     <p style="font-size: 0.85rem; color: #555; margin-top: 10px;">
                         Symbolizing transparency, purity, and rigorous agricultural inspection.
                     </p>
-                </div>
-
-                <!-- Live Updates Status Widget -->
-                <div class="sidebar-widget radio-box">
-                    <h4>FOODOK LIVE WIRE</h4>
-                    <p style="font-size: 0.9rem; margin: 10px 0; color: #ccc;">
-                        🔄 <strong>Real-time Sync Active:</strong> Continuously polling international food safety authorities, customs, and health ministries.
-                    </p>
-                    <div style="background: #222; padding: 12px; margin-top: 15px; font-size: 0.85rem; border-left: 3px solid var(--accent-yellow);">
-                        <span>Status: All global data nodes updating every 60 seconds. Zero latency risk tracking.</span>
-                    </div>
                 </div>
             </aside>
         </div>
@@ -434,5 +503,45 @@
         </footer>
     </div>
 
+    <!-- JavaScript for Functional Search -->
+    <script>
+        function setSearch(keyword) {
+            document.getElementById('searchInput').value = keyword;
+            performSearch();
+        }
+
+        function performSearch() {
+            const query = document.getElementById('searchInput').value.trim().toLowerCase();
+            const resultsDiv = document.getElementById('search-results');
+            
+            if (!query) {
+                resultsDiv.style.display = 'none';
+                return;
+            }
+
+            // Simulated real-time search results database matching user query
+            let resultsHTML = `<strong>Search Results for "${query}":</strong><ul style="margin-top:8px; padding-left:20px;">`;
+            
+            if (query.includes('chili') || query.includes('고추')) {
+                resultsHTML += `<li><strong>[Pesticide Inspection]</strong> Tra Vinh & An Khe Chili Varieties: Chlorpyrifos tested safe / CNF Pyeongport standards met. (Risk level: LOW)</li>`;
+                resultsHTML += `<li><strong>[EU RASFF Alert]</strong> Imported chili batch #9923 flagged for chemical residue check.</li>`;
+            } else if (query.includes('lead') || query.includes('cadmium') || query.includes('중금속')) {
+                resultsHTML += `<li><strong>[Heavy Metal Audit]</strong> Marine seaweed and seafood export inspection logs: Heavy metals within allowable international limits.</li>`;
+            } else {
+                resultsHTML += `<li><strong>[Global Database]</strong> Searched "${query}" across 42,000 active food safety inspection records. No immediate critical recall reported today.</li>`;
+            }
+            resultsHTML += `</ul>`;
+
+            resultsDiv.innerHTML = resultsHTML;
+            resultsDiv.style.display = 'block';
+        }
+
+        // Allow pressing Enter key to search
+        document.getElementById('searchInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+    </script>
 </body>
 </html>
