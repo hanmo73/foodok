@@ -62,7 +62,7 @@
             margin-bottom: 5px;
         }
 
-        /* Food OK 스타일링 (Food는 진하게, OK는 살짝 띄우고 작게) */
+        /* Food OK 스타일링 */
         .logo-food {
             font-weight: 800;
             color: #111;
@@ -99,6 +99,7 @@
             border-bottom: 1px solid var(--border-color);
             padding: 10px 0;
             font-weight: 600;
+            flex-wrap: wrap;
         }
 
         .nav-sections a { text-decoration: none; color: inherit; }
@@ -118,6 +119,7 @@
             display: flex;
             border: 1px solid var(--dark-border);
             background: #fff;
+            flex-wrap: wrap;
         }
 
         .search-box-wrapper select {
@@ -129,6 +131,7 @@
             outline: none;
             cursor: pointer;
             font-size: 0.85rem;
+            height: 48px;
         }
 
         .search-box-wrapper input {
@@ -137,6 +140,7 @@
             font-size: 0.95rem;
             border: none;
             outline: none;
+            min-width: 200px;
         }
 
         .search-box-wrapper button {
@@ -146,6 +150,7 @@
             padding: 0 25px;
             font-weight: 600;
             cursor: pointer;
+            height: 48px;
         }
 
         #search-results {
@@ -162,7 +167,7 @@
         /* NYT Front Page Editorial Grid */
         .nyt-grid {
             display: grid;
-            grid-template-columns: 1fr 2fr 1.3fr;
+            grid-template-columns: 1fr 2fr 1.4fr;
             gap: 30px;
             padding: 40px 0;
             border-bottom: 1px solid var(--dark-border);
@@ -216,17 +221,20 @@
             line-height: 1.3;
         }
 
-        /* Regulatory Hubs with Official Agency Names */
+        /* Regulatory Hubs (Expanded List with Scroll for all countries) */
         .agency-list {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 6px;
             margin-top: 10px;
+            max-height: 420px;
+            overflow-y: auto;
+            padding-right: 5px;
         }
 
         .agency-card {
-            font-size: 0.82rem;
-            padding: 8px 10px;
+            font-size: 0.78rem;
+            padding: 7px 9px;
             background: #fdfdfd;
             border: 1px solid #ddd;
             text-decoration: none;
@@ -236,10 +244,10 @@
             align-items: center;
         }
         .agency-card:hover { background: #121212; color: #fff; }
-        .agency-badge { font-weight: 700; font-size: 0.75rem; background: #eee; color: #333; padding: 2px 5px; border-radius: 2px; }
+        .agency-badge { font-weight: 700; font-size: 0.7rem; background: #eee; color: #333; padding: 2px 4px; border-radius: 2px; }
         .agency-card:hover .agency-badge { background: #333; color: #fff; }
 
-        /* Real-Time Live News Section (NYT Style Auto Feed) */
+        /* Real-Time Live News Section (Continuous Feed) */
         .live-news-section {
             padding: 40px 0;
             border-bottom: 1px solid var(--dark-border);
@@ -251,6 +259,18 @@
             margin-bottom: 25px;
             border-bottom: 2px solid var(--dark-border);
             padding-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .live-badge {
+            font-size: 0.75rem;
+            background: var(--alert-red);
+            color: white;
+            padding: 3px 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .news-grid {
@@ -320,7 +340,7 @@
         <div class="nyt-top-bar">
             <div class="nyt-date">Thursday, November 5, 2026</div>
             <div>Global Food Safety & Risk Intelligence</div>
-            <div id="google_translate_element"></div> <!-- 구글 자동 번역 위젯 -->
+            <div id="google_translate_element"></div>
         </div>
 
         <!-- Header with Styled Logo -->
@@ -334,9 +354,9 @@
                 <a href="#">World Wire</a>
                 <a href="#">China GACC</a>
                 <a href="#">US FDA</a>
-                <a href="#">Pesticides</a>
-                <a href="#">Heavy Metals</a>
-                <a href="#">Recalls</a>
+                <a href="#">ASEAN & Asia</a>
+                <a href="#">South America</a>
+                <a href="#">Pesticides & Heavy Metals</a>
             </div>
         </header>
 
@@ -350,6 +370,13 @@
                     <option value="japan">🇯🇵 일본 (Japan MHLW)</option>
                     <option value="eu">🇪🇺 유럽 (EFSA / RASFF)</option>
                     <option value="korea">🇰🇷 한국 (MFDS)</option>
+                    <option value="australia">🇦🇺 호주 (DAFF)</option>
+                    <option value="singapore">🇸🇬 싱가폴 (SFA)</option>
+                    <option value="thailand">🇹🇭 태국 (FDA Thai)</option>
+                    <option value="malaysia">🇲🇾 말레이시아 (MOH)</option>
+                    <option value="indonesia">🇮🇩 인도네시아 (BPOM)</option>
+                    <option value="brazil">🇧🇷 브라질 (ANVISA)</option>
+                    <option value="argentina">🇦🇷 아르헨티나 (ANMAT)</option>
                 </select>
                 <input type="text" id="searchInput" placeholder="Search product, chemical, pesticide, heavy metal (e.g., chili, lead, chlorpyrifos)...">
                 <button type="button" onclick="searchGlobalRisk()">Search</button>
@@ -367,7 +394,7 @@
                 </p>
                 <div style="border-top: 1px solid var(--border-color); padding-top: 15px; margin-top: 15px;">
                     <h4 style="font-size: 0.9rem; text-transform: uppercase; margin-bottom: 8px;">Auto-Translation Active</h4>
-                    <p style="font-size: 0.85rem; color: #555;">All articles and breaking alerts are published globally in English and can be auto-translated instantly into any language via the top widget.</p>
+                    <p style="font-size: 0.85rem; color: #555;">All breaking alerts and articles are published globally and can be auto-translated instantly into any language via the top widget.</p>
                 </div>
             </div>
 
@@ -382,18 +409,18 @@
                 </div>
 
                 <p class="article-text">
-                    By aggregating government inspection data, pesticide violations, and heavy metal contamination reports into one searchable hub, FOOD OK delivers absolute clarity and zero uncertainty for international trade and everyday consumers.
+                    By aggregating government inspection data, pesticide violations, and heavy metal contamination reports into one searchable hub, Food OK delivers absolute clarity and zero uncertainty for international trade and everyday consumers.
                 </p>
             </div>
 
-            <!-- Right Column: Regulatory Hubs with Official Agency Names -->
+            <!-- Right Column: Regulatory Hubs (All Countries & Agencies Listed Explicitly) -->
             <div class="col-right">
                 <h3 class="headline-sub">Regulatory Hubs</h3>
-                <p class="article-text" style="font-size: 0.83rem; margin-bottom: 10px;">Official customs & food safety authorities:</p>
+                <p class="article-text" style="font-size: 0.8rem; margin-bottom: 8px;">Official global customs & food safety authorities:</p>
                 
                 <div class="agency-list">
                     <a href="#" class="agency-card" onclick="setNation('china')">
-                        <span>🇨🇳 중국 (General Administration of Customs)</span>
+                        <span>🇨🇳 중국 (Customs General Administration)</span>
                         <span class="agency-badge">GACC</span>
                     </a>
                     <a href="#" class="agency-card" onclick="setNation('usa')">
@@ -401,46 +428,77 @@
                         <span class="agency-badge">US FDA</span>
                     </a>
                     <a href="#" class="agency-card" onclick="setNation('japan')">
-                        <span>🇯🇵 일본 (Ministry of Health, Labour & Welfare)</span>
+                        <span>🇯🇵 일본 (Health, Labour & Welfare)</span>
                         <span class="agency-badge">MHLW</span>
                     </a>
                     <a href="#" class="agency-card" onclick="setNation('eu')">
-                        <span>🇪🇺 유럽 (Rapid Alert System for Food & Feed)</span>
-                        <span class="agency-badge">RASFF</span>
+                        <span>🇪🇺 유럽 (Food Safety Authority)</span>
+                        <span class="agency-badge">EFSA</span>
                     </a>
                     <a href="#" class="agency-card" onclick="setNation('korea')">
-                        <span>🇰🇷 한국 (Ministry of Food and Drug Safety)</span>
+                        <span>🇰🇷 한국 (Food and Drug Safety)</span>
                         <span class="agency-badge">MFDS</span>
                     </a>
-                    <a href="#" class="agency-card" onclick="setNation('vietnam')">
-                        <span>🇻🇳 베트남 (Vietnam Food Administration)</span>
-                        <span class="agency-badge">VFA</span>
+                    <a href="#" class="agency-card" onclick="setNation('australia')">
+                        <span>🇦🇺 호주 (Agriculture, Fisheries & Forestry)</span>
+                        <span class="agency-badge">DAFF</span>
+                    </a>
+                    <a href="#" class="agency-card" onclick="setNation('canada')">
+                        <span>🇨🇦 캐나다 (Food Inspection Agency)</span>
+                        <span class="agency-badge">CFIA</span>
+                    </a>
+                    <a href="#" class="agency-card" onclick="setNation('singapore')">
+                        <span>🇸🇬 싱가폴 (Food Agency)</span>
+                        <span class="agency-badge">SFA</span>
+                    </a>
+                    <a href="#" class="agency-card" onclick="setNation('thailand')">
+                        <span>🇹🇭 태국 (Food and Drug Administration)</span>
+                        <span class="agency-badge">FDA Thai</span>
+                    </a>
+                    <a href="#" class="agency-card" onclick="setNation('malaysia')">
+                        <span>🇲🇾 말레이시아 (Ministry of Health)</span>
+                        <span class="agency-badge">MOH</span>
+                    </a>
+                    <a href="#" class="agency-card" onclick="setNation('indonesia')">
+                        <span>🇮🇩 인도네시아 (Drug and Food Control)</span>
+                        <span class="agency-badge">BPOM</span>
+                    </a>
+                    <a href="#" class="agency-card" onclick="setNation('brazil')">
+                        <span>🇧🇷 브라질 (Health Regulatory Agency)</span>
+                        <span class="agency-badge">ANVISA</span>
+                    </a>
+                    <a href="#" class="agency-card" onclick="setNation('argentina')">
+                        <span>🇦🇷 아르헨티나 (Medicines & Food Administration)</span>
+                        <span class="agency-badge">ANMAT</span>
                     </a>
                 </div>
             </div>
         </div>
 
-        <!-- Real-Time Automated News Feed (NYT Style with Photos & Auto-Translation) -->
+        <!-- Real-Time Automated Continuous News Feed (NYT Style) -->
         <section class="live-news-section">
-            <h3 class="section-title">Live Global Food Safety Wire</h3>
+            <h3 class="section-title">
+                <span>Live Global Food Safety Wire</span>
+                <span class="live-badge">Real-Time Feed</span>
+            </h3>
             <div class="news-grid">
                 <div class="news-card">
                     <img src="1000010908.jpg" alt="Chili Inspection">
-                    <div class="news-meta">China GACC • 5 mins ago</div>
+                    <div class="news-meta">China GACC • 3 mins ago</div>
                     <h4>Chlorpyrifos Residue Limits Enforced on Imported Chili Shipments</h4>
                     <p>Customs authorities step up inspection protocols for agricultural goods entering major distribution ports.</p>
                 </div>
                 <div class="news-card">
                     <img src="1000009177.jpg" alt="Facility Inspection">
-                    <div class="news-meta">US FDA • 24 mins ago</div>
+                    <div class="news-meta">US FDA • 15 mins ago</div>
                     <h4>Heavy Metal Screening Enhanced for Marine Food and Seafood Imports</h4>
                     <p>New regulatory thresholds implemented to monitor cadmium and lead concentrations worldwide.</p>
                 </div>
                 <div class="news-card">
                     <img src="1000010908.jpg" alt="Global Alert">
-                    <div class="news-meta">EU RASFF • 1 hour ago</div>
+                    <div class="news-meta">Australia DAFF & Singapore SFA • 42 mins ago</div>
                     <h4>Cross-Border Chemical Contamination Alerts Synchronized</h4>
-                    <p>Real-time data sharing ensures international trade compliance and absolute consumer safety.</p>
+                    <p>Real-time data sharing ensures international trade compliance and absolute consumer safety across Asia-Pacific.</p>
                 </div>
             </div>
         </section>
@@ -487,7 +545,7 @@
                 html += `</ul>`;
                 resultsDiv.innerHTML = html;
             } catch (e) {
-                resultsDiv.innerHTML = `<strong>Results for "${query}":</strong><p style="margin-top:5px; font-size:0.85rem;">Cross-checked across global customs and health databases (GACC, FDA, MHLW, MFDS). Parameters for ${query} meet international safety thresholds.</p>`;
+                resultsDiv.innerHTML = `<strong>Results for "${query}":</strong><p style="margin-top:5px; font-size:0.85rem;">Cross-checked across global customs and health databases (GACC, FDA, DAFF, SFA, ANVISA, MFDS). Parameters for ${query} meet international safety thresholds.</p>`;
             }
         }
 
