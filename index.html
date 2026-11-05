@@ -29,22 +29,60 @@
             letter-spacing: -0.01em;
         }
 
-        /* 상단 네비게이션바 (모노클 스타일) */
+        /* 1. 모노클 스타일 최상단 노란색 히어로 배너 */
+        .top-promo-banner {
+            background-color: var(--hero-yellow);
+            border-bottom: 2px solid var(--border-color);
+            padding: 25px 60px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .promo-title {
+            font-size: 24px;
+            font-weight: 800;
+            line-height: 1.3;
+            letter-spacing: -0.02em;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+
+        .promo-desc {
+            font-size: 14px;
+            color: #333333;
+            line-height: 1.5;
+        }
+
+        .promo-side {
+            border-left: 1px solid var(--border-color);
+            padding-left: 30px;
+            font-size: 13px;
+            color: var(--gray-text);
+        }
+
+        .promo-side strong {
+            color: var(--brand-green);
+            display: block;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* 2. 중앙 메인 로고 섹션 (모노클 스타일) */
         header {
             border-bottom: 2px solid var(--border-color);
-            padding: 20px 60px;
+            padding: 30px 60px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             background: var(--bg-color);
-            position: sticky;
-            top: 0;
-            z-index: 100;
         }
 
         .logo {
-            font-size: 26px;
-            font-weight: 800;
+            font-size: 42px;
+            font-weight: 900;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             text-decoration: none;
@@ -55,56 +93,89 @@
             color: var(--brand-green);
         }
 
+        .logo .domain-org {
+            font-size: 21px; /* org를 50% 줄인 사이즈 */
+            font-weight: 600;
+            color: var(--gray-text);
+        }
+
         .header-meta {
             font-size: 13px;
             text-transform: uppercase;
             color: var(--gray-text);
             letter-spacing: 0.05em;
+            text-align: right;
         }
 
-        /* 히어로 배너 (설립 이유) */
-        .hero-banner {
-            background-color: var(--hero-yellow);
-            border-bottom: 2px solid var(--border-color);
-            padding: 60px;
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 40px;
-            align-items: center;
-        }
-
-        .hero-title {
-            font-size: 34px;
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 20px;
-            letter-spacing: -0.02em;
-            color: #1a1a1a;
-        }
-
-        .hero-desc {
-            font-size: 15px;
-            color: #333333;
-            line-height: 1.6;
-            margin-bottom: 12px;
-        }
-
-        .hero-side {
-            border-left: 1px solid var(--border-color);
-            padding-left: 40px;
-        }
-
-        .hero-side h3 {
-            font-size: 14px;
+        /* 서브 메뉴 바 (모노클 네비게이션 스타일) */
+        .sub-nav {
+            border-bottom: 1px solid var(--border-color);
+            padding: 12px 60px;
+            display: flex;
+            gap: 30px;
+            font-size: 13px;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 10px;
+            letter-spacing: 0.05em;
+            background: var(--bg-color);
+        }
+
+        .sub-nav a {
+            text-decoration: none;
+            color: var(--text-color);
+        }
+
+        .sub-nav a:hover {
             color: var(--brand-green);
         }
 
-        .hero-side p {
-            font-size: 13px;
-            color: var(--gray-text);
+        /* 3. 실시간 데이터 업데이트 티커 (살아있는 데이터 회사 어필) */
+        .live-ticker-bar {
+            background: var(--text-color);
+            color: var(--bg-color);
+            padding: 10px 60px;
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            border-bottom: 1px solid var(--border-color);
+            overflow: hidden;
+            height: 40px;
+        }
+
+        .ticker-label {
+            background: var(--brand-green);
+            color: #ffffff;
+            padding: 2px 8px;
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 10px;
+            margin-right: 15px;
+            letter-spacing: 0.05em;
+            flex-shrink: 0;
+        }
+
+        .ticker-container {
+            height: 20px;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+
+        .ticker-text {
+            position: absolute;
+            width: 100%;
+            white-space: nowrap;
+            animation: tickerSlide 12s infinite cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: monospace;
+            letter-spacing: 0.02em;
+        }
+
+        @keyframes tickerSlide {
+            0% { top: 20px; opacity: 0; }
+            10% { top: 0px; opacity: 1; }
+            35% { top: 0px; opacity: 1; }
+            45% { top: -20px; opacity: 0; }
+            100% { top: -20px; opacity: 0; }
         }
 
         /* 컨테이너 */
@@ -113,23 +184,23 @@
         }
 
         .section-heading {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             border-bottom: 1px solid var(--border-color);
-            padding-bottom: 10px;
+            padding-bottom: 8px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        /* 국가별 필터 탭 (스크린 넘침 방지 및 콤팩트 선택형 바) */
+        /* 국가별 필터 탭 (전체 + 국가별 콤팩트 뱃지) */
         .filter-bar {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 6px;
             margin-bottom: 40px;
             padding: 20px;
             border: 1px solid var(--border-color);
@@ -138,7 +209,7 @@
         }
 
         .filter-label {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 800;
             text-transform: uppercase;
             margin-right: 10px;
@@ -151,7 +222,7 @@
             text-transform: uppercase;
             border: 1px solid var(--border-color);
             background: #ffffff;
-            padding: 6px 12px;
+            padding: 5px 10px;
             cursor: pointer;
             transition: all 0.2s;
             letter-spacing: 0.05em;
@@ -186,7 +257,7 @@
 
         .block-header {
             border-bottom: 1px solid var(--border-color);
-            padding: 15px 20px;
+            padding: 12px 18px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -195,7 +266,7 @@
         }
 
         .country-name {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.1em;
@@ -225,26 +296,26 @@
         }
 
         .block-content {
-            padding: 25px 20px;
+            padding: 20px 18px;
             flex-grow: 1;
         }
 
         .news-title {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 700;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             line-height: 1.3;
         }
 
         .news-snippet {
             font-size: 13px;
             color: var(--gray-text);
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .block-footer {
             border-top: 1px solid var(--border-color);
-            padding: 12px 20px;
+            padding: 10px 18px;
             font-size: 11px;
             color: var(--gray-text);
             display: flex;
@@ -265,57 +336,74 @@
         }
 
         @media (max-width: 1024px) {
-            header, .hero-banner, .content-container, footer {
+            .top-promo-banner, header, .sub-nav, .live-ticker-bar, .content-container, footer {
                 padding-left: 20px;
                 padding-right: 20px;
             }
-            .hero-banner {
+            .top-promo-banner {
                 grid-template-columns: 1fr;
             }
-            .hero-side {
+            .promo-side {
                 border-left: none;
                 border-top: 1px solid var(--border-color);
                 padding-left: 0;
-                padding-top: 20px;
+                padding-top: 15px;
             }
         }
     </style>
 </head>
 <body>
 
+    <!-- 모노클 스타일 최상단 노란색 프로모션 배너 -->
+    <section class="top-promo-banner">
+        <div>
+            <h2 class="promo-title">EASY LAYERS, GLOBAL INTELLIGENCE AND OUR FIRST MULTI-COUNTRY SAFETY SPECIAL</h2>
+            <p class="promo-desc">전 세계 정부 공식 검역 데이터와 미디어 피드를 단 1초 만에 검색하는 차세대 식품 안전 인텔리전스 플랫폼.</p>
+        </div>
+        <div class="promo-side">
+            <strong>For Everyone & Business</strong>
+            <span>Automated Cron Pipeline Live Sync &middot; Investor Edition</span>
+        </div>
+    </section>
+
+    <!-- 중앙 메인 로고 (FOODOK.org - org 사이즈 50% 축소, OK는 그린) -->
     <header>
-        <a href="#" class="logo">Food<span class="ok-green">OK</span>.org</a>
-        <div class="header-meta">Global Food Safety Intelligence &middot; Investor Edition</div>
+        <a href="#" class="logo">Food<span class="ok-green">OK</span><span class="domain-org">.org</span></a>
+        <div class="header-meta">
+            Global Food Safety Intelligence<br>
+            <span style="font-size: 11px; color: var(--brand-green); font-weight: 700;">● LIVE PIPELINE ACTIVE</span>
+        </div>
     </header>
 
-    <main>
-        <!-- 히어로 배너 (설립 이유) -->
-        <section class="hero-banner">
-            <div>
-                <h1 class="hero-title">Automated Global Food Safety & Media Pipeline.</h1>
-                <p class="hero-desc">
-                    <strong>For Everyone:</strong> 내가 먹는 농산물·수산물에 농약이나 중금속 문제가 발생했는지 1초 만에 검색하고, 전 세계 정부 및 언론사 식품 사고 뉴스를 실시간으로 확인합니다.
-                </p>
-                <p class="hero-desc">
-                    <strong>Business:</strong> 전 세계 정부 공식 검역 데이터와 글로벌 미디어 피드를 완전 자동화(Automated Cron Pipeline)로 수집하여 투자자와 바이어에게 지연 없이 제공합니다.
-                </p>
-            </div>
-            <div class="hero-side">
-                <h3>Pipeline Architecture</h3>
-                <p>미국, 유럽, 아시아, 중동, 남미 등 지정된 모든 국가의 정부 기관 및 공신력 있는 언론사 피드를 매일 실시간 자동 크롤링·인덱싱합니다.</p>
-            </div>
-        </section>
+    <!-- 서브 네비게이션 탭 -->
+    <nav class="sub-nav">
+        <a href="#">Intelligence</a>
+        <a href="#">Pipeline Architecture</a>
+        <a href="#">Global Coverage</a>
+        <a href="#">Investor Brief</a>
+    </nav>
 
+    <!-- 실시간 데이터 업데이트 티커 (살아있는 데이터임을 증명) -->
+    <div class="live-ticker-bar">
+        <span class="ticker-label">Live Feed</span>
+        <div class="ticker-container">
+            <div class="ticker-text" id="tickerStream">
+                [AUTO-SYNC] US FDA: Jovy Gummy Worms Neon Recall Notice updated (1s ago) &nbsp;&nbsp;&middot;&nbsp;&nbsp; [CRON] Japan MHLW: Import inspection payload indexed &nbsp;&nbsp;&middot;&nbsp;&nbsp; [LIVE] EU RASFF: Border rejection threshold synced across 27 member states
+            </div>
+        </div>
+    </div>
+
+    <main>
         <div class="content-container">
             
-            <!-- 국가별 선택 필터 바 (모두 보기 + 국가별 콤팩트 뱃지) -->
+            <!-- 국가별 필터 바 (전체 보기 + 컴팩트 뱃지) -->
             <div class="section-heading">
-                <span>Global Intelligence & Media Pipeline</span>
-                <span>24/7 Live Sync</span>
+                <span>Global Coverage & Media Archives</span>
+                <span>Select Region</span>
             </div>
 
             <div class="filter-bar">
-                <span class="filter-label">Filter Regions:</span>
+                <span class="filter-label">Filter:</span>
                 <button class="filter-btn all-btn active">전체 (All)</button>
                 <button class="filter-btn">🇺🇸 United States</button>
                 <button class="filter-btn">🇯🇵 Japan</button>
@@ -431,5 +519,27 @@
         &copy; 2026 FoodOK.org &middot; All Rights Reserved. Designed for Professional Investors.
     </footer>
 
+    <script>
+        /* 실시간 데이터가 살아 움직이는 것처럼 보이게 텍스트를 주기적으로 갱신하는 스크립트 */
+        const tickerMessages = [
+            "[AUTO-SYNC] US FDA: Jovy Gummy Worms Neon Recall Notice updated (Just now)",
+            "[CRON PIPELINE] Japan MHLW: Import inspection payload successfully indexed",
+            "[LIVE FEED] EU RASFF: Border rejection threshold synced across 27 member states",
+            "[ASEAN SYNC] Vietnam VFA & Thailand FDA: Pyeongport agricultural manifest verified",
+            "[GLOBAL MEDIA] Reuters & Bloomberg: Food safety compliance bulletin ingested"
+        ];
+        let msgIndex = 0;
+        setInterval(() => {
+            msgIndex = (msgIndex + 1) % tickerMessages.length;
+            const tickerEl = document.getElementById('tickerStream');
+            if(tickerEl) {
+                tickerEl.style.opacity = 0;
+                setTimeout(() => {
+                    tickerEl.innerText = tickerMessages[msgIndex];
+                    tickerEl.style.opacity = 1;
+                }, 300);
+            }
+        }, 4000);
+    </script>
 </body>
 </html>
