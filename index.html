@@ -3,195 +3,276 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FoodOK - Global Food Safety & Recalls</title>
+    <title>FoodOK - Global Food Safety Intelligence</title>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background: #f9f9f9; color: #333; }
-        
-        /* 목적 배너 */
-        .purpose-banner { background: #1b5e20; color: white; padding: 18px 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .purpose-banner h2 { margin: 0 0 8px 0; font-size: 18px; color: #a5d6a7; display: flex; align-items: center; gap: 6px; }
-        .purpose-banner p { margin: 0; font-size: 15px; line-height: 1.5; color: #ffffff; font-weight: 500; }
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #111111;
+            --border-color: #111111;
+            --gray-light: #f7f7f7;
+            --gray-text: #666666;
+        }
 
-        header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        h1 { color: #2e7d32; margin: 0; }
-        
-        /* 다국어 선택 드롭다운 스타일 */
-        .lang-select { padding: 6px 12px; border-radius: 6px; border: 1px solid #ccc; background: white; font-weight: bold; font-size: 14px; cursor: pointer; }
-        
-        .search-box { display: flex; gap: 10px; margin-bottom: 20px; }
-        input[type="text"] { flex: 1; padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 4px; }
-        button { padding: 10px 20px; background: #2e7d32; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
-        button:hover { background: #1b5e20; }
-        .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
-        .tag { background: #e0e0e0; padding: 6px 12px; border-radius: 20px; cursor: pointer; font-size: 14px; }
-        .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
-        .filter-btn { background: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; padding: 6px 14px; border-radius: 16px; cursor: pointer; font-size: 14px; font-weight: bold; }
-        .filter-btn.active { background: #2e7d32; color: white; }
-        .alert-card { background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 5px solid #d32f2f; }
-        .alert-title { font-weight: bold; font-size: 16px; margin-bottom: 5px; }
-        .alert-meta { font-size: 13px; color: #666; margin-bottom: 8px; }
-        .alert-desc { font-size: 14px; line-height: 1.4; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.5;
+            letter-spacing: -0.01em;
+        }
+
+        /* 상단 네비게이션바 (모노클 스타일) */
+        header {
+            border-bottom: 2px solid var(--border-color);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            text-decoration: none;
+            color: var(--text-color);
+        }
+
+        .header-meta {
+            font-size: 13px;
+            text-transform: uppercase;
+            color: var(--gray-text);
+            letter-spacing: 0.05em;
+        }
+
+        /* 메인 컨테이너 (화면 꽉 채우기) */
+        main {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        /* 인트로 섹션 */
+        .intro-section {
+            border: 1px solid var(--border-color);
+            padding: 40px;
+            margin-bottom: 50px;
+            background: var(--gray-light);
+        }
+
+        .intro-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .intro-desc {
+            font-size: 15px;
+            color: var(--gray-text);
+            max-width: 1000px;
+        }
+
+        /* 나라별 블록 그리드 레이아웃 */
+        .country-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .country-block {
+            border: 1px solid var(--border-color);
+            background: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: background 0.2s ease;
+        }
+
+        .country-block:hover {
+            background: var(--gray-light);
+        }
+
+        .block-header {
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--text-color);
+            color: var(--bg-color);
+        }
+
+        .country-name {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .compliance-badge {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: 1px solid var(--bg-color);
+            padding: 2px 8px;
+        }
+
+        .block-content {
+            padding: 30px 25px;
+            flex-grow: 1;
+        }
+
+        .news-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .news-snippet {
+            font-size: 14px;
+            color: var(--gray-text);
+            margin-bottom: 20px;
+        }
+
+        .block-footer {
+            border-top: 1px solid var(--border-color);
+            padding: 15px 25px;
+            font-size: 12px;
+            color: var(--gray-text);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* 푸터 */
+        footer {
+            border-top: 2px solid var(--border-color);
+            padding: 40px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--gray-text);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        @media (max-width: 768px) {
+            header, main, footer {
+                padding: 20px;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <!-- 사이트 최상단 목적 배너 -->
-    <div class="purpose-banner" id="purposeBanner">
-        <h2>🛡️ FoodOK의 목적</h2>
-        <p>전 세계 정부가 공개한 농약·중금속·위험 식품 정보를 검색창 하나로 1초 만에 찾아주는 글로벌 식품 안전 플랫폼입니다.</p>
-    </div>
-
     <header>
-        <h1>Food OK</h1>
-        <!-- 7개 주요 언어 선택 셀렉트박스 -->
-        <select class="lang-select" id="langSelect" onchange="changeLanguage()">
-            <option value="ko" selected>🇰🇷 한국어</option>
-            <option value="en">🇺🇸 English</option>
-            <option value="ja">🇯🇵 日本語</option>
-            <option value="zh">🇨🇳 中文</option>
-            <option value="es">🇪🇸 Español</option>
-            <option value="fr">🇫🇷 Français</option>
-            <option value="ar">🇸🇦 العربية</option>
-        </select>
+        <a href="#" class="logo">FoodOK</a>
+        <div class="header-meta">Global Food Safety Intelligence &middot; Investor Edition</div>
     </header>
 
-    <p id="subText">회원가입 없음, 무료, 공식 출처만 제공</p>
+    <main>
+        <!-- 인트로/머리말 섹션 -->
+        <section class="intro-section">
+            <h1 class="intro-title">Platform Purpose</h1>
+            <p class="intro-desc">
+                전 세계 정부가 공개한 농약·중금속·위험 식품 정보를 검색창 하나로 1초 만에 찾아주는 글로벌 식품 안전 플랫폼입니다. 투자자와 바이어를 위한 투명하고 정확한 인사이트를 제공합니다.
+            </p>
+        </section>
 
-    <div class="search-box">
-        <input type="text" id="searchInput" placeholder="예: 쌀, 새우, 베트남, 고추">
-        <button onclick="searchData()" id="searchBtn">검색</button>
-    </div>
-
-    <div class="tags">
-        <span class="tag" onclick="quickSearch('쌀')">쌀</span>
-        <span class="tag" onclick="quickSearch('고추')">고추</span>
-        <span class="tag" onclick="quickSearch('새우')">새우</span>
-        <span class="tag" onclick="quickSearch('커피')">커피</span>
-        <span class="tag" onclick="quickSearch('땅콩')">땅콩</span>
-        <span class="tag" onclick="quickSearch('베트남')">베트남</span>
-    </div>
-
-    <h3 id="alertsHeading">최신 경고 알림</h3>
-
-    <div class="filters">
-        <button class="filter-btn active" onclick="filterCountry('all', this)" id="filterAll">전체</button>
-        <button class="filter-btn" onclick="filterCountry('US', this)">🇺🇸 미국 FDA</button>
-        <button class="filter-btn" onclick="filterCountry('JP', this)">🇯🇵 일본</button>
-        <button class="filter-btn" onclick="filterCountry('EU', this)">🇪🇺 유럽</button>
-        <button class="filter-btn" onclick="filterCountry('KR', this)">🇰🇷 한국</button>
-    </div>
-
-    <div id="resultsContainer">
-        <div class="alert-card">
-            <div class="alert-title">Jovy Gummy Worms Neon; packaged in 1lb plastic units. UPC 712199083411</div>
-            <div class="alert-meta">US FDA / 원산지: 미국 | 제조사: El Ruisenor De Mexico, Inc.</div>
-            <div class="alert-desc">미표기 알레르기 성분 포함 (Red#40, Yellow#5, Yellow#6, Blue#1)</div>
-        </div>
-    </div>
-
-    <script>
-        const translations = {
-            ko: {
-                purposeTitle: "🛡️ FoodOK의 목적",
-                purposeDesc: "전 세계 정부가 공개한 농약·중금속·위험 식품 정보를 검색창 하나로 1초 만에 찾아주는 글로벌 식품 안전 플랫폼입니다.",
-                subText: "회원가입 없음, 무료, 공식 출처만 제공",
-                placeholder: "예: 쌀, 새우, 베트남, 고추",
-                searchBtn: "검색",
-                alertsHeading: "최신 경고 알림",
-                filterAll: "전체",
-                dir: "ltr"
-            },
-            en: {
-                purposeTitle: "🛡️ Purpose of FoodOK",
-                purposeDesc: "A global food safety platform that instantly searches pesticide, heavy metal, and hazard food recalls released by governments worldwide.",
-                subText: "No sign-up, free, official sources only",
-                placeholder: "e.g. rice, shrimp, Vietnam",
-                searchBtn: "Search",
-                alertsHeading: "Latest alerts",
-                filterAll: "All",
-                dir: "ltr"
-            },
-            ja: {
-                purposeTitle: "🛡️ FoodOKの目的",
-                purposeDesc: "世界各国の政府が公開した農薬・重金属・危険食品の情報を、検索窓一つで1秒で探せるグローバル食品安全プラットフォームです。",
-                subText: "会員登録不要、無料、公式ソースのみ提供",
-                placeholder: "例: 米, エビ, ベトナム, 唐辛子",
-                searchBtn: "検索",
-                alertsHeading: "最新の警告通知",
-                filterAll: "すべて",
-                dir: "ltr"
-            },
-            zh: {
-                purposeTitle: "🛡️ FoodOK 的宗旨",
-                purposeDesc: "一个全球食品安全平台，只需一个搜索框即可在 1 秒内查找全球各国政府发布的农药、重金属和危害食品召回信息。",
-                subText: "无需注册，免费，仅提供官方来源",
-                placeholder: "例如：大米、虾、越南、辣椒",
-                searchBtn: "搜索",
-                alertsHeading: "最新警报",
-                filterAll: "全部",
-                dir: "ltr"
-            },
-            es: {
-                purposeTitle: "🛡️ Propósito de FoodOK",
-                purposeDesc: "Una plataforma global de seguridad alimentaria que busca instantáneamente retiradas de alimentos por pesticidas, metales pesados ​​y riesgos.",
-                subText: "Sin registro, gratis, solo fuentes oficiales",
-                placeholder: "ej. arroz, camarón, Vietnam",
-                searchBtn: "Buscar",
-                alertsHeading: "Últimas alertas",
-                filterAll: "Todo",
-                dir: "ltr"
-            },
-            fr: {
-                purposeTitle: "🛡️ Objectif de FoodOK",
-                purposeDesc: "Une plateforme mondiale de sécurité alimentaire qui recherche instantanément les rappels de produits alimentaires dangereux.",
-                subText: "Sans inscription, gratuit, sources officielles uniquement",
-                placeholder: "ex. riz, crevettes, Vietnam",
-                searchBtn: "Rechercher",
-                alertsHeading: "Dernières alertes",
-                filterAll: "Tout",
-                dir: "ltr"
-            },
-            ar: {
-                purposeTitle: "🛡️ غرض FoodOK",
-                purposeDesc: "منصة عالمية لسلامة الأغذية تبحث فوراً عن معلومات استدعاء الأغذية الخطرة والمبيدات الحشرية التي تصدرها الحكومات في جميع أنحاء العالم.",
-                subText: "بدون تسجيل، مجاني، مصادر رسمية فقط",
-                placeholder: "مثال: أرز، جمبري، فيتنام",
-                searchBtn: "بحث",
-                alertsHeading: "أحدث تنبيهات",
-                filterAll: "الكل",
-                dir: "rtl"
-            }
-        };
-
-        function changeLanguage() {
-            const lang = document.getElementById('langSelect').value;
-            const t = translations[lang];
+        <!-- 나라별 소식 블록 그리드 -->
+        <div class="country-grid">
             
-            // 문서 방향 설정 (아랍어 등 RTL 대응)
-            document.documentElement.dir = t.dir;
+            <!-- 미국 블록 -->
+            <div class="country-block">
+                <div>
+                    <div class="block-header">
+                        <span class="country-name">United States</span>
+                        <span class="compliance-badge">US FDA Compliant</span>
+                    </div>
+                    <div class="block-content">
+                        <h3 class="news-title">Jovy Gummy Worms Neon Recall Notice</h3>
+                        <p class="news-snippet">Packaged in 1lb plastic units. UPC 712199083411. Unlisted allergen detected (Red#40, Yellow#5, Yellow#6, Blue#1).</p>
+                    </div>
+                </div>
+                <div class="block-footer">
+                    <span>Source: US FDA Official</span>
+                    <span>2026.11</span>
+                </div>
+            </div>
 
-            // 텍스트 일괄 업데이트
-            document.getElementById('purposeBanner').innerHTML = `
-                <h2>${t.purposeTitle}</h2>
-                <p>${t.purposeDesc}</p>
-            `;
-            document.getElementById('subText').innerText = t.subText;
-            document.getElementById('searchInput').placeholder = t.placeholder;
-            document.getElementById('searchBtn').innerText = t.searchBtn;
-            document.getElementById('alertsHeading').innerText = t.alertsHeading;
-            document.getElementById('filterAll').innerText = t.filterAll;
-        }
+            <!-- 일본 블록 -->
+            <div class="country-block">
+                <div>
+                    <div class="block-header">
+                        <span class="country-name">Japan</span>
+                        <span class="compliance-badge">Japan MHLW</span>
+                    </div>
+                    <div class="block-content">
+                        <h3 class="news-title">Import Food Inspection Alert: Pesticide Residue</h3>
+                        <p class="news-snippet">Enhanced border inspection initiated for agricultural exports arriving at designated ports under strict safety protocols.</p>
+                    </div>
+                </div>
+                <div class="block-footer">
+                    <span>Source: MHLW Japan</span>
+                    <span>2026.11</span>
+                </div>
+            </div>
 
-        function filterCountry(country, btn) {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-        }
+            <!-- 대한민국 블록 -->
+            <div class="country-block">
+                <div>
+                    <div class="block-header">
+                        <span class="country-name">South Korea</span>
+                        <span class="compliance-badge">Korea MFDS</span>
+                    </div>
+                    <div class="block-content">
+                        <h3 class="news-title">Pyeongport Arrival Safety Verification</h3>
+                        <p class="news-snippet">Real-time customs clearance safety monitoring for incoming chili pepper varieties and agricultural commodities.</p>
+                    </div>
+                </div>
+                <div class="block-footer">
+                    <span>Source: MFDS Korea</span>
+                    <span>2026.11</span>
+                </div>
+            </div>
 
-        function quickSearch(keyword) {
-            document.getElementById('searchInput').value = keyword;
-        }
+            <!-- 유럽 블록 -->
+            <div class="country-block">
+                <div>
+                    <div class="block-header">
+                        <span class="country-name">European Union</span>
+                        <span class="compliance-badge">EU CE Standard</span>
+                    </div>
+                    <div class="block-content">
+                        <h3 class="news-title">RASFF Border Rejection Update</h3>
+                        <p class="news-snippet">Strict heavy metal and chemical contaminant threshold enforcement across member states for global food distributors.</p>
+                    </div>
+                </div>
+                <div class="block-footer">
+                    <span>Source: EU RASFF</span>
+                    <span>2026.11</span>
+                </div>
+            </div>
 
-        function searchData() {}
-    </script>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2026 FoodOK.org &middot; All Rights Reserved. Designed for Professional Investors.
+    </footer>
+
 </body>
 </html>
