@@ -1,243 +1,470 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FOOD OK - Global Food Safety & Risk Intelligence</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background-color: #fdfbf7;
-            color: #1a1a1a;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            border-bottom: 2px solid #1a1a1a;
-            padding: 20px 40px;
-            text-align: center;
-            background: #fff;
-        }
-        .top-date {
-            font-size: 0.85rem;
-            color: #555;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-        }
-        .logo {
-            font-size: 3rem;
-            font-weight: 900;
-            letter-spacing: 3px;
-            margin: 0;
-            font-family: "Times New Roman", Times, serif;
-        }
-        .logo span {
-            color: #c93b2b;
-            font-size: 1.5rem;
-            vertical-align: super;
-        }
-        .subtitle {
-            font-style: italic;
-            color: #555;
-            margin-top: 5px;
-            font-size: 0.95rem;
-            font-family: "Times New Roman", Times, serif;
-        }
-        .nav-links {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            margin-top: 15px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            border-top: 1px solid #d1c7bd;
-            border-bottom: 1px solid #d1c7bd;
-            padding: 8px 0;
-        }
-        .nav-links a {
-            text-decoration: none;
-            color: #1a1a1a;
-            transition: color 0.2s;
-        }
-        .nav-links a:hover {
-            color: #c93b2b;
-        }
-        .container {
-            max-width: 1300px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
-        .search-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            border: 1px solid #d1c7bd;
-            background: #fff;
-            padding: 10px 20px;
-            margin-bottom: 40px;
-        }
-        .search-container select, .search-container input, .search-container button {
-            padding: 10px;
-            font-size: 0.95rem;
-            border: 1px solid #d1c7bd;
-            background: #fff;
-            font-family: inherit;
-        }
-        .search-container input {
-            flex: 1;
-            border: none;
-            outline: none;
-        }
-        .search-container button {
-            background: #1a1a1a;
-            color: white;
-            border: none;
-            cursor: pointer;
-            padding: 10px 25px;
-            font-weight: bold;
-        }
-        .main-grid {
-            display: grid;
-            grid-template-columns: 1fr 1.5fr 1fr;
-            gap: 30px;
-        }
-        @media (max-width: 900px) {
-            .main-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        .column {
-            border-right: 1px solid #d1c7bd;
-            padding-right: 25px;
-        }
-        .column:last-child {
-            border-right: none;
-            padding-right: 0;
-        }
-        .section-title {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 15px;
-            font-family: "Times New Roman", Times, serif;
-        }
-        .article-card {
-            margin-bottom: 25px;
-            display: block;
-            text-decoration: none;
-            color: inherit;
-        }
-        .article-card h3 {
-            font-size: 1.1rem;
-            margin: 0 0 8px 0;
-            font-family: "Times New Roman", Times, serif;
-        }
-        .article-card h3:hover {
-            color: #c93b2b;
-        }
-        .article-card p {
-            font-size: 0.9rem;
-            color: #444;
-            margin: 0 0 5px 0;
-        }
-        .meta-text {
-            font-size: 0.8rem;
-            color: #777;
-            font-style: italic;
-        }
-        .regulatory-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .regulatory-list li {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 0;
-            border-bottom: 1px solid #eee;
-            font-size: 0.85rem;
-        }
-        .regulatory-list span {
-            font-weight: bold;
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Food OK — Global Food Safety &amp; Risk Intelligence</title>
+<meta name="description" content="Global monitoring of heavy metals, pesticides and chemical hazards in the food supply chain. Free, no sign-up, official sources only.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23b3202a'/%3E%3Ctext x='50' y='68' font-size='54' text-anchor='middle' fill='white' font-family='Georgia,serif' font-weight='700'%3EOK%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f3f3f1;
+  --ink:#111111;
+  --muted:#5b5b58;
+  --rule:#111111;
+  --hair:#cfcfca;
+  --red:#b3202a;
+  --serif:"Playfair Display",Georgia,"Times New Roman",serif;
+  --sans:"Inter",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.55;font-size:16px}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+
+/* top strip */
+.strip{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 0 10px;border-bottom:1px solid var(--rule);font-size:12.5px;letter-spacing:.06em;color:var(--muted)}
+.strip .tag{text-align:center;flex:1;letter-spacing:.04em}
+#gt{min-width:140px;text-align:right;font-size:12px}
+#gt .goog-te-gadget{font-size:0}
+#gt .goog-te-gadget .goog-te-combo{font-size:12px;padding:5px 6px;border:1px solid var(--hair);background:#fff;border-radius:2px}
+#gt .goog-te-gadget span{display:none}
+
+/* masthead */
+.mast{text-align:center;padding:34px 0 8px}
+.mast h1{margin:0;font-family:var(--serif);font-weight:900;font-size:clamp(48px,9vw,92px);line-height:1;letter-spacing:-.01em}
+.mast h1 .ok{color:var(--red);font-size:.5em;letter-spacing:0}
+.mast h1 .org{font-size:.28em;font-weight:500;color:var(--muted);letter-spacing:.08em}
+.mast p{margin:14px auto 0;max-width:640px;font-family:var(--serif);font-style:italic;font-size:clamp(16px,2.2vw,20px);color:#2a2a28}
+
+/* nav */
+nav.sections{margin-top:22px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);overflow-x:auto;-webkit-overflow-scrolling:touch}
+nav.sections ul{list-style:none;margin:0;padding:0;display:flex;justify-content:center;gap:34px;min-width:max-content;margin-inline:auto}
+nav.sections button{background:none;border:0;border-bottom:3px solid transparent;padding:14px 2px 11px;font:600 13px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ink);cursor:pointer}
+nav.sections button[aria-selected="true"]{border-bottom-color:var(--red)}
+nav.sections button:hover{color:var(--red)}
+
+/* search */
+.search{margin:26px 0 6px;display:flex;justify-content:center}
+.search form{display:flex;width:100%;max-width:760px;border:1px solid var(--rule);background:#fff}
+.search select,.search input{border:0;font:500 15px var(--sans);padding:15px 14px;background:#fff;color:var(--ink);min-width:0}
+.search select{border-right:1px solid var(--hair);max-width:190px}
+.search input{flex:1}
+.search button{border:0;background:var(--ink);color:#fff;font:600 14px var(--sans);padding:0 26px;cursor:pointer}
+.search button:hover{background:var(--red)}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:12px 0 0}
+.chips button{background:none;border:1px solid var(--hair);border-radius:99px;padding:5px 13px;font:500 13px var(--sans);color:var(--muted);cursor:pointer}
+.chips button:hover{border-color:var(--ink);color:var(--ink)}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);margin:30px 0 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--hair)}
+.stat{padding:16px 18px;border-right:1px solid var(--hair)}
+.stat:last-child{border-right:0}
+.stat .n{font-family:var(--serif);font-weight:700;font-size:34px;line-height:1.1}
+.stat .l{font-size:12.5px;color:var(--muted);margin-top:4px}
+.stat.red .n{color:var(--red)}
+
+/* front page grid */
+.front{display:grid;grid-template-columns:1fr 1.7fr 1.1fr;gap:0;margin-top:34px}
+.col{padding:0 26px}
+.col:first-child{padding-left:0}
+.col:last-child{padding-right:0}
+.col + .col{border-left:1px solid var(--hair)}
+h2.kicker{font-family:var(--serif);font-size:22px;line-height:1.2;margin:0 0 12px;font-weight:700}
+.col p{margin:0 0 14px;font-size:15px;color:#2a2a28}
+.note{border-top:1px solid var(--hair);padding-top:14px;margin-top:18px}
+.note h3{margin:0 0 6px;font:600 12px var(--sans);letter-spacing:.08em;text-transform:uppercase}
+.note p{font-size:14px;color:var(--muted)}
+
+.lead .eyebrow{font:600 12px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-bottom:10px}
+.lead h2{font-family:var(--serif);font-weight:900;font-size:clamp(28px,3.6vw,42px);line-height:1.12;margin:0 0 14px}
+.lead .dek{font-family:var(--serif);font-size:19px;line-height:1.5;color:#2a2a28;margin:0 0 14px}
+.lead .by{font-size:13px;color:var(--muted);padding-top:12px;border-top:1px solid var(--hair)}
+.lead .static h2{margin-bottom:12px}
+
+.hubs ul{list-style:none;margin:0;padding:0}
+.hubs li{border:1px solid var(--hair);background:#fff;margin-bottom:8px}
+.hubs a{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;text-decoration:none;font-size:14px}
+.hubs a:hover{background:var(--ink);color:#fff}
+.hubs .code{font:600 11px var(--sans);letter-spacing:.04em;background:#ececE8;color:var(--ink);padding:3px 7px;border-radius:2px;white-space:nowrap}
+.hubs a:hover .code{background:#333;color:#fff}
+.hubs .live .code{background:var(--red);color:#fff}
+
+/* wire */
+.wire{margin-top:44px}
+.wirehead{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;border-bottom:3px double var(--rule);padding-bottom:10px}
+.wirehead h2{margin:0;font-family:var(--serif);font-size:clamp(26px,3.4vw,36px);font-weight:700}
+.badge{font:700 11px var(--sans);letter-spacing:.1em;background:var(--red);color:#fff;padding:6px 10px;white-space:nowrap}
+.asof{font-size:12.5px;color:var(--muted);margin:10px 0 0}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:6px}
+.card{padding:22px 24px 22px 0;border-bottom:1px solid var(--hair)}
+.card:nth-child(3n+2),.card:nth-child(3n){padding-left:24px;border-left:1px solid var(--hair)}
+.card .meta{font:600 11.5px var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.card .meta b{color:var(--red);font-weight:700}
+.card h3{margin:0 0 8px;font-family:var(--serif);font-size:21px;line-height:1.25;font-weight:700}
+.card p{margin:0 0 10px;font-size:14.5px;color:#2a2a28}
+.card .foot{font-size:12.5px;color:var(--muted)}
+.empty{padding:34px 0;color:var(--muted);font-size:15px;grid-column:1/-1}
+.empty a{color:var(--red)}
+.more{display:block;margin:26px auto 0;background:#fff;border:1px solid var(--ink);padding:12px 30px;font:600 14px var(--sans);cursor:pointer}
+.more:hover{background:var(--ink);color:#fff}
+.more[hidden]{display:none}
+.skel{height:150px;background:linear-gradient(90deg,#e8e8e4,#f1f1ee,#e8e8e4);background-size:200% 100%;animation:sh 1.4s infinite;margin:22px 24px 0 0}
+@keyframes sh{to{background-position:-200% 0}}
+@media (prefers-reduced-motion:reduce){.skel{animation:none}}
+
+footer{margin-top:60px;border-top:1px solid var(--rule);padding:26px 0 48px;font-size:13px;color:var(--muted)}
+footer .cols{display:grid;grid-template-columns:1.4fr 1fr;gap:30px}
+footer h4{margin:0 0 6px;font:600 12px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+footer p{margin:0 0 10px}
+
+@media (max-width:980px){
+  .front{grid-template-columns:1fr}
+  .col,.col:first-child,.col:last-child{padding:0}
+  .col + .col{border-left:0;border-top:1px solid var(--hair);margin-top:28px;padding-top:28px}
+  .lead{order:-1;margin-bottom:0}
+  .grid{grid-template-columns:1fr 1fr}
+  .card,.card:nth-child(3n+2),.card:nth-child(3n){padding:22px 0;border-left:0}
+  .card:nth-child(even){padding-left:22px;border-left:1px solid var(--hair)}
+  .card:nth-child(odd){padding-right:22px}
+  .stats{grid-template-columns:1fr 1fr}
+  .stat:nth-child(2){border-right:0}
+  .stat:nth-child(-n+2){border-bottom:1px solid var(--hair)}
+}
+@media (max-width:640px){
+  .wrap{padding:0 18px}
+  .strip{flex-wrap:wrap}
+  .strip .tag{order:3;flex-basis:100%;text-align:left}
+  nav.sections ul{justify-content:flex-start;gap:24px;padding:0 4px}
+  .grid{grid-template-columns:1fr}
+  .card,.card:nth-child(even),.card:nth-child(odd){padding:20px 0;border-left:0}
+  .search select{max-width:110px;font-size:14px}
+  footer .cols{grid-template-columns:1fr}
+}
+</style>
 </head>
 <body>
+<div class="wrap">
 
-    <header>
-        <div class="top-date">Thursday, November 5, 2026 &nbsp;|&nbsp; Global Food Safety & Risk Intelligence</div>
-        <h1 class="logo">FOOD <span>OK</span>.ORG</h1>
-        <div class="subtitle">"Global monitoring of heavy metals, pesticides, and chemical hazards for humanity."</div>
-        
-        <div class="nav-links">
-            <a href="javascript:void(0);">World Wire</a>
-            <a href="javascript:void(0);">China GACC</a>
-            <a href="javascript:void(0);">US FDA</a>
-            <a href="javascript:void(0);">ASEAN & Asia</a>
-            <a href="javascript:void(0);">South America</a>
-            <a href="javascript:void(0);">Pesticides & Heavy Metals</a>
-        </div>
-    </header>
+  <div class="strip">
+    <span id="today"></span>
+    <span class="tag">Global Food Safety &amp; Risk Intelligence</span>
+    <div id="gt"><div id="google_translate_element"></div></div>
+  </div>
 
-    <div class="container">
-        <!-- 검색 바 영역 -->
-        <div class="search-container">
-            <select id="agencySelect">
-                <option>All Global Agencies</option>
-                <option>US FDA</option>
-                <option>China GACC</option>
-                <option>MFDS (Korea)</option>
-            </select>
-            <input type="text" id="searchInput" placeholder="Search product, chemical, pesticide, heavy metal (e.g., chili, lead)...">
-            <button onclick="alert('검색 기능이 정상 작동합니다.')">Search</button>
-        </div>
+  <header class="mast">
+    <h1>FOOD <span class="ok">OK</span><span class="org">.ORG</span></h1>
+    <p>“Global monitoring of heavy metals, pesticides, and chemical hazards for humanity.”</p>
+  </header>
 
-        <!-- 3단 메인 콘텐츠 그리드 (원래 디자인 유지 + 에러 링크 수정 완료) -->
-        <div class="main-grid">
-            <!-- 왼쪽 컬럼 -->
-            <div class="column">
-                <a href="javascript:void(0);" class="article-card">
-                    <div class="section-title">The Global Surveillance Mission</div>
-                    <p>Protecting people everywhere by monitoring toxic chemical residues, heavy metals, and biological risks across the international food supply chain in real time.</p>
-                    <span class="meta-text">AUTO-TRANSLATION ACTIVE: All breaking alerts and articles are published globally and can be auto-translated instantly into any language via the top widget.</span>
-                </a>
-            </div>
+  <nav class="sections" aria-label="Sections">
+    <ul role="tablist">
+      <li><button role="tab" data-tab="world" aria-selected="true">World Wire</button></li>
+      <li><button role="tab" data-tab="gacc" aria-selected="false">China GACC</button></li>
+      <li><button role="tab" data-tab="fda" aria-selected="false">US FDA</button></li>
+      <li><button role="tab" data-tab="asean" aria-selected="false">ASEAN &amp; Asia</button></li>
+      <li><button role="tab" data-tab="sa" aria-selected="false">South America</button></li>
+      <li><button role="tab" data-tab="chem" aria-selected="false">Pesticides &amp; Heavy Metals</button></li>
+    </ul>
+  </nav>
 
-            <!-- 가운데 컬럼 -->
-            <div class="column">
-                <div class="section-title" style="font-size: 1.5rem; border-bottom: 2px solid #1a1a1a; padding-bottom: 10px;">
-                    The Chili Harvest & Border Resilience: Absolute Purity from Farm to Port
-                </div>
-                <div style="margin-top: 15px;">
-                    <p><strong>Fresh Chili Harvest Inspection</strong></p>
-                    <p>Fresh agricultural spread inspection at sorting facilities. Absolute transparency and rigorous chemical residue screening ensure safety for global consumers.</p>
-                    <p style="margin-top: 15px; color: #444; font-size: 0.95rem;">
-                        By aggregating government inspection data, pesticide violations, and heavy metal contamination reports into one searchable hub, FOOD OK delivers absolute clarity and zero uncertainty for international trade and everyday consumers.
-                    </p>
-                </div>
-            </div>
+  <section class="search" aria-label="Search">
+    <form id="sform" role="search">
+      <select id="agency" aria-label="Agency">
+        <option value="all">All agencies</option>
+        <option value="fda">US FDA</option>
+      </select>
+      <input id="qinput" type="search" placeholder="Search product, firm, chemical (e.g. chili, lead, peanut)" autocomplete="off" aria-label="Search">
+      <button type="submit">Search</button>
+    </form>
+  </section>
+  <div class="chips" id="chips">
+    <button type="button" data-q="chili">chili</button>
+    <button type="button" data-q="rice">rice</button>
+    <button type="button" data-q="shrimp">shrimp</button>
+    <button type="button" data-q="coffee">coffee</button>
+    <button type="button" data-q="peanut">peanut</button>
+    <button type="button" data-q="lead">lead</button>
+    <button type="button" data-q="pesticide">pesticide</button>
+  </div>
 
-            <!-- 오른쪽 컬럼 (규제 기관 허브) -->
-            <div class="column">
-                <div class="section-title">Regulatory Hubs</div>
-                <p style="font-size: 0.8rem; color: #666; margin-bottom: 15px;">Official global customs & food safety authorities:</p>
-                <ul class="regulatory-list">
-                    <div>
-                        <li><span>중국 (Customs General Administration)</span> GACC</li>
-                        <li><span>미국 (Food and Drug Administration)</span> US FDA</li>
-                        <li><span>일본 (Health, Labour & Welfare)</span> MHLW</li>
-                        <li><span>유럽 (Food Safety Authority)</span> EFSA</li>
-                        <li><span>한국 (Food and Drug Safety)</span> MFDS</li>
-                        <li><span>호주 (Agriculture, Fisheries & Forestry)</span> DAFF</li>
-                        <li><span>캐나다 (Food Inspection Agency)</span> CFIA</li>
-                    </div>
-                </ul>
-            </div>
-        </div>
+  <section class="stats" id="stats" aria-label="Last 90 days at a glance">
+    <div class="stat red"><div class="n" id="s1">–</div><div class="l">US FDA Class I recalls, serious health risk (90 days)</div></div>
+    <div class="stat"><div class="n" id="s2">–</div><div class="l">US FDA Class II recalls (90 days)</div></div>
+    <div class="stat"><div class="n" id="s3">–</div><div class="l">US FDA Class III recalls (90 days)</div></div>
+    <div class="stat"><div class="n" id="s4">–</div><div class="l">US FDA chemical or heavy-metal related (90 days)</div></div>
+  </section>
+
+  <section class="front">
+    <div class="col">
+      <h2 class="kicker">The Global Surveillance Mission</h2>
+      <p>Protecting people everywhere by monitoring toxic chemical residues, heavy metals, and biological risks across the international food supply chain.</p>
+      <div class="note">
+        <h3>Free, no sign-up</h3>
+        <p>No account and no personal data. Every alert links to its official government source.</p>
+      </div>
+      <div class="note">
+        <h3>Auto-translation</h3>
+        <p>Alerts can be translated instantly into any language with the selector at the top of the page.</p>
+      </div>
     </div>
 
+    <div class="col lead" id="lead">
+      <div class="static">
+        <div class="eyebrow">The Chili Harvest &amp; Border Resilience</div>
+        <h2>Absolute Purity from Farm to Port</h2>
+        <p class="dek">By aggregating government inspection data, pesticide violations, and heavy metal contamination reports into one searchable hub, Food OK delivers clarity and zero uncertainty for international trade and everyday consumers.</p>
+      </div>
+    </div>
+
+    <div class="col hubs">
+      <h2 class="kicker">Regulatory Hubs</h2>
+      <p>Official global customs and food safety authorities:</p>
+      <ul>
+        <li class="live"><a href="https://open.fda.gov/apis/food/enforcement/" target="_blank" rel="noopener"><span>United States (Food and Drug Administration)</span><span class="code">US FDA · LIVE</span></a></li>
+        <li><a href="http://english.customs.gov.cn/" target="_blank" rel="noopener"><span>China (Customs General Administration)</span><span class="code">GACC</span></a></li>
+        <li><a href="https://www.mhlw.go.jp/english/" target="_blank" rel="noopener"><span>Japan (Health, Labour &amp; Welfare)</span><span class="code">MHLW</span></a></li>
+        <li><a href="https://www.efsa.europa.eu/en" target="_blank" rel="noopener"><span>Europe (Food Safety Authority)</span><span class="code">EFSA</span></a></li>
+        <li><a href="https://www.mfds.go.kr/eng/index.do" target="_blank" rel="noopener"><span>Korea (Food and Drug Safety)</span><span class="code">MFDS</span></a></li>
+        <li><a href="https://www.agriculture.gov.au/" target="_blank" rel="noopener"><span>Australia (Agriculture, Fisheries &amp; Forestry)</span><span class="code">DAFF</span></a></li>
+        <li><a href="https://inspection.canada.ca/en" target="_blank" rel="noopener"><span>Canada (Food Inspection Agency)</span><span class="code">CFIA</span></a></li>
+        <li><a href="https://www.sfa.gov.sg/" target="_blank" rel="noopener"><span>Singapore (Food Agency)</span><span class="code">SFA</span></a></li>
+        <li><a href="https://en.fda.moph.go.th/" target="_blank" rel="noopener"><span>Thailand (Food and Drug Administration)</span><span class="code">FDA Thai</span></a></li>
+        <li><a href="https://www.moh.gov.my/" target="_blank" rel="noopener"><span>Malaysia (Ministry of Health)</span><span class="code">MOH</span></a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="wire" aria-live="polite">
+    <div class="wirehead">
+      <h2 id="wtitle">Live Global Food Safety Wire</h2>
+      <span class="badge" id="wbadge">LIVE FEED · US FDA</span>
+    </div>
+    <p class="asof" id="asof"></p>
+    <div class="grid" id="grid"></div>
+    <button class="more" id="more" hidden>Load more alerts</button>
+  </section>
+
+  <footer>
+    <div class="cols">
+      <div>
+        <h4>About the data</h4>
+        <p>Live alerts come directly from the U.S. FDA food enforcement reports through the public openFDA service. Other agencies are linked to their official portals while direct feeds are being connected. Dates shown are the agency’s report dates.</p>
+      </div>
+      <div>
+        <h4>Notice</h4>
+        <p>Food OK is an information service and does not replace official regulatory advice. Always confirm details with the issuing authority.</p>
+      </div>
+    </div>
+    <p style="margin-top:18px">© 2026 Food OK.org — Global Food Safety &amp; Risk Monitoring Initiative.</p>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var API = "https://api.fda.gov/food/enforcement.json";
+  var PAGE = 12;
+  var API_BASE = "https://foodok-api.hanmo73.workers.dev";
+  var apiDown = false;
+  var state = { tab:"world", q:"", skip:0, total:0 };
+
+  var CHEM = ['pesticide','lead','cadmium','arsenic','mercury','"heavy metal"','chlorpyrifos','melamine','aflatoxin','sudan'];
+
+  var $ = function(id){ return document.getElementById(id); };
+  function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];}); }
+  function clip(s,n){ s=String(s||"").replace(/\s+/g," ").trim(); return s.length>n ? s.slice(0,n-1).replace(/\s+\S*$/,"")+"…" : s; }
+  function ymd(d){ return d.getFullYear()+("0"+(d.getMonth()+1)).slice(-2)+("0"+d.getDate()).slice(-2); }
+  function fmtDate(s){
+    if(!s||s.length!==8) return "";
+    var d = new Date(+s.slice(0,4), +s.slice(4,6)-1, +s.slice(6,8));
+    return d.toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"});
+  }
+  function window90(){
+    var e = new Date(), b = new Date(); b.setDate(b.getDate()-90);
+    return "report_date:["+ymd(b)+"+TO+"+ymd(e)+"]";
+  }
+  function orGroup(fields, term){
+    var t = /^".*"$/.test(term) ? term : '"'+term+'"';
+    return fields.map(function(f){ return f+":"+encodeURIComponent(t).replace(/%20/g,"+"); }).join("+");
+  }
+  function chemGroup(){
+    return CHEM.map(function(t){ return orGroup(["reason_for_recall"], t); }).join("+");
+  }
+  function buildSearch(){
+    var parts = [];
+    if(state.tab==="chem") parts.push("("+chemGroup()+")");
+    if(state.q) parts.push("("+orGroup(["product_description","reason_for_recall","recalling_firm","country"], state.q)+")");
+    return parts.join("+AND+");
+  }
+  function get(params){
+    return fetch(API+"?"+params).then(function(r){
+      if(r.status===404) return { results:[], meta:{ results:{ total:0 } } };
+      if(!r.ok) throw new Error("HTTP "+r.status);
+      return r.json();
+    });
+  }
+
+  /* date line */
+  $("today").textContent = new Date().toLocaleDateString("en-US",{weekday:"long",year:"numeric",month:"long",day:"numeric"}).toUpperCase();
+
+  /* stats */
+  function loadStats(){
+    var w = window90();
+    get("search="+w+"&count=classification.exact").then(function(d){
+      var m = {}; (d.results||[]).forEach(function(x){ m[x.term]=x.count; });
+      $("s1").textContent = (m["Class I"]||0).toLocaleString();
+      $("s2").textContent = (m["Class II"]||0).toLocaleString();
+      $("s3").textContent = (m["Class III"]||0).toLocaleString();
+    }).catch(function(){});
+    get("search="+w+"+AND+("+chemGroup()+")&limit=1").then(function(d){
+      $("s4").textContent = ((d.meta&&d.meta.results&&d.meta.results.total)||0).toLocaleString();
+    }).catch(function(){});
+  }
+
+  /* lead story: latest Class I */
+  function loadLead(){
+    get('search=classification:%22Class+I%22&sort=report_date:desc&limit=1').then(function(d){
+      var r = (d.results||[])[0]; if(!r) return;
+      $("lead").innerHTML =
+        '<div class="eyebrow">Latest Class I alert · US FDA · '+esc(fmtDate(r.report_date))+'</div>'+
+        '<h2>'+esc(clip(r.product_description,120))+'</h2>'+
+        '<p class="dek">'+esc(clip(r.reason_for_recall,260))+'</p>'+
+        '<div class="by">Recalling firm: '+esc(r.recalling_firm||"n/a")+(r.state?" · "+esc(r.state):"")+' · Source: U.S. FDA via openFDA</div>';
+    }).catch(function(){});
+  }
+
+  /* wire */
+  var TITLES = {
+    world:"Live Global Food Safety Wire", fda:"U.S. FDA Enforcement Reports", chem:"Pesticides & Heavy Metals",
+    gacc:"China GACC", asean:"ASEAN & Asia", sa:"South America"
+  };
+  function cardHTML(r){
+    var cls = r.classification||"";
+    var risk = cls==="Class I" ? "Serious risk" : cls==="Class II" ? "Moderate risk" : cls==="Class III" ? "Low risk" : "";
+    return '<article class="card">'+
+      '<div class="meta">US FDA · <b>'+esc(cls)+(risk?" · "+risk:"")+'</b> · '+esc(fmtDate(r.report_date))+'</div>'+
+      '<h3>'+esc(clip(r.product_description,110))+'</h3>'+
+      '<p>'+esc(clip(r.reason_for_recall,210))+'</p>'+
+      '<div class="foot">'+esc(r.recalling_firm||"")+(r.state?" · "+esc(r.state):"")+(r.status?" · "+esc(r.status):"")+'</div>'+
+    '</article>';
+  }
+  function skeleton(){ var s=""; for(var i=0;i<6;i++) s+='<div class="skel"></div>'; $("grid").innerHTML=s; }
+
+  var PENDING = {
+    gacc:{ name:"China GACC", url:"http://english.customs.gov.cn/", note:"Direct GACC alerts are being connected. Official notices are available on the GACC portal." },
+    asean:{ name:"ASEAN & Asia", url:"https://www.sfa.gov.sg/", note:"Singapore SFA, Thailand FDA, Malaysia MOH and Japan MHLW feeds are being connected. Use the Regulatory Hubs list for the official portals." },
+    sa:{ name:"South America", url:"https://www.fda.gov/", note:"South American agency feeds are planned. Until then, US FDA alerts involving imports are available in World Wire." }
+  };
+
+  function usingApi(){ return !!API_BASE && !apiDown && ["world","chem","asean"].indexOf(state.tab)>-1; }
+  function setHead(){
+    var api = usingApi();
+    $("wtitle").textContent = TITLES[state.tab]||TITLES.world;
+    $("wbadge").textContent = api ? "LIVE FEED · MULTI-AGENCY" : (PENDING[state.tab] ? "IN PREPARATION" : "LIVE FEED · US FDA");
+    $("wbadge").style.background = (!api && PENDING[state.tab]) ? "#5b5b58" : "";
+  }
+  function fmtISO(s){
+    if(!s) return "";
+    var d = new Date(s+"T00:00:00");
+    return isNaN(d) ? "" : d.toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"});
+  }
+  function uCardHTML(r){
+    var link = /^https?:\/\//.test(r.url||"") ? r.url : "";
+    var title = link ? '<a href="'+esc(link)+'" target="_blank" rel="noopener" style="text-decoration:none">'+esc(r.title)+'</a>' : esc(r.title);
+    return '<article class="card">'+
+      '<div class="meta">'+esc(r.source)+' · <b>'+esc(r.tag||"Alert")+'</b>'+(r.date?' · '+esc(fmtISO(r.date)):'')+'</div>'+
+      '<h3>'+title+'</h3>'+
+      (r.summary?'<p>'+esc(r.summary)+'</p>':'')+
+      (r.firm?'<div class="foot">'+esc(r.firm)+'</div>':'')+
+    '</article>';
+  }
+  function loadUnified(append){
+    if(!append){ state.skip = 0; skeleton(); }
+    var params = "limit="+PAGE+"&offset="+state.skip+
+      (state.tab==="chem"?"&chem=1":"")+(state.tab==="asean"?"&region=asia":"")+
+      (state.q?"&q="+encodeURIComponent(state.q):"");
+    fetch(API_BASE.replace(/\/$/,"")+"/api/alerts?"+params).then(function(r){
+      if(!r.ok) throw new Error("HTTP "+r.status); return r.json();
+    }).then(function(d){
+      var rows = d.items||[]; state.total = d.total||0;
+      if(!append) $("grid").innerHTML = "";
+      if(!rows.length && !append){
+        var msg = state.tab==="asean" ? "No Asian agency feed is connected yet. Use the Regulatory Hubs list for official portals." : "No alerts found"+(state.q?' for “'+esc(state.q)+'”':'')+". Try a broader term.";
+        $("grid").innerHTML = '<div class="empty">'+msg+'</div>'; $("more").hidden = true; $("asof").textContent = ""; return;
+      }
+      $("grid").insertAdjacentHTML("beforeend", rows.map(uCardHTML).join(""));
+      state.skip += rows.length;
+      $("more").hidden = state.skip >= state.total;
+      var live = Object.keys(d.sources||{}).filter(function(k){return d.sources[k].ok;}).map(function(k){return d.sources[k].name;});
+      $("asof").textContent = state.total.toLocaleString()+" matching alerts · showing "+state.skip.toLocaleString()+" · sources: "+(live.join(", ")||"none")+" · checked "+new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});
+    }).catch(function(){ apiDown = true; load(append); });
+  }
+
+  function load(append){
+    setHead();
+    if(usingApi()) return loadUnified(append);
+    if(PENDING[state.tab] && !state.q){
+      var p = PENDING[state.tab];
+      $("asof").textContent = "";
+      $("more").hidden = true;
+      $("grid").innerHTML = '<div class="empty"><strong>'+esc(p.name)+'.</strong> '+esc(p.note)+' <a href="'+esc(p.url)+'" target="_blank" rel="noopener">Open official portal</a></div>';
+      return;
+    }
+    if(!append){ state.skip = 0; skeleton(); }
+    var s = buildSearch();
+    var params = (s?"search="+s+"&":"")+"sort=report_date:desc&limit="+PAGE+"&skip="+state.skip;
+    get(params).then(function(d){
+      var rows = d.results||[];
+      state.total = (d.meta&&d.meta.results&&d.meta.results.total)||0;
+      if(!append) $("grid").innerHTML = "";
+      if(!rows.length && !append){
+        $("grid").innerHTML = '<div class="empty">No alerts found'+(state.q?' for “'+esc(state.q)+'”':'')+'. Try a broader term such as a product type.</div>';
+        $("more").hidden = true; $("asof").textContent = "";
+        return;
+      }
+      $("grid").insertAdjacentHTML("beforeend", rows.map(cardHTML).join(""));
+      state.skip += rows.length;
+      $("more").hidden = state.skip >= state.total;
+      $("asof").textContent = state.total.toLocaleString()+" matching alerts · showing "+state.skip.toLocaleString()+" · checked "+new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"})+" · Source: U.S. FDA via openFDA";
+    }).catch(function(){
+      if(!append) $("grid").innerHTML = '<div class="empty">The data service did not respond. <a href="#" id="retry">Try again</a>.</div>';
+      var r = $("retry"); if(r) r.addEventListener("click",function(e){ e.preventDefault(); load(false); });
+    });
+  }
+
+  /* events */
+  Array.prototype.forEach.call(document.querySelectorAll("nav.sections button"),function(b){
+    b.addEventListener("click",function(){
+      Array.prototype.forEach.call(document.querySelectorAll("nav.sections button"),function(x){ x.setAttribute("aria-selected","false"); });
+      b.setAttribute("aria-selected","true");
+      state.tab = b.getAttribute("data-tab");
+      load(false);
+    });
+  });
+  $("sform").addEventListener("submit",function(e){
+    e.preventDefault();
+    state.q = $("qinput").value.trim();
+    if(state.q && PENDING[state.tab]){ state.tab="world"; Array.prototype.forEach.call(document.querySelectorAll("nav.sections button"),function(x){ x.setAttribute("aria-selected", x.getAttribute("data-tab")==="world"?"true":"false"); }); }
+    load(false);
+  });
+  Array.prototype.forEach.call(document.querySelectorAll("#chips button"),function(b){
+    b.addEventListener("click",function(){ $("qinput").value=b.getAttribute("data-q"); $("sform").dispatchEvent(new Event("submit",{cancelable:true})); });
+  });
+  $("more").addEventListener("click",function(){ load(true); });
+
+  loadStats(); loadLead(); load(false);
+})();
+
+/* Google Translate widget (optional, fails silently) */
+function gtInit(){
+  try{ new google.translate.TranslateElement({pageLanguage:"en",layout:google.translate.TranslateElement.InlineLayout.SIMPLE,autoDisplay:false},"google_translate_element"); }catch(e){}
+}
+</script>
+<script src="https://translate.google.com/translate_a/element.js?cb=gtInit" async defer></script>
 </body>
 </html>
