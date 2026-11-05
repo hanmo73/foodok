@@ -1,16 +1,20 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FoodOK.org - Global Food Safety Intelligence</title>
+    <title>FOODOK - Global Food Safety & Risk Intelligence</title>
+    <!-- Monocle-inspired Elegant Serif & Clean Sans Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #ffffff;
+            --bg-color: #fcfbf9;
             --text-color: #111111;
-            --gray-text: #666666;
-            --brand-green: #0d7a5f;
-            --hero-yellow: #f4efd5;
+            --border-color: #222222;
+            --accent-yellow: #e6c547;
+            --ticker-bg: #111111;
+            --ticker-text: #ffffff;
+            --alert-red: #d93838;
         }
 
         * {
@@ -22,610 +26,412 @@
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            line-height: 1.5;
-            letter-spacing: -0.01em;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
         }
 
-        /* 1. 모노클 스타일의 여유로운 중앙 컨테이너 (양옆 여백 확보, 박스 테두리 제거) */
-        .site-container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 40px;
-        }
-
-        /* 모노클 상단 노란색 프로모션 배너 (외곽선 없이 깔끔하게) */
-        .top-promo-section {
-            background-color: var(--hero-yellow);
-            padding: 40px;
-            margin-top: 30px;
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 40px;
-            align-items: center;
-        }
-
-        .promo-title {
-            font-size: 24px;
-            font-weight: 800;
-            line-height: 1.25;
-            letter-spacing: -0.02em;
-            color: #1a1a1a;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-        }
-
-        .promo-desc {
-            font-size: 14px;
-            color: #333333;
-            line-height: 1.5;
-        }
-
-        .promo-side {
-            border-left: 1px solid #dcd6bc;
-            padding-left: 30px;
-            font-size: 13px;
-            color: var(--gray-text);
-        }
-
-        .promo-side strong {
-            color: var(--brand-green);
-            display: block;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        /* 서브 네비게이션 툴바 */
-        .sub-nav-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 18px 0;
-            border-bottom: 1px solid #e5e5e5;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--gray-text);
-            margin-top: 20px;
-        }
-
-        .sub-nav-links {
-            display: flex;
-            gap: 30px;
-        }
-
-        .sub-nav-links a {
-            text-decoration: none;
-            color: var(--text-color);
-            font-weight: 700;
-        }
-
-        .sub-nav-links a:hover {
-            color: var(--brand-green);
-        }
-
-        /* 2. 중앙 메인 로고 (FOODOK.org - org 50% 축소, OK는 그린) */
-        header {
-            padding: 50px 0 30px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-        }
-
-        .logo {
-            font-size: 52px;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 0.03em;
-            text-decoration: none;
-            color: var(--text-color);
-            line-height: 1;
-        }
-
-        .logo .ok-green {
-            color: var(--brand-green);
-        }
-
-        .logo .domain-org {
-            font-size: 26px; /* org를 50% 축소 */
-            font-weight: 600;
-            color: var(--gray-text);
-        }
-
-        .header-meta {
-            font-size: 12px;
-            text-transform: uppercase;
-            color: var(--gray-text);
-            letter-spacing: 0.05em;
-            text-align: right;
-            padding-bottom: 5px;
-        }
-
-        /* 3. 핵심 기능: 강력한 글로벌 실시간 서치바 (Search Bar) */
-        .search-section {
-            background-color: #faf9f5;
-            padding: 40px;
-            margin-bottom: 50px;
-            border-top: 1px solid #111;
-            border-bottom: 1px solid #111;
-        }
-
-        .search-title {
-            font-size: 22px;
-            font-weight: 800;
-            margin-bottom: 8px;
-            letter-spacing: -0.01em;
-        }
-
-        .search-subtitle {
-            font-size: 14px;
-            color: var(--gray-text);
-            margin-bottom: 25px;
-        }
-
-        .search-box-wrapper {
-            display: flex;
-            gap: 12px;
-            max-width: 800px;
-        }
-
-        .search-input {
-            flex: 1;
-            padding: 16px 20px;
-            font-size: 16px;
-            border: 1.5px solid #111;
-            background: #ffffff;
-            outline: none;
-            font-family: inherit;
-        }
-
-        .search-btn {
-            background-color: var(--brand-green);
-            color: #ffffff;
-            border: none;
-            padding: 0 30px;
-            font-size: 15px;
-            font-weight: 700;
-            text-transform: uppercase;
-            cursor: pointer;
-            letter-spacing: 0.05em;
-            transition: background 0.2s;
-        }
-
-        .search-btn:hover {
-            background-color: #085a45;
-        }
-
-        .search-tags {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-
-        .tag-label {
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--gray-text);
-            text-transform: uppercase;
-        }
-
-        .search-tag {
-            font-size: 12px;
-            background: #ffffff;
-            border: 1px solid #ccc;
-            padding: 4px 10px;
-            cursor: pointer;
-            color: #333;
-            text-decoration: none;
-        }
-
-        .search-tag:hover {
-            border-color: #111;
-            color: #111;
-        }
-
-        /* 실시간 업데이트 뉴스 티커 박스 */
-        .live-news-ticker-box {
-            border-top: 1px solid #111;
-            border-bottom: 1px solid #111;
-            padding: 15px 0;
-            margin-bottom: 50px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .ticker-badge {
-            background: var(--brand-green);
-            color: #ffffff;
-            padding: 4px 10px;
-            font-size: 11px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            flex-shrink: 0;
-        }
-
-        .ticker-viewport {
-            height: 22px;
+        /* CNBC-style Live Ticker Bar */
+        .live-ticker {
+            background-color: var(--ticker-bg);
+            color: var(--ticker-text);
+            font-size: 0.85rem;
+            padding: 8px 0;
             overflow: hidden;
+            white-space: nowrap;
             position: relative;
-            width: 100%;
+            border-bottom: 1px solid #333;
         }
 
-        .ticker-track {
-            position: absolute;
-            width: 100%;
-            animation: slideUpNews 12s infinite cubic-bezier(0.4, 0, 0.2, 1);
+        .ticker-wrap {
+            display: inline-block;
+            animation: ticker 35s linear infinite;
         }
 
         .ticker-item {
-            height: 22px;
-            line-height: 22px;
-            font-size: 13px;
+            display: inline-block;
+            padding: 0 30px;
+        }
+
+        .ticker-item span.tag {
+            background-color: var(--alert-red);
+            color: white;
+            padding: 2px 6px;
+            font-size: 0.75rem;
             font-weight: 600;
-            white-space: nowrap;
-            color: var(--text-color);
+            margin-right: 8px;
+            border-radius: 2px;
         }
 
-        @keyframes slideUpNews {
-            0% { transform: translateY(0); }
-            20% { transform: translateY(0); }
-            25% { transform: translateY(-22px); }
-            45% { transform: translateY(-22px); }
-            50% { transform: translateY(-44px); }
-            70% { transform: translateY(-44px); }
-            75% { transform: translateY(-66px); }
-            95% { transform: translateY(-66px); }
-            100% { transform: translateY(0); }
+        @keyframes ticker {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-50%, 0, 0); }
         }
 
-        /* 컨텐츠 영역 헤딩 */
-        .section-heading {
-            font-size: 16px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #111;
-            padding-bottom: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
-        /* 국가별 필터 탭 */
-        .filter-bar {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-bottom: 40px;
-            padding: 20px 0;
-            align-items: center;
-        }
-
-        .filter-label {
-            font-size: 12px;
-            font-weight: 800;
-            text-transform: uppercase;
-            margin-right: 15px;
-            letter-spacing: 0.05em;
-        }
-
-        .filter-btn {
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            border: 1px solid #ccc;
-            background: #ffffff;
-            padding: 6px 12px;
-            cursor: pointer;
-            transition: all 0.2s;
-            letter-spacing: 0.05em;
-        }
-
-        .filter-btn:hover, .filter-btn.active {
-            border-color: #111;
-            background: #111;
-            color: #ffffff;
-        }
-
-        .filter-btn.all-btn {
-            background: var(--brand-green);
-            color: #ffffff;
-            border-color: var(--brand-green);
-        }
-
-        /* 뉴스 및 데이터 그리드 (테두리 박스 없이 깔끔한 모노클 그리드) */
-        .country-grid {
+        /* Top Yellow Announcement Box (Monocle Style with Chili Photo) */
+        .top-banner {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
-            margin-bottom: 80px;
-        }
-
-        .country-block {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .block-header {
-            border-bottom: 1px solid #111;
-            padding-bottom: 8px;
-            margin-bottom: 12px;
-            display: flex;
-            justify-content: space-between;
+            grid-template-columns: 2fr 1fr;
+            background-color: var(--accent-yellow);
+            border: 1px solid var(--border-color);
+            margin: 20px 0;
+            min-height: 120px;
             align-items: center;
         }
 
-        .country-name {
-            font-size: 13px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+        .top-banner-text {
+            padding: 20px 40px;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: #1a1a1a;
         }
 
-        .compliance-badge {
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--gray-text);
-        }
-
-        .block-media {
+        .top-banner-image img {
             width: 100%;
-            height: 180px;
-            background: #eaeaea;
-            margin-bottom: 15px;
-            overflow: hidden;
-        }
-
-        .block-media img {
-            width: 100%;
-            height: 100%;
+            height: 140px;
             object-fit: cover;
-            filter: grayscale(10%);
+            display: block;
+            border-left: 1px solid var(--border-color);
         }
 
-        .news-title {
-            font-size: 16px;
-            font-weight: 800;
-            margin-bottom: 8px;
-            line-height: 1.3;
-        }
-
-        .news-snippet {
-            font-size: 13px;
-            color: var(--gray-text);
-            margin-bottom: 12px;
-            line-height: 1.5;
-        }
-
-        .block-footer {
-            font-size: 11px;
-            color: var(--gray-text);
-            display: flex;
-            justify-content: space-between;
-            border-top: 1px solid #e5e5e5;
-            padding-top: 8px;
-        }
-
-        /* 푸터 */
-        footer {
-            border-top: 1px solid #111;
-            padding: 40px 0;
+        /* Header Navigation */
+        header {
             text-align: center;
-            font-size: 12px;
-            color: var(--gray-text);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-top: 40px;
-            margin-bottom: 40px;
+            padding: 30px 0 20px 0;
+            border-bottom: 1px solid var(--border-color);
         }
 
-        @media (max-width: 1024px) {
-            .site-container {
-                padding: 0 20px;
-            }
-            .top-promo-section {
-                grid-template-columns: 1fr;
-            }
-            .promo-side {
-                border-left: none;
-                border-top: 1px solid #dcd6bc;
-                padding-left: 0;
-                padding-top: 20px;
-            }
+        .sub-header-info {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .site-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .site-tagline {
+            font-family: 'Newsreader', serif;
+            font-style: italic;
+            font-size: 1.15rem;
+            color: #444;
+            margin-bottom: 20px;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 12px 0;
+            margin-top: 15px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: inherit;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #d93838;
+        }
+
+        /* Central Search Engine Section */
+        .search-hero {
+            background: #111;
+            color: #fff;
+            padding: 60px 20px;
+            text-align: center;
+            margin: 30px 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .search-hero h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+        }
+
+        .search-hero p {
+            color: #ccc;
+            font-size: 1rem;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .search-box-wrapper {
+            max-width: 700px;
+            margin: 0 auto;
+            display: flex;
+            background: #fff;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 2px solid var(--accent-yellow);
+        }
+
+        .search-box-wrapper input {
+            flex: 1;
+            padding: 16px 20px;
+            font-size: 1rem;
+            border: none;
+            outline: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .search-box-wrapper button {
+            background-color: var(--accent-yellow);
+            color: #111;
+            border: none;
+            padding: 0 30px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .search-box-wrapper button:hover {
+            background-color: #d4b33b;
+        }
+
+        .search-tags {
+            margin-top: 15px;
+            font-size: 0.85rem;
+            color: #aaa;
+        }
+
+        .search-tags span {
+            color: var(--accent-yellow);
+            cursor: pointer;
+            margin: 0 5px;
+            text-decoration: underline;
+        }
+
+        /* Main Content Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            margin: 40px 0;
+        }
+
+        .article-section {
+            border-right: 1px solid #ddd;
+            padding-right: 40px;
+        }
+
+        .article-main-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.4rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .article-desc {
+            font-size: 1.05rem;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        .mission-box {
+            background: #f4f2ec;
+            border-left: 4px solid var(--border-color);
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .mission-box h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+
+        .mission-box p {
+            font-size: 0.95rem;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Sidebar Widgets */
+        .sidebar-widget {
+            border: 1px solid var(--border-color);
+            background: #fff;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .sidebar-widget.radio-box {
+            background: #111;
+            color: #fff;
+        }
+
+        .sidebar-widget h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            border-bottom: 1px solid currentColor;
+            padding-bottom: 8px;
+        }
+
+        .logo-showcase {
+            text-align: center;
+        }
+
+        .logo-showcase img {
+            width: 160px;
+            height: 160px;
+            object-fit: contain;
+            border-radius: 50%;
+            background: #fcfbf9;
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin-bottom: 15px;
+        }
+
+        footer {
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            padding: 40px 0;
+            font-size: 0.85rem;
+            color: #666;
+            background: #f5f3ee;
+        }
+
+        @media (max-width: 768px) {
+            .top-banner { grid-template-columns: 1fr; }
+            .main-grid { grid-template-columns: 1fr; }
+            .article-section { border-right: none; padding-right: 0; }
+            .site-title { font-size: 3rem; }
         }
     </style>
 </head>
 <body>
 
-    <div class="site-container">
+    <!-- CNBC-style Live Updating Ticker -->
+    <div class="live-ticker">
+        <div class="ticker-wrap">
+            <div class="ticker-item"><span class="tag">LIVE ALERT</span> [EU RASFF] Chlorpyrifos detected in imported chili peppers - Batch #9923 (1m ago)</div>
+            <div class="ticker-item"><span class="tag">RECALL</span> Lead residue exceeded in marine seaweed extracts - FDA Warning (4m ago)</div>
+            <div class="ticker-item"><span class="tag">UPDATED</span> 1,420 new government food safety inspection logs synced globally (Just now)</div>
+            <div class="ticker-item"><span class="tag">WATCH</span> Cadmium levels monitored in regional rice distribution hubs (12m ago)</div>
+            <!-- Duplicate for smooth infinite loop -->
+            <div class="ticker-item"><span class="tag">LIVE ALERT</span> [EU RASFF] Chlorpyrifos detected in imported chili peppers - Batch #9923 (1m ago)</div>
+            <div class="ticker-item"><span class="tag">RECALL</span> Lead residue exceeded in marine seaweed extracts - FDA Warning (4m ago)</div>
+        </div>
+    </div>
 
-        <!-- 1. 모노클 스타일 최상단 노란색 프로모션 배너 (양옆 여백 확보) -->
-        <section class="top-promo-section">
-            <div>
-                <h2 class="promo-title">EASY LAYERS, GLOBAL INTELLIGENCE AND MULTI-COUNTRY SAFETY SPECIAL</h2>
-                <p class="promo-desc">전 세계 정부 공식 검역 데이터와 미디어 피드를 단 1초 만에 검색하는 차세대 식품 안전 인텔리전스 플랫폼.</p>
+    <div class="container">
+        <!-- Top Yellow Banner with Chili Photo -->
+        <div class="top-banner">
+            <div class="top-banner-text">
+                GLOBAL FOOD SAFETY & RISK INTELLIGENCE — LIVE UPDATES 24/7
             </div>
-            <div class="promo-side">
-                <strong>For Everyone & Business</strong>
-                <span>Automated Cron Pipeline Live Sync &middot; Investor Edition</span>
+            <div class="top-banner-image">
+                <img src="1000010908.jpg" alt="Fresh Chili Harvest">
             </div>
-        </section>
-
-        <!-- 서브 네비게이션 툴바 -->
-        <div class="sub-nav-bar">
-            <div class="sub-nav-links">
-                <a href="#">Intelligence</a>
-                <a href="#">Pipeline Architecture</a>
-                <a href="#">Global Coverage</a>
-                <a href="#">Investor Brief</a>
-            </div>
-            <div>24/7 Automated Sync Active</div>
         </div>
 
-        <!-- 2. 중앙 메인 로고 (FOODOK.org - org 50% 축소, OK는 그린) -->
+        <!-- Header -->
         <header>
-            <a href="#" class="logo">Food<span class="ok-green">OK</span><span class="domain-org">.org</span></a>
-            <div class="header-meta">
-                Global Food Safety Intelligence<br>
-                <span style="font-size: 11px; color: var(--brand-green); font-weight: 700;">● LIVE PIPELINE ACTIVE</span>
+            <div class="sub-header-info">Global Food Safety Intelligence Network</div>
+            <h1 class="site-title">FOODOK</h1>
+            <div class="site-tagline">"Protecting everyone by monitoring pesticides, heavy metals, and chemical risks worldwide."</div>
+            
+            <div class="nav-links">
+                <a href="#">Affairs</a>
+                <a href="#">Pesticides</a>
+                <a href="#">Heavy Metals</a>
+                <a href="#">Recalls</a>
+                <a href="#">Global Alerts</a>
+                <a href="#">Research</a>
+                <a href="#">Shop</a>
             </div>
         </header>
 
-        <!-- 3. 핵심 기능: 글로벌 실시간 서치바 (Search Bar) -->
-        <section class="search-section">
-            <h2 class="search-title">What food do you want to check?</h2>
-            <p class="search-subtitle">No sign-up, free, official government sources only. Instant global search across 17+ regions.</p>
+        <!-- Central Search Engine Section (Core Feature) -->
+        <section class="search-hero">
+            <h2>Search Global Food Safety & Risk Data</h2>
+            <p>Instantly search government inspection databases worldwide for pesticides, heavy metals, chemical residues, and dangerous food contamination alerts.</p>
             <div class="search-box-wrapper">
-                <input type="text" class="search-input" placeholder="e.g. rice, shrimp, Vietnam chili, salmon...">
-                <button class="search-btn">Search</button>
+                <input type="text" placeholder="Search by crop, seafood, chemical, pesticide (e.g., Chlorpyrifos, Cadmium, Chili)...">
+                <button type="button">Search Risk</button>
             </div>
             <div class="search-tags">
-                <span class="tag-label">Popular:</span>
-                <a href="#" class="search-tag">rice</a>
-                <a href="#" class="search-tag">chili</a>
-                <a href="#" class="search-tag">shrimp</a>
-                <a href="#" class="search-tag">coffee</a>
-                <a href="#" class="search-tag">peanut</a>
-                <a href="#" class="search-tag">Vietnam</a>
+                Popular Searches: 
+                <span onclick="alert('Searching Pesticides...')">Pesticide Residue</span> | 
+                <span onclick="alert('Searching Heavy Metals...')">Heavy Metals (Lead/Cadmium)</span> | 
+                <span onclick="alert('Searching Seafood Alerts...')">Seafood Quarantine</span> | 
+                <span onclick="alert('Searching Daily Recalls...')">Daily Recalls</span>
             </div>
         </section>
 
-        <!-- 실시간 업데이트 뉴스 티커 박스 -->
-        <div class="live-news-ticker-box">
-            <div class="ticker-badge">LIVE FEED</div>
-            <div class="ticker-viewport">
-                <div class="ticker-track">
-                    <div class="ticker-item">[AUTO-SYNC] US FDA: Jovy Gummy Worms Neon Recall Notice updated (Just now)</div>
-                    <div class="ticker-item">[CRON PIPELINE] Japan MHLW: Import inspection payload successfully indexed</div>
-                    <div class="ticker-item">[LIVE FEED] EU RASFF: Border rejection threshold synced across 27 member states</div>
-                    <div class="ticker-item">[ASEAN SYNC] Vietnam VFA & Thailand FDA: Pyeongport agricultural manifest verified</div>
+        <!-- Main Content Area -->
+        <div class="main-grid">
+            <!-- Article & Mission Section -->
+            <div class="article-section">
+                <h2 class="article-main-title">The global food supply chain audit: Tracking invisible risks before they reach your table.</h2>
+                <p class="article-desc">Our mission is to safeguard consumers and global trade partners by aggregating government inspection data, pesticide violations, and heavy metal contamination reports into one searchable hub.</p>
+                
+                <div class="mission-box">
+                    <h3>Food Safety Search For Everyone</h3>
+                    <p>Search any agricultural or marine product instantly to check for pesticide residues, heavy metals, and food safety alerts from around the world—all in one place. We bridge the gap between complex government regulatory databases and everyday consumers.</p>
                 </div>
+
+                <p style="margin-top: 20px; color: #555;">
+                    Government inspection portals are often scattered and difficult to navigate. FOODOK brings real-time transparency to the global food market, ensuring absolute purity and trust from farm to port.
+                </p>
             </div>
+
+            <!-- Sidebar -->
+            <aside>
+                <!-- Brand Logo Showcase Widget -->
+                <div class="sidebar-widget logo-showcase">
+                    <h4>Purity & Trust Logo</h4>
+                    <img src="watermarked_img_3337673120327553039.png" alt="Foodok Intelligence Logo">
+                    <p style="font-size: 0.85rem; color: #555; margin-top: 10px;">
+                        Symbolizing transparency, purity, and rigorous agricultural inspection.
+                    </p>
+                </div>
+
+                <!-- Live Updates Status Widget -->
+                <div class="sidebar-widget radio-box">
+                    <h4>FOODOK LIVE WIRE</h4>
+                    <p style="font-size: 0.9rem; margin: 10px 0; color: #ccc;">
+                        🔄 <strong>Real-time Sync Active:</strong> Continuously polling international food safety authorities, customs, and health ministries.
+                    </p>
+                    <div style="background: #222; padding: 12px; margin-top: 15px; font-size: 0.85rem; border-left: 3px solid var(--accent-yellow);">
+                        <span>Status: All global data nodes updating every 60 seconds. Zero latency risk tracking.</span>
+                    </div>
+                </div>
+            </aside>
         </div>
 
-        <main>
-            <!-- 국가별 필터 바 -->
-            <div class="section-heading">
-                <span>Global Coverage & Media Archives</span>
-                <span>Select Region</span>
-            </div>
-
-            <div class="filter-bar">
-                <span class="filter-label">Filter:</span>
-                <button class="filter-btn all-btn active">전체 (All)</button>
-                <button class="filter-btn">🇺🇸 United States</button>
-                <button class="filter-btn">🇯🇵 Japan</button>
-                <button class="filter-btn">🇪🇺 European Union</button>
-                <button class="filter-btn">🇦🇺 Australia</button>
-                <button class="filter-btn">🇨🇦 Canada</button>
-                <button class="filter-btn">🇦🇪 Middle East (GCC)</button>
-                <button class="filter-btn">🇹🇭 Thailand</button>
-                <button class="filter-btn">🇲🇾 Malaysia</button>
-                <button class="filter-btn">🇻🇳 Vietnam</button>
-                <button class="filter-btn">🇰🇭 Cambodia</button>
-                <button class="filter-btn">🇱🇦 Laos</button>
-                <button class="filter-btn">🇸🇬 Singapore</button>
-                <button class="filter-btn">🇧🇳 Brunei</button>
-                <button class="filter-btn">🇮🇩 Indonesia</button>
-                <button class="filter-btn">🇧🇷 Brazil</button>
-                <button class="filter-btn">🇦🇷 Argentina</button>
-                <button class="filter-btn">🇵🇹 Portugal</button>
-            </div>
-
-            <!-- 라이브 피드 그리드 (박스 테두리 제거, 모노클 미니멀 스타일) -->
-            <div class="country-grid">
-                
-                <!-- 미국 -->
-                <div class="country-block">
-                    <div>
-                        <div class="block-header">
-                            <span class="country-name">United States</span>
-                            <span class="compliance-badge">FDA + Media</span>
-                        </div>
-                        <div class="block-media">
-                            <img src="https://images.unsplash.com/photo-1584727638096-042c45049ebe?auto=format&fit=crop&w=600&q=80" alt="US FDA">
-                        </div>
-                        <h3 class="news-title">Jovy Gummy Worms Neon Recall Notice & Media Alert</h3>
-                        <p class="news-snippet">Automated ingestion from US FDA official database and major economic media wires. Unlisted allergen detected.</p>
-                    </div>
-                    <div class="block-footer">
-                        <span>Source: US FDA Official</span>
-                        <span>Auto-Synced Today</span>
-                    </div>
-                </div>
-
-                <!-- 동남아시아 -->
-                <div class="country-block">
-                    <div>
-                        <div class="block-header">
-                            <span class="country-name">Southeast Asia (VN·TH·SG)</span>
-                            <span class="compliance-badge">VFA / SFA</span>
-                        </div>
-                        <div class="block-media">
-                            <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80" alt="ASEAN Agriculture">
-                        </div>
-                        <h3 class="news-title">Pyeongport Arrival & Regional Inspection Feed</h3>
-                        <p class="news-snippet">Real-time automated tracking of agricultural exports (Chili varieties) across Vietnam, Thailand, and destination ports.</p>
-                    </div>
-                    <div class="block-footer">
-                        <span>Source: ASEAN Authorities</span>
-                        <span>Auto-Synced Today</span>
-                    </div>
-                </div>
-
-                <!-- 유럽 & 중동 -->
-                <div class="country-block">
-                    <div>
-                        <div class="block-header">
-                            <span class="country-name">EU & Middle East (GCC)</span>
-                            <span class="compliance-badge">RASFF / GCC</span>
-                        </div>
-                        <div class="block-media">
-                            <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=600&q=80" alt="EU RASFF">
-                        </div>
-                        <h3 class="news-title">RASFF Border Rejection & Middle East Import Alerts</h3>
-                        <p class="news-snippet">Continuous automated scraping of chemical contaminant thresholds and trade media bulletins across European and GCC markets.</p>
-                    </div>
-                    <div class="block-footer">
-                        <span>Source: EU RASFF</span>
-                        <span>Auto-Synced Today</span>
-                    </div>
-                </div>
-
-                <!-- 남미 & 포르투갈 -->
-                <div class="country-block">
-                    <div>
-                        <div class="block-header">
-                            <span class="country-name">Latin America & Portugal</span>
-                            <span class="compliance-badge">ANVISA / ASAE</span>
-                        </div>
-                        <div class="block-media">
-                            <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=600&q=80" alt="Global Trade">
-                        </div>
-                        <h3 class="news-title">ANVISA & ASAE Agricultural Safety Feed</h3>
-                        <p class="news-snippet">Automated data collection from Brazilian, Argentinean, and Portuguese food safety regulators and regional press.</p>
-                    </div>
-                    <div class="block-footer">
-                        <span>Source: ANVISA / ASAE</span>
-                        <span>Auto-Synced Today</span>
-                    </div>
-                </div>
-
-            </div>
-        </main>
-
+        <!-- Footer -->
         <footer>
-            &copy; 2026 FoodOK.org &middot; All Rights Reserved. Designed for Professional Investors.
+            <p>&copy; 2026 FOODOK.org — Global Food Safety & Risk Monitoring Initiative. All rights reserved.</p>
         </footer>
-
     </div>
 
 </body>
