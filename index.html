@@ -178,6 +178,7 @@ footer p{margin:0 0 10px}
     <ul role="tablist">
       <li><button role="tab" data-tab="world" aria-selected="true">World Wire</button></li>
       <li><button role="tab" data-tab="gacc" aria-selected="false">China GACC</button></li>
+      <li><button role="tab" data-tab="rasff" aria-selected="false">Europe RASFF</button></li>
       <li><button role="tab" data-tab="fda" aria-selected="false">US FDA</button></li>
       <li><button role="tab" data-tab="asean" aria-selected="false">ASEAN &amp; Asia</button></li>
       <li><button role="tab" data-tab="sa" aria-selected="false">South America</button></li>
@@ -286,7 +287,7 @@ footer p{margin:0 0 10px}
     <div class="cols">
       <div>
         <h4>About the data</h4>
-        <p>Live alerts come directly from official government sources: the U.S. FDA (openFDA), UK Food Standards Agency, Canada CFIA, EU RASFF and the Hong Kong Centre for Food Safety. China GACC data comes from the monthly lists of foods refused entry published by China Customs, translated by Food OK. Other agencies are linked to their official portals while direct feeds are being connected. Dates shown are the agency’s report dates.</p>
+        <p>Live alerts come directly from official government sources: the U.S. FDA (openFDA), UK Food Standards Agency, Canada CFIA, EU RASFF and the Hong Kong Centre for Food Safety. A 12-month archive of RASFF notifications is searchable in the Europe RASFF tab. China GACC data comes from the monthly lists of foods refused entry published by China Customs, translated by Food OK. Other agencies are linked to their official portals while direct feeds are being connected. Dates shown are the agency’s report dates.</p>
       </div>
       <div>
         <h4>Notice</h4>
@@ -386,7 +387,7 @@ footer p{margin:0 0 10px}
   /* wire */
   var TITLES = {
     world:"Live Global Food Safety Wire", fda:"U.S. FDA Enforcement Reports", chem:"Pesticides & Heavy Metals",
-    gacc:"China GACC", asean:"ASEAN & Asia", sa:"South America"
+    gacc:"China GACC", rasff:"Europe RASFF · 12-month archive", asean:"ASEAN & Asia", sa:"South America"
   };
   function cardHTML(r){
     var cls = r.classification||"";
@@ -410,9 +411,9 @@ footer p{margin:0 0 10px}
     $("wtitle").textContent = TITLES[state.tab]||TITLES.world;
     $("wbadge").textContent = api ? (state.tab==="fda" ? "LIVE FEED · US FDA" : "LIVE FEED · MULTI-AGENCY") : (PENDING[state.tab] ? "IN PREPARATION" : "LIVE FEED · US FDA");
     $("wbadge").style.background = (!api && PENDING[state.tab]) ? "#5b5b58" : "";
-    if(state.tab==="gacc"){ $("wbadge").textContent = "OFFICIAL LISTS · CHINA GACC"; $("wbadge").style.background = ""; }
-    $("cnchips").hidden = state.tab!=="gacc";
-    if(state.tab==="gacc") $("cnhint").hidden = true;
+    if(DS[state.tab]){ $("wbadge").textContent = DS[state.tab].badge; $("wbadge").style.background = ""; }
+    $("cnchips").hidden = !DS[state.tab];
+    if(DS[state.tab]) $("cnhint").hidden = true;
   }
   function fmtISO(s){
     if(!s) return "";
@@ -452,95 +453,125 @@ footer p{margin:0 0 10px}
       var live = Object.keys(d.sources||{}).filter(function(k){return d.sources[k].ok;}).map(function(k){return d.sources[k].name;});
       var shown = src ? src : (live.join(", ")||"none");
       $("asof").textContent = state.total.toLocaleString()+" matching alerts · showing "+state.skip.toLocaleString()+" · sources: "+shown+" · checked "+new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});
-      showChinaHint();
+      showHints();
     }).catch(function(){ apiDown = true; load(append); });
   }
 
-  /* ---------- China GACC (monthly lists of foods refused entry) ---------- */
-  var CN = { data:null, loading:null, group:"" };
-  function loadChina(){
-    if(CN.data) return Promise.resolve(CN.data);
-    if(!CN.loading){
-      CN.loading = fetch("/china.json").then(function(r){
-        if(!r.ok) throw new Error("HTTP "+r.status); return r.json();
-      }).then(function(d){
-        d.forEach(function(x){ x._t = (x.s+" "+x.o+" "+x.n+" "+x.f+" "+x.g.join(" ")+" "+x.h.join(" ")+" "+x.zh+" "+x.mf).toLowerCase(); });
-        CN.data = d; return d;
-      });
-      CN.loading.catch(function(){ CN.loading = null; });
-    }
-    return CN.loading;
-  }
-  function cnWords(x,q){
-    var w = String(q||"").toLowerCase().split(/\s+/);
-    for(var i=0;i<w.length;i++){ if(w[i] && x._t.indexOf(w[i])<0) return false; }
-    return true;
-  }
-  function cnMatch(x){ return cnWords(x,state.q) && (!CN.group || x.g.indexOf(CN.group)>-1); }
+  /* ---------- Static archives: China GACC lists and EU RASFF 12-month archive ---------- */
+  var RLB = {"serious":"Serious risk","potentially serious":"Potentially serious","potential risk":"Potential risk","not serious":"Not serious","no risk":"No risk"};
+  var CLB = {"alert notification":"Alert","border rejection notification":"Border rejection","information notification for attention":"Information (attention)","information notification for follow-up":"Information (follow-up)"};
   function fmtMonth(m){
     var d = new Date(+m.slice(0,4), +m.slice(5,7)-1, 1);
     return d.toLocaleDateString("en-US",{month:"short",year:"numeric"});
   }
-  function cnCard(x){
-    return '<article class="card">'+
-      '<div class="meta">China GACC · <b>Entry refused</b> · '+esc(fmtMonth(x.d))+'</div>'+
-      '<h3>'+esc(x.s)+'</h3>'+
-      '<p>Origin: '+esc(x.o)+' · Port: '+esc(x.n)+(x.w?' · '+Math.round(x.w).toLocaleString()+' kg':'')+'</p>'+
-      '<div class="foot">'+esc(x.zh)+(x.mf?' · '+esc(x.mf):'')+' · '+esc(x.g.join(", "))+'</div>'+
-    '</article>';
+  var DS = {
+    gacc:{ file:"/china.json", badge:"OFFICIAL LISTS · CHINA GACC", name:"China GACC",
+      line:"China General Administration of Customs (GACC) monthly lists, ",
+      extra:" China lists each product line separately, so one shipment can appear several times. Product names and reasons are translated by Food OK.",
+      range:function(a){ return fmtMonth(a[a.length-1].d)+" to "+fmtMonth(a[0].d); },
+      card:function(x){
+        return '<article class="card">'+
+          '<div class="meta">China GACC · <b>Entry refused</b> · '+esc(fmtMonth(x.d))+'</div>'+
+          '<h3>'+esc(x.s)+'</h3>'+
+          '<p>Origin: '+esc(x.o)+' · Port: '+esc(x.n)+(x.w?' · '+Math.round(x.w).toLocaleString()+' kg':'')+'</p>'+
+          '<div class="foot">'+esc(x.zh)+(x.mf?' · '+esc(x.mf):'')+' · '+esc(x.g.join(", "))+'</div>'+
+        '</article>';
+      } },
+    rasff:{ file:"/europe.json", badge:"OFFICIAL ALERTS · EU RASFF", name:"EU RASFF",
+      line:"European Commission RASFF Window notifications, ",
+      extra:" Origin shows the countries named in the notification.",
+      range:function(a){ return fmtISO(a[a.length-1].d)+" to "+fmtISO(a[0].d); },
+      card:function(x){
+        return '<article class="card">'+
+          '<div class="meta">EU RASFF · <b>'+esc(CLB[x.cl]||x.cl||"Alert")+'</b>'+(RLB[x.r]?' · '+esc(RLB[x.r]):'')+' · '+esc(fmtISO(x.d))+'</div>'+
+          '<h3>'+esc(x.s)+'</h3>'+
+          '<p>Origin: '+esc(x.o.length?x.o.join(", "):"Not stated")+' · Reported by: '+esc(x.n)+'</p>'+
+          '<div class="foot">'+esc(x.f)+' · '+esc(x.g.join(", "))+'</div>'+
+        '</article>';
+      } }
+  };
+  var GRP = {};
+  function dsLoad(tab){
+    var s = DS[tab];
+    if(s.data) return Promise.resolve(s.data);
+    if(!s.loading){
+      s.loading = fetch(s.file).then(function(r){
+        if(!r.ok) throw new Error("HTTP "+r.status); return r.json();
+      }).then(function(d){
+        d.forEach(function(x){ x._t = (x.s+" "+[].concat(x.o).join(" ")+" "+x.n+" "+x.f+" "+x.g.join(" ")+" "+x.h.join(" ")+" "+(x.zh||"")+" "+(x.mf||"")).toLowerCase(); });
+        s.data = d; return d;
+      });
+      s.loading.catch(function(){ s.loading = null; });
+    }
+    return s.loading;
   }
-  function renderCnChips(all){
+  function dsWords(x,q){
+    var w = String(q||"").toLowerCase().split(/\s+/);
+    for(var i=0;i<w.length;i++){ if(w[i] && x._t.indexOf(w[i])<0) return false; }
+    return true;
+  }
+  function dsMatch(x){ var g = GRP[state.tab]; return dsWords(x,state.q) && (!g || x.g.indexOf(g)>-1); }
+  function renderChips(all){
     var m = {};
-    all.forEach(function(x){ if(cnWords(x,state.q)) x.g.forEach(function(g){ m[g]=(m[g]||0)+1; }); });
-    var keys = Object.keys(m).sort(function(a,b){ return m[b]-m[a]; }).slice(0,9);
+    all.forEach(function(x){ if(dsWords(x,state.q)) x.g.forEach(function(g){ m[g]=(m[g]||0)+1; }); });
+    var keys = Object.keys(m).sort(function(a,b){ if(a==="Not specified") return 1; if(b==="Not specified") return -1; return m[b]-m[a]; }).slice(0,9);
     $("cnchips").innerHTML = keys.map(function(g){
-      var on = CN.group===g;
+      var on = GRP[state.tab]===g;
       return '<button type="button" data-g="'+esc(g)+'"'+(on?' style="background:#111;color:#fff;border-color:#111"':'')+'>'+esc(g)+' · '+m[g].toLocaleString()+'</button>';
     }).join("");
     Array.prototype.forEach.call($("cnchips").querySelectorAll("button"),function(b){
       b.addEventListener("click",function(){
-        var g = b.getAttribute("data-g"); CN.group = (CN.group===g) ? "" : g; load(false);
+        var g = b.getAttribute("data-g"); GRP[state.tab] = (GRP[state.tab]===g) ? "" : g; load(false);
       });
     });
   }
-  function loadChinaTab(append){
+  function loadDataset(append){
+    var tab = state.tab, s = DS[tab];
     if(!append){ state.skip = 0; skeleton(); }
-    loadChina().then(function(all){
-      renderCnChips(all);
-      var rows = all.filter(cnMatch); state.total = rows.length;
+    dsLoad(tab).then(function(all){
+      if(tab!==state.tab) return;
+      renderChips(all);
+      var rows = all.filter(dsMatch); state.total = rows.length;
       if(!append) $("grid").innerHTML = "";
       var page = rows.slice(state.skip, state.skip+PAGE);
       if(!page.length && !append){
-        $("grid").innerHTML = '<div class="empty">No China GACC records found'+(state.q?' for “'+esc(state.q)+'”':'')+'. Try a broader term, such as a product, a country or a problem.</div>';
+        $("grid").innerHTML = '<div class="empty">No '+esc(s.name)+' records found'+(state.q?' for “'+esc(state.q)+'”':'')+'. Try a broader term, such as a product, a country or a problem.</div>';
         $("more").hidden = true; $("asof").textContent = ""; return;
       }
-      $("grid").insertAdjacentHTML("beforeend", page.map(cnCard).join(""));
+      $("grid").insertAdjacentHTML("beforeend", page.map(s.card).join(""));
       state.skip += page.length;
       $("more").hidden = state.skip >= state.total;
-      $("asof").textContent = state.total.toLocaleString()+" matching records · showing "+state.skip.toLocaleString()+" · China General Administration of Customs (GACC) monthly lists, "+fmtMonth(all[all.length-1].d)+" to "+fmtMonth(all[0].d)+". China lists each product line separately, so one shipment can appear several times. Product names and reasons are translated by Food OK.";
+      $("asof").textContent = state.total.toLocaleString()+" matching records · showing "+state.skip.toLocaleString()+" · "+s.line+s.range(all)+"."+s.extra;
     }).catch(function(){
-      if(!append) $("grid").innerHTML = '<div class="empty">The China data file did not load. <a href="#" id="retry">Try again</a>.</div>';
+      if(!append) $("grid").innerHTML = '<div class="empty">The '+esc(s.name)+' data file did not load. <a href="#" id="retry">Try again</a>.</div>';
       var r = $("retry"); if(r) r.addEventListener("click",function(e){ e.preventDefault(); load(false); });
     });
   }
-  function showChinaHint(){
+  function showHints(){
     var el = $("cnhint"); if(!el) return;
     el.hidden = true;
     if(!state.q || state.tab!=="world") return;
-    var q = state.q;
-    loadChina().then(function(all){
+    var q = state.q, tabs = ["gacc","rasff"];
+    Promise.all(tabs.map(function(t){
+      return dsLoad(t).then(function(all){ return all.filter(function(x){ return dsWords(x,q); }).length; }).catch(function(){ return 0; });
+    })).then(function(c){
       if(q!==state.q || state.tab!=="world") return;
-      var n = all.filter(function(x){ return cnWords(x,q); }).length;
-      if(!n) return;
-      el.innerHTML = 'China GACC also has <b>'+n.toLocaleString()+'</b> refusal records matching “'+esc(q)+'”. <a href="#" id="cnlink" style="color:#b3202a">View them</a>';
+      var parts = [];
+      tabs.forEach(function(t,i){
+        if(c[i]) parts.push(DS[t].name+' has <b>'+c[i].toLocaleString()+'</b> records · <a href="#" data-t="'+t+'" style="color:#b3202a">View</a>');
+      });
+      if(!parts.length) return;
+      el.innerHTML = 'Also matching “'+esc(q)+'”: '+parts.join(' &nbsp;|&nbsp; ');
       el.hidden = false;
-      $("cnlink").addEventListener("click",function(e){ e.preventDefault(); selectTab("gacc"); load(false); scrollToWire(); });
-    }).catch(function(){});
+      Array.prototype.forEach.call(el.querySelectorAll("a[data-t]"),function(a){
+        a.addEventListener("click",function(e){ e.preventDefault(); selectTab(a.getAttribute("data-t")); load(false); scrollToWire(); });
+      });
+    });
   }
 
   function load(append){
     setHead();
-    if(state.tab==="gacc") return loadChinaTab(append);
+    if(DS[state.tab]) return loadDataset(append);
     if(usingApi()) return loadUnified(append);
     if(PENDING[state.tab] && !state.q){
       var p = PENDING[state.tab];
@@ -565,7 +596,7 @@ footer p{margin:0 0 10px}
       state.skip += rows.length;
       $("more").hidden = state.skip >= state.total;
       $("asof").textContent = state.total.toLocaleString()+" matching alerts · showing "+state.skip.toLocaleString()+" · checked "+new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"})+" · Source: U.S. FDA via openFDA";
-      showChinaHint();
+      showHints();
     }).catch(function(){
       if(!append) $("grid").innerHTML = '<div class="empty">The data service did not respond. <a href="#" id="retry">Try again</a>.</div>';
       var r = $("retry"); if(r) r.addEventListener("click",function(e){ e.preventDefault(); load(false); });
@@ -584,7 +615,7 @@ footer p{margin:0 0 10px}
     e.preventDefault();
     state.q = $("qinput").value.trim();
     if((state.q || $("agency").value!=="all") && PENDING[state.tab]) selectTab("world");
-    if(state.tab==="gacc" && $("agency").value!=="all") selectTab("world");
+    if(DS[state.tab] && $("agency").value!=="all") selectTab("world");
     load(false);
     scrollToWire();
   });
