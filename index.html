@@ -179,6 +179,7 @@ footer p{margin:0 0 10px}
       <li><button role="tab" data-tab="world" aria-selected="true">World Wire</button></li>
       <li><button role="tab" data-tab="gacc" aria-selected="false">China GACC</button></li>
       <li><button role="tab" data-tab="rasff" aria-selected="false">Europe RASFF</button></li>
+      <li><button role="tab" data-tab="kr" aria-selected="false">Korea MFDS</button></li>
       <li><button role="tab" data-tab="fda" aria-selected="false">US FDA</button></li>
       <li><button role="tab" data-tab="asean" aria-selected="false">ASEAN &amp; Asia</button></li>
       <li><button role="tab" data-tab="sa" aria-selected="false">South America</button></li>
@@ -248,7 +249,7 @@ footer p{margin:0 0 10px}
         <li class="live"><a href="http://english.customs.gov.cn/" target="_blank" rel="noopener"><span>China (Customs General Administration)</span><span class="code">GACC · LISTS</span></a></li>
         <li><a href="https://www.mhlw.go.jp/english/" target="_blank" rel="noopener"><span>Japan (Health, Labour &amp; Welfare)</span><span class="code">MHLW</span></a></li>
         <li><a href="https://www.efsa.europa.eu/en" target="_blank" rel="noopener"><span>Europe (Food Safety Authority)</span><span class="code">EFSA</span></a></li>
-        <li><a href="https://www.mfds.go.kr/eng/index.do" target="_blank" rel="noopener"><span>Korea (Food and Drug Safety)</span><span class="code">MFDS</span></a></li>
+        <li class="live"><a href="https://www.mfds.go.kr/eng/index.do" target="_blank" rel="noopener"><span>Korea (Food and Drug Safety)</span><span class="code">MFDS · LISTS</span></a></li>
         <li><a href="https://www.agriculture.gov.au/" target="_blank" rel="noopener"><span>Australia (Agriculture, Fisheries &amp; Forestry)</span><span class="code">DAFF</span></a></li>
         <li><a href="https://inspection.canada.ca/en" target="_blank" rel="noopener"><span>Canada (Food Inspection Agency)</span><span class="code">CFIA</span></a></li>
         <li><a href="https://www.sfa.gov.sg/" target="_blank" rel="noopener"><span>Singapore (Food Agency)</span><span class="code">SFA</span></a></li>
@@ -287,7 +288,7 @@ footer p{margin:0 0 10px}
     <div class="cols">
       <div>
         <h4>About the data</h4>
-        <p>Live alerts come directly from official government sources: the U.S. FDA (openFDA), UK Food Standards Agency, Canada CFIA, EU RASFF and the Hong Kong Centre for Food Safety. A 12-month archive of RASFF notifications is searchable in the Europe RASFF tab. China GACC data comes from the monthly lists of foods refused entry published by China Customs, translated by Food OK. Other agencies are linked to their official portals while direct feeds are being connected. Dates shown are the agency’s report dates.</p>
+        <p>Live alerts come directly from official government sources: the U.S. FDA (openFDA), UK Food Standards Agency, Canada CFIA, EU RASFF and the Hong Kong Centre for Food Safety. A 12-month archive of RASFF notifications is searchable in the Europe RASFF tab. The Korea MFDS tab lists refused imports published by Korea’s Ministry of Food and Drug Safety. China GACC data comes from the monthly lists of foods refused entry published by China Customs, translated by Food OK. Other agencies are linked to their official portals while direct feeds are being connected. Dates shown are the agency’s report dates.</p>
       </div>
       <div>
         <h4>Notice</h4>
@@ -387,7 +388,7 @@ footer p{margin:0 0 10px}
   /* wire */
   var TITLES = {
     world:"Live Global Food Safety Wire", fda:"U.S. FDA Enforcement Reports", chem:"Pesticides & Heavy Metals",
-    gacc:"China GACC", rasff:"Europe RASFF · 12-month archive", asean:"ASEAN & Asia", sa:"South America"
+    gacc:"China GACC", rasff:"Europe RASFF · 12-month archive", kr:"Korea MFDS · import refusals", asean:"ASEAN & Asia", sa:"South America"
   };
   function cardHTML(r){
     var cls = r.classification||"";
@@ -490,6 +491,20 @@ footer p{margin:0 0 10px}
         '</article>';
       } }
   };
+  DS.kr = { file:"/korea.json", badge:"OFFICIAL LISTS · KOREA MFDS", name:"Korea MFDS",
+      line:"Korea Ministry of Food and Drug Safety (MFDS) list of refused imports, ",
+      extra:" Reasons are translated by Food OK, and the Korean original is shown under each record. The official list covers roughly the last six months.",
+      range:function(a){ return fmtISO(a[a.length-1].d)+" to "+fmtISO(a[0].d); },
+      card:function(x){
+        return '<article class="card">'+
+          '<div class="meta">Korea MFDS · <b>Import refused</b> · '+esc(fmtISO(x.d))+'</div>'+
+          '<h3>'+esc(x.s)+'</h3>'+
+          '<p>Origin: '+esc(x.o)+' · Handled by: '+esc(x.n)+'</p>'+
+          '<div class="foot">'+esc(x.f)+' · '+esc(x.g.join(", "))+'</div>'+
+          '<div class="foot" style="margin-top:6px">'+esc(x.ko)+(x.mf?' · '+esc(x.mf):'')+'</div>'+
+          (x.kr?'<div class="foot" style="margin-top:4px">'+esc(x.kr.length>150?x.kr.slice(0,149)+"…":x.kr)+'</div>':'')+
+        '</article>';
+      } };
   var GRP = {};
   function dsLoad(tab){
     var s = DS[tab];
@@ -498,7 +513,7 @@ footer p{margin:0 0 10px}
       s.loading = fetch(s.file).then(function(r){
         if(!r.ok) throw new Error("HTTP "+r.status); return r.json();
       }).then(function(d){
-        d.forEach(function(x){ x._t = (x.s+" "+[].concat(x.o).join(" ")+" "+x.n+" "+x.f+" "+x.g.join(" ")+" "+x.h.join(" ")+" "+(x.zh||"")+" "+(x.mf||"")).toLowerCase(); });
+        d.forEach(function(x){ x._t = (x.s+" "+[].concat(x.o).join(" ")+" "+x.n+" "+x.f+" "+x.g.join(" ")+" "+x.h.join(" ")+" "+(x.zh||"")+" "+(x.mf||"")+" "+(x.ko||"")+" "+(x.kr||"")).toLowerCase(); });
         s.data = d; return d;
       });
       s.loading.catch(function(){ s.loading = null; });
@@ -507,7 +522,11 @@ footer p{margin:0 0 10px}
   }
   function dsWords(x,q){
     var w = String(q||"").toLowerCase().split(/\s+/);
-    for(var i=0;i<w.length;i++){ if(w[i] && x._t.indexOf(w[i])<0) return false; }
+    for(var i=0;i<w.length;i++){
+      if(!w[i]) continue;
+      var alt = w[i]==="chili" ? "chilli" : (w[i]==="chilli" ? "chili" : "");
+      if(x._t.indexOf(w[i])<0 && !(alt && x._t.indexOf(alt)>=0)) return false;
+    }
     return true;
   }
   function dsMatch(x){ var g = GRP[state.tab]; return dsWords(x,state.q) && (!g || x.g.indexOf(g)>-1); }
@@ -551,7 +570,7 @@ footer p{margin:0 0 10px}
     var el = $("cnhint"); if(!el) return;
     el.hidden = true;
     if(!state.q || state.tab!=="world") return;
-    var q = state.q, tabs = ["gacc","rasff"];
+    var q = state.q, tabs = ["gacc","rasff","kr"];
     Promise.all(tabs.map(function(t){
       return dsLoad(t).then(function(all){ return all.filter(function(x){ return dsWords(x,q); }).length; }).catch(function(){ return 0; });
     })).then(function(c){
@@ -638,7 +657,6 @@ footer p{margin:0 0 10px}
   ];
   var PLAN_ROWS = [
     { name:"Japan · Ministry of Health, Labour and Welfare (MHLW)", how:"Import violation notices" },
-    { name:"South Korea · Ministry of Food and Drug Safety (MFDS)", how:"Official open data API" },
     { name:"ASEAN · Singapore SFA, Thailand FDA, Malaysia MOH", how:"Official agency portals" },
     { name:"Australia · DAFF and FSANZ", how:"Recall notices" },
     { name:"South America", how:"Regional agencies" }
@@ -647,9 +665,10 @@ footer p{margin:0 0 10px}
     return '<div class="covrow"><div class="n">'+esc(name)+'</div><div class="m">'+esc(how)+'</div><div><span class="tag '+tagCls+'">'+esc(tagTxt)+'</span></div></div>';
   }
   function cnRow(){ return covRow("China · Customs General Administration (GACC)", "Monthly lists of foods refused entry, translated by Food OK", "live", "MONTHLY LISTS"); }
+  function krRow(){ return covRow("South Korea · Ministry of Food and Drug Safety (MFDS)", "List of refused imports, translated by Food OK", "live", "SNAPSHOT"); }
   function loadCoverage(){
     $("covplan").innerHTML = PLAN_ROWS.map(function(r){ return covRow(r.name, r.how, "plan", "PLANNED"); }).join("");
-    $("covlive").innerHTML = LIVE_ROWS.map(function(r){ return covRow(r.name, r.how, "plan", "CHECKING"); }).join("")+cnRow();
+    $("covlive").innerHTML = LIVE_ROWS.map(function(r){ return covRow(r.name, r.how, "plan", "CHECKING"); }).join("")+cnRow()+krRow();
     if(!API_BASE) return;
     fetch(API_BASE.replace(/\/$/,"")+"/api/status").then(function(r){
       if(!r.ok) throw new Error("HTTP "+r.status); return r.json();
@@ -659,7 +678,7 @@ footer p{margin:0 0 10px}
         var x = src[r.id];
         if(x && x.ok){ n++; return covRow(r.name, r.how+" · "+x.count+" alerts stored", "live", "LIVE"); }
         return covRow(r.name, r.how, "down", "TEMPORARILY UNAVAILABLE");
-      }).join("")+cnRow();
+      }).join("")+cnRow()+krRow();
       $("covbadge").textContent = n+" OF "+LIVE_ROWS.length+" LIVE";
       $("covasof").textContent = "Checked "+new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"})+". Alerts are pulled directly from each agency’s official data.";
     }).catch(function(){
