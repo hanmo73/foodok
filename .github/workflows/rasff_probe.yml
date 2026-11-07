@@ -1,0 +1,51 @@
+name: RASFF probe
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Fetch RASFF sample
+        run: |
+          python3 - <<'PY'
+          import json, os, urllib.request
+          url = "https://webgate.ec.europa.eu/rasff-window/backend/public/notification/search/consolidated/"
+          out = {}
+          def call(body):
+              req = urllib.request.Request(
+                  url,
+                  data=json.dumps(body).encode(),
+                  headers={"Content-Type": "application/json", "Accept": "application/json", "User-Agent": "FoodOK/1.0 (+https://foodok.org)"},
+                  method="POST",
+              )
+              with urllib.request.urlopen(req, timeout=60) as r:
+                  return json.loads(r.read().decode())
+          try:
+              d = call({"parameters": {"pageNumber": 1, "itemsPerPage": 100}})
+              out["top_keys"] = list(d.keys()) if isinstance(d, dict) else str(type(d))
+              lst = d.get("notifications") or d.get("items") or d.get("results") or []
+              out["count_returned"] = len(lst)
+              out["totals"] = {k: v for k, v in d.items() if not isinstance(v, (list, dict))}
+              out["sample"] = lst[:5]
+          except Exception as e:
+              out["error"] = repr(e)
+          os.makedirs("data", exist_ok=True)
+          with open("data/rasff_sample.json", "w", encoding="utf-8") as fh:
+              json.dump(out, fh, ensure_ascii=False, indent=2)
+          PY
+
+      - name: Commit sample
+        run: |
+          git config user.name "foodok-bot"
+          git config user.email "bot@foodok.org"
+          git add data/rasff_sample.json
+          git commit -m "Add RASFF sample"
+          git push
