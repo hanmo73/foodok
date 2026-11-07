@@ -33,7 +33,7 @@ jobs:
         run: pip install scikit-learn
 
       - name: Build Europe data
-        run: python3 scripts/update_europe.py "${{ github.event.inputs.mode || 'dry' }}"
+        run: python3 scripts/update_europe.py "${{ github.event.inputs.mode || 'live' }}"
 
       - name: Commit changes
         run: |
