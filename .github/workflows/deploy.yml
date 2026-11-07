@@ -3,6 +3,9 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [ main ]
+  schedule:
+    - cron: '30 2 * * *'
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
@@ -10,6 +13,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Build SEO pages
+        run: python3 scripts/build_pages.py
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
