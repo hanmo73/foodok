@@ -1,0 +1,51 @@
+name: Update Europe data
+
+on:
+  schedule:
+    - cron: '15 3 * * *'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'dry = write test files only, live = replace europe.json'
+        required: true
+        default: dry
+        type: choice
+        options:
+          - dry
+          - live
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install scikit-learn
+        run: pip install scikit-learn
+
+      - name: Build Europe data
+        run: python3 scripts/update_europe.py "${{ github.event.inputs.mode || 'dry' }}"
+
+      - name: Commit changes
+        run: |
+          git config user.name "foodok-bot"
+          git config user.email "bot@foodok.org"
+          for f in europe.json data/europe_candidate.json data/europe_report.json; do
+            [ -f "$f" ] && git add "$f" || true
+          done
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "Update Europe data"
+            git pull --rebase
+            git push
+          fi
