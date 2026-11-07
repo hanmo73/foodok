@@ -1,0 +1,31 @@
+{
+  "built_utc": "2026-11-07T15:06:47+00:00",
+  "mode": "dry",
+  "rows": 5531,
+  "date_range": [
+    "2025-11-07",
+    "2026-11-06"
+  ],
+  "rows_with_known_labels": 5265,
+  "rows_with_predicted_labels": 266,
+  "unseen_categories": {},
+  "group_counts": {
+    "Not specified": 1422,
+    "Bacteria and mold": 1252,
+    "Pesticide residues": 910,
+    "Mycotoxins": 750,
+    "Chemical contaminants": 344,
+    "Composition and nutrients": 200,
+    "Heavy metals": 171,
+    "Animal disease and parasites": 108,
+    "Not registered or not approved": 90,
+    "Additives and colours": 89,
+    "Allergens": 80,
+    "Labeling and documents": 56,
+    "Veterinary drug residues": 52,
+    "Other": 41,
+    "Foreign bodies": 31,
+    "Spoilage and quality": 28,
+    "GMO": 19
+  }
+}
