@@ -1,0 +1,183 @@
+{
+  "top_keys": [
+    "notifications",
+    "totalPages",
+    "totalElements"
+  ],
+  "count_returned": 100,
+  "totals": {
+    "totalPages": 334,
+    "totalElements": 33347
+  },
+  "sample": [
+    {
+      "notifId": 885103,
+      "ecValidationDate": "06-11-2026 15:11:40",
+      "reference": "2026.9901",
+      "notifyingCountry": {
+        "organizationName": "Netherlands",
+        "isoCode": "NL"
+      },
+      "subject": "Unauthorised production of insufficiently controlled closing of primary packaging of salmon flakes",
+      "productCategory": {
+        "id": 18445,
+        "description": "fish and fish products"
+      },
+      "productType": {
+        "id": 283,
+        "description": "food"
+      },
+      "notificationClassification": {
+        "id": 304,
+        "description": "information notification for attention"
+      },
+      "riskDecision": {
+        "id": 20060,
+        "description": "potentially serious"
+      },
+      "published": false,
+      "originCountries": [
+        {
+          "organizationName": "Netherlands",
+          "isoCode": "NL"
+        }
+      ]
+    },
+    {
+      "notifId": 884936,
+      "ecValidationDate": "06-11-2026 14:52:49",
+      "reference": "2026.9900",
+      "notifyingCountry": {
+        "organizationName": "Spain",
+        "isoCode": "ES"
+      },
+      "subject": "E.Coli por encima de niveles aceptables en chirlas (Chamelea Gallina) procedentes de Italia///E. coli above acceptable levels in clams (Chamelea Gallina) from Italy",
+      "productCategory": {
+        "id": 18432,
+        "description": "bivalve molluscs and products thereof"
+      },
+      "productType": {
+        "id": 283,
+        "description": "food"
+      },
+      "notificationClassification": {
+        "id": 304,
+        "description": "information notification for attention"
+      },
+      "riskDecision": {
+        "id": 18761,
+        "description": "serious"
+      },
+      "published": false,
+      "originCountries": [
+        {
+          "organizationName": "Italy",
+          "isoCode": "IT"
+        }
+      ]
+    },
+    {
+      "notifId": 885240,
+      "ecValidationDate": "06-11-2026 14:42:59",
+      "reference": "2026.9899",
+      "notifyingCountry": {
+        "organizationName": "Spain",
+        "isoCode": "ES"
+      },
+      "subject": "Ocratoxina A en cacao en polvo ECO procedente de Portugal // Ochratoxin A in organic cocoa powder from Portugal",
+      "productCategory": {
+        "id": 18435,
+        "description": "cocoa and cocoa preparations, coffee and tea"
+      },
+      "productType": {
+        "id": 283,
+        "description": "food"
+      },
+      "notificationClassification": {
+        "id": 306,
+        "description": "alert notification"
+      },
+      "riskDecision": {
+        "id": 18761,
+        "description": "serious"
+      },
+      "published": false,
+      "originCountries": [
+        {
+          "organizationName": "Portugal",
+          "isoCode": "PT"
+        }
+      ]
+    },
+    {
+      "notifId": 885018,
+      "ecValidationDate": "06-11-2026 14:13:18",
+      "reference": "2026.9897",
+      "notifyingCountry": {
+        "organizationName": "Ireland",
+        "isoCode": "IE"
+      },
+      "subject": "Undeclared peanuts and elevated aflatoxins B1 and total aflatoxins in Kuli Kuli and Suya Spice",
+      "productCategory": {
+        "id": 18427,
+        "description": "nuts, nut products and seeds"
+      },
+      "productType": {
+        "id": 283,
+        "description": "food"
+      },
+      "notificationClassification": {
+        "id": 304,
+        "description": "information notification for attention"
+      },
+      "riskDecision": {
+        "id": 18761,
+        "description": "serious"
+      },
+      "published": true,
+      "originCountries": [
+        {
+          "organizationName": "Nigeria",
+          "isoCode": "NG"
+        }
+      ]
+    },
+    {
+      "notifId": 884979,
+      "ecValidationDate": "06-11-2026 12:38:34",
+      "reference": "2026.9885",
+      "notifyingCountry": {
+        "organizationName": "Poland",
+        "isoCode": "PL"
+      },
+      "subject": "Benzo(a)pyrene and the sum of PAHs in cocoa from Poland",
+      "productCategory": {
+        "id": 18435,
+        "description": "cocoa and cocoa preparations, coffee and tea"
+      },
+      "productType": {
+        "id": 283,
+        "description": "food"
+      },
+      "notificationClassification": {
+        "id": 306,
+        "description": "alert notification"
+      },
+      "riskDecision": {
+        "id": 18761,
+        "description": "serious"
+      },
+      "published": false,
+      "originCountries": [
+        {
+          "organizationName": "Germany",
+          "isoCode": "DE"
+        },
+        {
+          "organizationName": "Poland",
+          "isoCode": "PL"
+        }
+      ]
+    }
+  ]
+}
