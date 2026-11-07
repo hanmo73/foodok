@@ -1,0 +1,16 @@
+{
+  "tried": [
+    {
+      "url": "https://webgate.ec.europa.eu/rasff-window/backend/public/notification/view/id/885302",
+      "status": 404
+    },
+    {
+      "url": "https://webgate.ec.europa.eu/rasff-window/backend/public/notification/885302",
+      "status": 404
+    },
+    {
+      "url": "https://webgate.ec.europa.eu/rasff-window/backend/public/notification/id/885302",
+      "status": 404
+    }
+  ]
+}
