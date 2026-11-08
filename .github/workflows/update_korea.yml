@@ -15,7 +15,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Build Korea data
-        run: python3 scripts/update_korea.py "${{ github.event.inputs.mode || 'live' }}"
+        run: |
+          RC=0
+          python3 scripts/update_korea.py "${{ github.event.inputs.mode || 'live' }}" > out.txt 2>&1 || RC=$?
+          { echo '```'; cat out.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          exit $RC
       - name: Commit
         run: |
           git config user.name "github-actions"
