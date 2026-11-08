@@ -7,9 +7,15 @@ jobs:
     steps:
       - name: Fetch page
         run: |
-          curl -sS -L -m 60 -A "Mozilla/5.0" -o page.html -w "HTTP %{http_code} size %{size_download}\n" https://impfood.mfds.go.kr/CFCEE01F01 || echo "FAILED"
-          head -c 1500 page.html
-          echo "---- scripts"
-          grep -oE '(src|href)="[^"]*\.js[^"]*"' page.html | head -20
-          echo "---- list hints"
-          grep -oiE '[A-Za-z0-9_/]*(selectList|getList|list)[A-Za-z0-9_/.]*' page.html | sort -u | head -20
+          {
+            echo '```'
+            curl -sS -L -m 60 -A "Mozilla/5.0" -o page.html -w "HTTP %{http_code} size %{size_download}\n" https://impfood.mfds.go.kr/CFCEE01F01 || echo "FAILED"
+            echo "---- head"
+            head -c 1200 page.html | iconv -c -t UTF-8
+            echo
+            echo "---- scripts"
+            grep -oE '(src|href)="[^"]*\.js[^"]*"' page.html | head -20
+            echo "---- list hints"
+            grep -oiE '[A-Za-z0-9_/]*(selectList|getList|list|\.do|ajax)[A-Za-z0-9_/.]*' page.html | sort -u | head -20
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
