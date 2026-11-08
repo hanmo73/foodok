@@ -5,24 +5,35 @@ jobs:
   probe:
     runs-on: ubuntu-latest
     steps:
-      - name: Check Taiwan feed
+      - name: Check SFA feeds
         run: |
           export PYTHONIOENCODING=utf-8
           python3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"
           import re, urllib.request, html
           print('```')
-          try:
-              req = urllib.request.Request('https://www.fda.gov.tw/ENG/rssNews.ashx', headers={'User-Agent': 'Mozilla/5.0'})
-              with urllib.request.urlopen(req, timeout=40) as r:
-                  t = r.read().decode('utf-8', 'ignore')
-              print('size', len(t))
-              items = re.findall(r'<item>(.*?)</item>', t, re.S)
-              print('items', len(items))
-              for it in items[:15]:
-                  ti = re.search(r'<title>(.*?)</title>', it, re.S)
-                  da = re.search(r'<pubDate>(.*?)</pubDate>', it, re.S)
-                  print((da.group(1) if da else '')[:16], '|', html.unescape(re.sub(r'<!\[CDATA\[|\]\]>', '', ti.group(1)))[:90] if ti else '')
-          except Exception as e:
-              print('FAIL', e)
+          URLS = {
+            'SFA food-alerts': 'https://www.sfa.gov.sg/rss/annual-listing-food-alerts',
+            'SFA newsroom': 'https://www.sfa.gov.sg/rss/newsroom',
+          }
+          UAS = {'browser': 'Mozilla/5.0', 'reader': 'Feedly/1.0 (+http://www.feedly.com/fetcher.html)'}
+          for name, u in URLS.items():
+              for uan, ua in UAS.items():
+                  try:
+                      req = urllib.request.Request(u, headers={'User-Agent': ua, 'Accept': 'application/rss+xml, application/xml, text/xml, */*'})
+                      with urllib.request.urlopen(req, timeout=40) as r:
+                          t = r.read().decode('utf-8', 'ignore')
+                          code = r.status
+                      items = re.findall(r'<item>(.*?)</item>', t, re.S)
+                      print(name, uan, code, 'size', len(t), 'items', len(items))
+                      if items and uan == 'browser' or (items and name == 'SFA food-alerts'):
+                          for it in items[:12]:
+                              ti = re.search(r'<title>(.*?)</title>', it, re.S)
+                              da = re.search(r'<pubDate>(.*?)</pubDate>', it, re.S)
+                              li = re.search(r'<link>(.*?)</link>', it, re.S)
+                              print('  ', (da.group(1) if da else '')[:16], '|', html.unescape(re.sub(r'<!\[CDATA\[|\]\]>', '', ti.group(1))).strip()[:80] if ti else '', '|', (li.group(1).strip()[-40:] if li else ''))
+                      if not items:
+                          print('  head:', re.sub(r'\s+', ' ', t[:300]))
+                  except Exception as e:
+                      print(name, uan, 'FAIL', str(e)[:80])
           print('```')
           PY
