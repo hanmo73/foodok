@@ -5,17 +5,29 @@ jobs:
   probe:
     runs-on: ubuntu-latest
     steps:
-      - name: Fetch page
+      - name: Fetch pages
         run: |
-          curl -sS -L -m 60 -A "Mozilla/5.0" -o page.html https://impfood.mfds.go.kr/CFCEE01F01 || echo "FAILED"
-          {
-            echo '```'
-            echo "items on page: $(grep -ac 'fnShowVioltCtnt' page.html)"
-            echo "---- input/select names"
-            grep -aoE '<(input|select)[^>]*name="[^"]*"[^>]*>' page.html | cut -c1-160 | head -30
-            echo "---- fnPageLimit"
-            grep -a -B2 -A8 'fnPageLimit' page.html | cut -c1-160 | head -40
-            echo "---- paging links"
-            grep -aoE '(href|onclick)="[^"]*(page|Page)[^"]*"' page.html | cut -c1-160 | sort -u | head -15
-            echo '```'
-          } >> "$GITHUB_STEP_SUMMARY"
+          export PYTHONIOENCODING=utf-8
+          B=https://impfood.mfds.go.kr/CFCEE01F01
+          curl -sS -L -m 60 -A "Mozilla/5.0" -o p1.html "$B?page=1&limit=10"
+          curl -sS -L -m 60 -A "Mozilla/5.0" -o p2.html "$B?page=2&limit=10"
+          curl -sS -L -m 60 -A "Mozilla/5.0" -o p50.html "$B?page=1&limit=50"
+          curl -sS -L -m 60 -A "Mozilla/5.0" -o p100.html "$B?page=1&limit=100"
+          python3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import re
+          print('```')
+          for n in ['p1','p2','p50','p100']:
+              t=open(n+'.html',encoding='utf-8',errors='ignore').read()
+              names=re.findall(r'title="제품영문명">([^<]*)<',t)
+              print(n,'items',len(names),'first',names[:1],'last',names[-1:])
+          t=open('p1.html',encoding='utf-8',errors='ignore').read()
+          m=re.search(r'총[^0-9]{0,60}([0-9,]+)',t)
+          print('total:',re.sub(r'\s+',' ',m.group(0)) if m else None)
+          i=t.find('title="제품영문명"')
+          s=t.rfind('<li>',0,i)
+          seg=re.sub(r'\s+',' ',t[s:s+7000])
+          seg=re.sub(r'>\s*<','>\n<',seg)
+          for line in seg.split('\n')[:45]:
+              print(line[:170])
+          print('```')
+          PY
