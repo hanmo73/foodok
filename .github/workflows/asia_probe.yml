@@ -5,33 +5,24 @@ jobs:
   probe:
     runs-on: ubuntu-latest
     steps:
-      - name: Check sources
+      - name: Check Taiwan feed
         run: |
           export PYTHONIOENCODING=utf-8
           python3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"
-          import re, urllib.request
-          URLS = {
-            'Singapore SFA': 'https://www.sfa.gov.sg/food-information/recalls-and-alerts',
-            'Malaysia FSQD': 'https://fsq.moh.gov.my/',
-            'Thailand FDA': 'https://www.fda.moph.go.th/',
-            'Philippines FDA': 'https://www.fda.gov.ph/',
-            'Vietnam VFA': 'https://vfa.gov.vn/',
-            'Japan MHLW': 'https://www.mhlw.go.jp/english/',
-            'Taiwan TFDA': 'https://www.fda.gov.tw/ENG/',
-            'Indonesia BPOM': 'https://www.pom.go.id/',
-          }
+          import re, urllib.request, html
           print('```')
-          for name, u in URLS.items():
-              try:
-                  req = urllib.request.Request(u, headers={'User-Agent': 'Mozilla/5.0'})
-                  with urllib.request.urlopen(req, timeout=40) as r:
-                      t = r.read().decode('utf-8', 'ignore')
-                      code = r.status
-                  feeds = sorted(set(re.findall(r'href="([^"]*(?:rss|feed|\.xml)[^"]*)"', t, re.I)))[:3]
-                  kind = 'XML' if re.search(r'<rss|<feed|<\?xml', t[:500]) else 'HTML'
-                  print(name, code, kind, len(t))
-                  for f in feeds: print('   feed?', f[:110])
-              except Exception as e:
-                  print(name, 'FAIL', str(e)[:90])
+          try:
+              req = urllib.request.Request('https://www.fda.gov.tw/ENG/rssNews.ashx', headers={'User-Agent': 'Mozilla/5.0'})
+              with urllib.request.urlopen(req, timeout=40) as r:
+                  t = r.read().decode('utf-8', 'ignore')
+              print('size', len(t))
+              items = re.findall(r'<item>(.*?)</item>', t, re.S)
+              print('items', len(items))
+              for it in items[:15]:
+                  ti = re.search(r'<title>(.*?)</title>', it, re.S)
+                  da = re.search(r'<pubDate>(.*?)</pubDate>', it, re.S)
+                  print((da.group(1) if da else '')[:16], '|', html.unescape(re.sub(r'<!\[CDATA\[|\]\]>', '', ti.group(1)))[:90] if ti else '')
+          except Exception as e:
+              print('FAIL', e)
           print('```')
           PY
