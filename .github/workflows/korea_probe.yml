@@ -1,0 +1,15 @@
+name: Korea probe
+on:
+  workflow_dispatch:
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch page
+        run: |
+          curl -sS -L -m 60 -A "Mozilla/5.0" -o page.html -w "HTTP %{http_code} size %{size_download}\n" https://impfood.mfds.go.kr/CFCEE01F01 || echo "FAILED"
+          head -c 1500 page.html
+          echo "---- scripts"
+          grep -oE '(src|href)="[^"]*\.js[^"]*"' page.html | head -20
+          echo "---- list hints"
+          grep -oiE '[A-Za-z0-9_/]*(selectList|getList|list)[A-Za-z0-9_/.]*' page.html | sort -u | head -20
