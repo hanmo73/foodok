@@ -7,15 +7,18 @@ jobs:
     steps:
       - name: Fetch page
         run: |
+          curl -sS -L -m 60 -A "Mozilla/5.0" -o page.html https://impfood.mfds.go.kr/CFCEE01F01 || echo "FAILED"
           {
             echo '```'
-            curl -sS -L -m 60 -A "Mozilla/5.0" -o page.html -w "HTTP %{http_code} size %{size_download}\n" https://impfood.mfds.go.kr/CFCEE01F01 || echo "FAILED"
-            echo "---- head"
-            head -c 1200 page.html | iconv -c -t UTF-8
-            echo
-            echo "---- scripts"
-            grep -oE '(src|href)="[^"]*\.js[^"]*"' page.html | head -20
-            echo "---- list hints"
-            grep -oiE '[A-Za-z0-9_/]*(selectList|getList|list|\.do|ajax)[A-Za-z0-9_/.]*' page.html | sort -u | head -20
+            echo "SUA MAESTA count: $(grep -ac 'SUA MAESTA' page.html)"
+            echo "FRESH DURIAN count: $(grep -ac 'FRESH DURIAN' page.html)"
+            echo "---- total"
+            grep -aoE '총[^0-9<]{0,40}[0-9]+[^<]{0,6}' page.html | head -5
+            echo "---- forms"
+            grep -aoE '<form[^>]*>' page.html | head -5
+            echo "---- paging"
+            grep -aoE '[A-Za-z_]*(pageIndex|currentPage|fnPage|goPage|pageUnit|recordCountPerPage)[A-Za-z_]*' page.html | sort -u | head -15
+            echo "---- around first item"
+            grep -a -m1 -B3 -A14 'SUA MAESTA' page.html | cut -c1-200 | head -40
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
