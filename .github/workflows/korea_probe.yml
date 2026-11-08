@@ -10,15 +10,12 @@ jobs:
           curl -sS -L -m 60 -A "Mozilla/5.0" -o page.html https://impfood.mfds.go.kr/CFCEE01F01 || echo "FAILED"
           {
             echo '```'
-            echo "SUA MAESTA count: $(grep -ac 'SUA MAESTA' page.html)"
-            echo "FRESH DURIAN count: $(grep -ac 'FRESH DURIAN' page.html)"
-            echo "---- total"
-            grep -aoE '총[^0-9<]{0,40}[0-9]+[^<]{0,6}' page.html | head -5
-            echo "---- forms"
-            grep -aoE '<form[^>]*>' page.html | head -5
-            echo "---- paging"
-            grep -aoE '[A-Za-z_]*(pageIndex|currentPage|fnPage|goPage|pageUnit|recordCountPerPage)[A-Za-z_]*' page.html | sort -u | head -15
-            echo "---- around first item"
-            grep -a -m1 -B3 -A14 'SUA MAESTA' page.html | cut -c1-200 | head -40
+            echo "items on page: $(grep -ac 'fnShowVioltCtnt' page.html)"
+            echo "---- input/select names"
+            grep -aoE '<(input|select)[^>]*name="[^"]*"[^>]*>' page.html | cut -c1-160 | head -30
+            echo "---- fnPageLimit"
+            grep -a -B2 -A8 'fnPageLimit' page.html | cut -c1-160 | head -40
+            echo "---- paging links"
+            grep -aoE '(href|onclick)="[^"]*(page|Page)[^"]*"' page.html | cut -c1-160 | sort -u | head -15
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
