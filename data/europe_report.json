@@ -1,16 +1,16 @@
 {
-  "built_utc": "2026-11-08T03:57:43+00:00",
+  "built_utc": "2026-11-09T04:00:25+00:00",
   "mode": "live",
-  "rows": 5487,
+  "rows": 5481,
   "date_range": [
-    "2025-11-08",
+    "2025-11-10",
     "2026-11-06"
   ],
-  "rows_with_known_labels": 5218,
-  "rows_with_predicted_labels": 269,
+  "rows_with_known_labels": 5213,
+  "rows_with_predicted_labels": 268,
   "unseen_categories": {},
   "group_counts": {
-    "Not specified": 1409,
+    "Not specified": 1403,
     "Bacteria and mold": 1241,
     "Pesticide residues": 906,
     "Mycotoxins": 740,
