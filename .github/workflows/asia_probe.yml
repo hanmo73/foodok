@@ -5,30 +5,38 @@ jobs:
   probe:
     runs-on: ubuntu-latest
     steps:
-      - name: Look at Thailand warnings
+      - name: Find Thailand API base
         run: |
           python3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"
-          import json, urllib.request
+          import re, json, urllib.request
           fence = chr(96) * 3
           print(fence)
-          u = 'https://www.acfs.go.th/api/v1.0/publish/content-daily-warning?page=1&limit=3'
-          try:
-              req = urllib.request.Request(u, headers={'User-Agent': 'Mozilla/5.0', 'Accept': 'application/json'})
+          H = {'User-Agent': 'Mozilla/5.0', 'Accept': 'application/json,text/html,*/*'}
+          def get(u):
+              req = urllib.request.Request(u, headers=H)
               with urllib.request.urlopen(req, timeout=40) as r:
-                  j = json.loads(r.read().decode('utf-8', 'ignore'))
-              print('top keys:', list(j.keys()))
-              d = j.get('data', j)
-              if isinstance(d, dict):
-                  print('data keys:', list(d.keys()))
-                  for k, v in d.items():
-                      if isinstance(v, list):
-                          d = v
-                          break
-              for it in (d[:3] if isinstance(d, list) else []):
-                  print('---')
-                  for k, v in it.items():
-                      print(k, '=', str(v)[:90].replace('\n', ' '))
+                  return r.status, r.read().decode('utf-8', 'ignore')
+          base = 'https://www.acfs.go.th'
+          c, t = get(base + '/news/early-warning')
+          for m in list(re.finditer(r'content-daily-warning', t))[:2]:
+              print('ctx:', re.sub(r'\s+', ' ', t[max(0, m.start()-120):m.end()+60]))
+          for m in list(re.finditer(r'(?:apiBase|baseURL|API_URL|apiUrl|publicApi)[^,;]{0,80}', t, re.I))[:4]:
+              print('cfg:', m.group(0)[:110])
+          for p in ['/api/v1.0/publish/content-daily-warning?limit=3',
+                    '/v1.0/publish/content-daily-warning?limit=3',
+                    '/api/publish/content-daily-warning?limit=3']:
+              for b in [base, 'https://api.acfs.go.th', 'https://www.acfs.go.th/backend']:
+                  try:
+                      c2, b2 = get(b + p)
+                      print('OK', b + p, c2, len(b2), re.sub(r'\s+', ' ', b2[:120]))
+                  except Exception as e:
+                      print('no', b + p, str(e)[:30])
+          try:
+              c3, b3 = get(base + '/api/news?language=th')
+              j = json.loads(b3)
+              for it in j['data'][:3]:
+                  print('news:', it.get('id'), it.get('category_id'), list(it.keys())[:8])
           except Exception as e:
-              print('FAIL', str(e)[:100])
+              print('news FAIL', str(e)[:60])
           print(fence)
           PY
