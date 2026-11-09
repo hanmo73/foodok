@@ -195,6 +195,7 @@ footer p{margin:0 0 10px}
       <li><button role="tab" data-tab="gacc" aria-selected="false">China GACC</button></li>
       <li><button role="tab" data-tab="rasff" aria-selected="false">Europe RASFF</button></li>
       <li><button role="tab" data-tab="kr" aria-selected="false">Korea MFDS</button></li>
+      <li><button role="tab" data-tab="sg" aria-selected="false">Singapore SFA</button></li>
       <li><button role="tab" data-tab="fda" aria-selected="false">US FDA</button></li>
       <li><button role="tab" data-tab="asean" aria-selected="false">ASEAN &amp; Asia</button></li>
       <li><button role="tab" data-tab="sa" aria-selected="false">South America</button></li>
@@ -522,6 +523,18 @@ footer p{margin:0 0 10px}
           (x.kr?'<div class="foot" style="margin-top:4px">'+esc(x.kr.length>150?x.kr.slice(0,149)+"…":x.kr)+'</div>':'')+
         '</article>';
       } };
+  DS.sg = { file:"/singapore.json", badge:"OFFICIAL ALERTS · SINGAPORE SFA", name:"Singapore SFA",
+  line:"Singapore Food Agency food alerts and recalls, ",
+  extra:" Official recall and enforcement notices. The feed does not state the origin country.",
+  range:function(a){ return fmtISO(a[a.length-1].d)+" to "+fmtISO(a[0].d); },
+  card:function(x){
+    return '<article class="card">'+
+      '<div class="meta">Singapore SFA · <b>Food alert</b> · '+esc(fmtISO(x.d))+'</div>'+
+      '<h3>'+esc(x.s)+'</h3>'+
+      '<p>Reported by: '+esc(x.n)+'</p>'+
+      (x.u?'<div class="foot"><a href="'+esc(x.u)+'" target="_blank" rel="noopener">Official notice</a></div>':'')+
+      '</article>';
+  } };
   var GRP = {};
   function dsLoad(tab){
     var s = DS[tab];
