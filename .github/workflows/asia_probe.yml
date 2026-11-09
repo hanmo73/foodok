@@ -5,26 +5,39 @@ jobs:
   probe:
     runs-on: ubuntu-latest
     steps:
-      - name: Look at Thailand news categories
+      - name: Find ACFS contact emails
         run: |
           python3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"
-          import json, urllib.request
-          from collections import Counter
+          import re, html, urllib.request
           fence = chr(96) * 3
           print(fence)
-          u = 'https://www.acfs.go.th/api/news?language=th'
-          try:
-              req = urllib.request.Request(u, headers={'User-Agent': 'Mozilla/5.0', 'Accept': 'application/json'})
+          H = {'User-Agent': 'Mozilla/5.0', 'Accept': 'text/html,*/*'}
+          def get(u):
+              req = urllib.request.Request(u, headers=H)
               with urllib.request.urlopen(req, timeout=40) as r:
-                  j = json.loads(r.read().decode('utf-8', 'ignore'))
-              d = j['data']
-              print('items', len(d), 'keys', list(d[0].keys()))
-              print('categories', dict(Counter(x.get('category_id') for x in d)))
-              for cid in sorted(set(x.get('category_id') for x in d)):
-                  ex = [x for x in d if x.get('category_id') == cid][:2]
-                  for x in ex:
-                      print(cid, '|', x.get('id'), '|', str(x.get('title_name_en'))[:70], '|', str(x.get('created_at') or x.get('published_at') or x.get('date'))[:19])
+                  return r.read().decode('utf-8', 'ignore')
+          base = 'https://www.acfs.go.th'
+          pages = [base + '/', base + '/en', base + '/contact', base + '/contact-us', base + '/about/contact']
+          t = ''
+          try:
+              t = get(base + '/')
+              for m in re.finditer(r'<a[^>]+href="([^"]+)"[^>]*>(.*?)</a>', t, re.S | re.I):
+                  txt = html.unescape(re.sub(r'<[^>]+>', '', m.group(2))).strip()
+                  if re.search(r'contact|ติดต่อ', txt + m.group(1), re.I):
+                      u = m.group(1)
+                      pages.append(u if u.startswith('http') else base + u)
           except Exception as e:
-              print('FAIL', str(e)[:100])
+              print('home FAIL', str(e)[:60])
+          seen = set()
+          for u in pages:
+              if u in seen:
+                  continue
+              seen.add(u)
+              try:
+                  b = get(u)
+                  em = sorted(set(re.findall(r'[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}', b)))
+                  print(u[:70], len(b), em[:6])
+              except Exception as e:
+                  print(u[:70], 'FAIL', str(e)[:30])
           print(fence)
           PY
