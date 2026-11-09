@@ -5,38 +5,40 @@ jobs:
   probe:
     runs-on: ubuntu-latest
     steps:
-      - name: Check Malaysia sites
+      - name: Check Asia sites
         run: |
           python3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"
           import re, html, urllib.request
           fence = chr(96) * 3
           print(fence)
           URLS = [
-            'https://fsq.moh.gov.my/',
-            'https://www.moh.gov.my/',
-            'https://www.maqis.gov.my/',
-            'https://www.doa.gov.my/',
-            'https://www.pharmacy.gov.my/',
+            'https://myfsq.moh.gov.my/',
+            'https://www.mafs.gov.my/',
+            'https://www.maqis.gov.my/index.php/peraturan_kastam/',
+            'https://www.acfs.go.th/',
+            'https://www.fda.moph.go.th/',
+            'https://vfa.gov.vn/',
+            'https://www.mard.gov.vn/',
           ]
-          KW = re.compile(r'recall|tarik|penarikan|reject|tolak|amaran|warning|notif|notis|rapid|import', re.I)
+          KW = re.compile(r'recall|reject|refus|alert|warning|rapid|notif|tarik|tolak|amaran|cảnh báo|thu hồi|เตือน|ถอน', re.I)
           for u in URLS:
               try:
                   req = urllib.request.Request(u, headers={'User-Agent': 'Mozilla/5.0', 'Accept': 'text/html,*/*'})
-                  with urllib.request.urlopen(req, timeout=30) as r:
+                  with urllib.request.urlopen(req, timeout=25) as r:
                       t = r.read().decode('utf-8', 'ignore')
                       code = r.status
                   ti = re.search(r'<title>(.*?)</title>', t, re.S | re.I)
-                  print(u, code, 'size', len(t), '|', html.unescape(ti.group(1)).strip()[:60] if ti else '')
+                  print(u, code, 'size', len(t), '|', html.unescape(ti.group(1)).strip()[:50] if ti else '')
                   n = 0
                   for m in re.finditer(r'<a[^>]+href="([^"]+)"[^>]*>(.*?)</a>', t, re.S | re.I):
                       txt = re.sub(r'<[^>]+>', '', m.group(2))
                       txt = html.unescape(re.sub(r'\s+', ' ', txt)).strip()
                       if txt and KW.search(txt + ' ' + m.group(1)):
-                          print('   ', txt[:60], '|', m.group(1)[:90])
+                          print('   ', txt[:50], '|', m.group(1)[:80])
                           n += 1
-                          if n >= 10:
+                          if n >= 8:
                               break
               except Exception as e:
-                  print(u, 'FAIL', str(e)[:80])
+                  print(u, 'FAIL', str(e)[:70])
           print(fence)
           PY
