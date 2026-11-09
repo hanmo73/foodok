@@ -5,40 +5,30 @@ jobs:
   probe:
     runs-on: ubuntu-latest
     steps:
-      - name: Check Asia sites
+      - name: Check Thailand early warning
         run: |
           python3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"
           import re, html, urllib.request
           fence = chr(96) * 3
           print(fence)
-          URLS = [
-            'https://myfsq.moh.gov.my/',
-            'https://www.mafs.gov.my/',
-            'https://www.maqis.gov.my/index.php/peraturan_kastam/',
-            'https://www.acfs.go.th/',
-            'https://www.fda.moph.go.th/',
-            'https://vfa.gov.vn/',
-            'https://www.mard.gov.vn/',
-          ]
-          KW = re.compile(r'recall|reject|refus|alert|warning|rapid|notif|tarik|tolak|amaran|cảnh báo|thu hồi|เตือน|ถอน', re.I)
-          for u in URLS:
-              try:
-                  req = urllib.request.Request(u, headers={'User-Agent': 'Mozilla/5.0', 'Accept': 'text/html,*/*'})
-                  with urllib.request.urlopen(req, timeout=25) as r:
-                      t = r.read().decode('utf-8', 'ignore')
-                      code = r.status
-                  ti = re.search(r'<title>(.*?)</title>', t, re.S | re.I)
-                  print(u, code, 'size', len(t), '|', html.unescape(ti.group(1)).strip()[:50] if ti else '')
-                  n = 0
-                  for m in re.finditer(r'<a[^>]+href="([^"]+)"[^>]*>(.*?)</a>', t, re.S | re.I):
-                      txt = re.sub(r'<[^>]+>', '', m.group(2))
-                      txt = html.unescape(re.sub(r'\s+', ' ', txt)).strip()
-                      if txt and KW.search(txt + ' ' + m.group(1)):
-                          print('   ', txt[:50], '|', m.group(1)[:80])
-                          n += 1
-                          if n >= 8:
-                              break
-              except Exception as e:
-                  print(u, 'FAIL', str(e)[:70])
+          u = 'https://www.acfs.go.th/news/early-warning'
+          try:
+              req = urllib.request.Request(u, headers={'User-Agent': 'Mozilla/5.0', 'Accept': 'text/html,*/*'})
+              with urllib.request.urlopen(req, timeout=40) as r:
+                  t = r.read().decode('utf-8', 'ignore')
+                  print(u, r.status, 'size', len(t))
+              n = 0
+              for m in re.finditer(r'<a[^>]+href="([^"]+)"[^>]*>(.*?)</a>', t, re.S | re.I):
+                  txt = re.sub(r'<[^>]+>', '', m.group(2))
+                  txt = html.unescape(re.sub(r'\s+', ' ', txt)).strip()
+                  if txt and len(txt) > 15 and '/news/' in m.group(1):
+                      print('  ', txt[:70], '|', m.group(1)[:70])
+                      n += 1
+                      if n >= 15:
+                          break
+              for k in re.findall(r'(?:rss|feed|api)[^"\' <]{0,60}', t, re.I)[:5]:
+                  print('  hint:', k)
+          except Exception as e:
+              print(u, 'FAIL', str(e)[:80])
           print(fence)
           PY
