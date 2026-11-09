@@ -5,30 +5,25 @@ jobs:
   probe:
     runs-on: ubuntu-latest
     steps:
-      - name: Look at Thailand warnings
+      - name: Look at Thailand news categories
         run: |
           python3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"
           import json, urllib.request
+          from collections import Counter
           fence = chr(96) * 3
           print(fence)
-          u = 'https://acfs-backend.acfs.go.th/api/v1.0/publish/content-daily-warning?page=1&limit=3'
+          u = 'https://www.acfs.go.th/api/news?language=th'
           try:
               req = urllib.request.Request(u, headers={'User-Agent': 'Mozilla/5.0', 'Accept': 'application/json'})
               with urllib.request.urlopen(req, timeout=40) as r:
                   j = json.loads(r.read().decode('utf-8', 'ignore'))
-              print('top keys:', list(j.keys()))
-              d = j.get('data', j)
-              if isinstance(d, dict):
-                  print('data keys:', list(d.keys()))
-                  for k, v in d.items():
-                      if isinstance(v, list):
-                          d = v
-                          break
-              print('count:', len(d) if isinstance(d, list) else 'n/a')
-              for it in (d[:2] if isinstance(d, list) else []):
-                  print('---')
-                  for k, v in it.items():
-                      print(k, '=', str(v)[:70].replace('\n', ' '))
+              d = j['data']
+              print('items', len(d), 'keys', list(d[0].keys()))
+              print('categories', dict(Counter(x.get('category_id') for x in d)))
+              for cid in sorted(set(x.get('category_id') for x in d)):
+                  ex = [x for x in d if x.get('category_id') == cid][:2]
+                  for x in ex:
+                      print(cid, '|', x.get('id'), '|', str(x.get('title_name_en'))[:70], '|', str(x.get('created_at') or x.get('published_at') or x.get('date'))[:19])
           except Exception as e:
               print('FAIL', str(e)[:100])
           print(fence)
