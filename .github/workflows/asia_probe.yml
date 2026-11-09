@@ -5,30 +5,29 @@ jobs:
   probe:
     runs-on: ubuntu-latest
     steps:
-      - name: Check Thailand early warning
+      - name: Find Thailand data source
         run: |
           python3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"
-          import re, html, urllib.request
+          import re, urllib.request
           fence = chr(96) * 3
           print(fence)
-          u = 'https://www.acfs.go.th/news/early-warning'
-          try:
-              req = urllib.request.Request(u, headers={'User-Agent': 'Mozilla/5.0', 'Accept': 'text/html,*/*'})
+          H = {'User-Agent': 'Mozilla/5.0', 'Accept': 'text/html,application/json,*/*'}
+          def get(u):
+              req = urllib.request.Request(u, headers=H)
               with urllib.request.urlopen(req, timeout=40) as r:
-                  t = r.read().decode('utf-8', 'ignore')
-                  print(u, r.status, 'size', len(t))
-              n = 0
-              for m in re.finditer(r'<a[^>]+href="([^"]+)"[^>]*>(.*?)</a>', t, re.S | re.I):
-                  txt = re.sub(r'<[^>]+>', '', m.group(2))
-                  txt = html.unescape(re.sub(r'\s+', ' ', txt)).strip()
-                  if txt and len(txt) > 15 and '/news/' in m.group(1):
-                      print('  ', txt[:70], '|', m.group(1)[:70])
-                      n += 1
-                      if n >= 15:
-                          break
-              for k in re.findall(r'(?:rss|feed|api)[^"\' <]{0,60}', t, re.I)[:5]:
-                  print('  hint:', k)
-          except Exception as e:
-              print(u, 'FAIL', str(e)[:80])
+                  return r.status, r.read().decode('utf-8', 'ignore')
+          base = 'https://www.acfs.go.th'
+          code, t = get(base + '/news/early-warning')
+          print('page', code, len(t))
+          for k in sorted(set(re.findall(r'/?api/[A-Za-z0-9_/.?=&%-]{3,80}', t)))[:15]:
+              print('api:', k)
+          for k in sorted(set(re.findall(r'[A-Za-z0-9_/.-]*(?:_payload|__NUXT__|__NEXT_DATA__)[A-Za-z0-9_/.-]*', t)))[:5]:
+              print('data:', k)
+          for p in ['/api/articles?language=th', '/api/news?language=th', '/news/early-warning/_payload.json']:
+              try:
+                  c, b = get(base + p)
+                  print(p, c, len(b), re.sub(r'\s+', ' ', b[:200]))
+              except Exception as e:
+                  print(p, 'FAIL', str(e)[:60])
           print(fence)
           PY
