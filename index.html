@@ -196,6 +196,7 @@ footer p{margin:0 0 10px}
       <li><button role="tab" data-tab="rasff" aria-selected="false">Europe RASFF</button></li>
       <li><button role="tab" data-tab="kr" aria-selected="false">Korea MFDS</button></li>
       <li><button role="tab" data-tab="sg" aria-selected="false">Singapore SFA</button></li>
+      <li><button role="tab" data-tab="uk" aria-selected="false">UK FSA</button></li>
       <li><button role="tab" data-tab="fda" aria-selected="false">US FDA</button></li>
       <li><button role="tab" data-tab="asean" aria-selected="false">ASEAN &amp; Asia</button></li>
       <li><button role="tab" data-tab="sa" aria-selected="false">South America</button></li>
@@ -406,7 +407,7 @@ footer p{margin:0 0 10px}
   /* wire */
   var TITLES = {
     world:"Live Global Food Safety Wire", fda:"U.S. FDA Enforcement Reports", chem:"Pesticides & Heavy Metals",
-    gacc:"China GACC", rasff:"Europe RASFF · 12-month archive", kr:"Korea MFDS · import refusals", asean:"ASEAN & Asia", sa:"South America"
+    gacc:"China GACC", rasff:"Europe RASFF · 12-month archive", kr:"Korea MFDS · import refusals", uk:"UK FSA · food alerts and recalls", asean:"ASEAN & Asia", sa:"South America"
   };
   function cardHTML(r){
     var cls = r.classification||"";
@@ -535,6 +536,26 @@ footer p{margin:0 0 10px}
       (x.u?'<div class="foot"><a href="'+esc(x.u)+'" target="_blank" rel="noopener">Official notice</a></div>':'')+
       '</article>';
   } };
+  DS.uk = { file:"/uk.json", badge:"OFFICIAL ALERTS · UK FSA", name:"UK FSA",
+  line:"UK Food Standards Agency allergy alerts, product recalls and food alerts, ",
+  extra:" Official FSA notices. The feed does not state the origin country.",
+  range:function(a){ return fmtISO(a[a.length-1].d)+" to "+fmtISO(a[0].d); },
+  map:function(r){
+    var m = /^FSA-([A-Z]+)-/.exec(r.id||""), code = m ? m[1] : "";
+    var T = {AA:"Allergy alert", PRIN:"Product recall", FAFA:"Food alert for action"};
+    var t = T[code] || "Alert";
+    return { s:r.title||"", d:r.date||"", o:[], n:"UK FSA", f:(r.product||"")+" "+(r.reason||""), g:[t], h:[],
+             t:t, pr:r.product||"", rs:r.reason||"", u:r.url||"" };
+  },
+  card:function(x){
+    var rs = x.rs.length>220 ? x.rs.slice(0,219)+"…" : x.rs;
+    return '<article class="card">'+
+      '<div class="meta">UK FSA · <b>'+esc(x.t)+'</b> · '+esc(fmtISO(x.d))+'</div>'+
+      '<h3>'+esc(x.s)+'</h3>'+
+      (rs?'<p>'+esc(rs)+'</p>':'')+
+      (x.u?'<div class="foot"><a href="'+esc(x.u)+'" target="_blank" rel="noopener">Official notice</a></div>':'')+
+      '</article>';
+  } };
   var GRP = {};
   function dsLoad(tab){
     var s = DS[tab];
@@ -543,6 +564,7 @@ footer p{margin:0 0 10px}
       s.loading = fetch(s.file).then(function(r){
         if(!r.ok) throw new Error("HTTP "+r.status); return r.json();
       }).then(function(d){
+        if(s.map) d = d.map(s.map);
         d.forEach(function(x){ x._t = (x.s+" "+[].concat(x.o).join(" ")+" "+x.n+" "+x.f+" "+x.g.join(" ")+" "+x.h.join(" ")+" "+(x.zh||"")+" "+(x.mf||"")+" "+(x.ko||"")+" "+(x.kr||"")).toLowerCase(); });
         s.data = d; return d;
       });
