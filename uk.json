@@ -1,5 +1,16 @@
 [
  {
+  "id": "FSA-AA-52-2026",
+  "date": "2026-11-10",
+  "type": "",
+  "title": "Waitrose & Partners recalls various Waitrose & Partners Doughnuts 5’s because of undeclared soya",
+  "product": "Waitrose & Partners Sweet, Fluffy, Golden Ring Doughnuts 5’s; Waitrose & Partners Jammy, Messy, Squidgy Doughnuts 5’s",
+  "reason": "Soya\nThese products contain soya making them a possible health risk for anyone with an allergy to soya.",
+  "url": "https://alerts.food.gov.uk/news-alerts/alert/fsa-aa-52-2026",
+  "country": "United Kingdom",
+  "source": "UK FSA"
+ },
+ {
   "id": "FSA-PRIN-52-2026",
   "date": "2026-11-06",
   "type": "",
@@ -10985,17 +10996,6 @@
   "product": "Kania Oregano",
   "reason": "Prolonged consumption of pyrrolizidine alkaloids at high levels can lead to liver disease.",
   "url": "https://www.food.gov.uk/news-alerts/alert/fsa-prin-04-2020",
-  "country": "United Kingdom",
-  "source": "UK FSA"
- },
- {
-  "id": "FSA-PRIN-03-2020",
-  "date": "2020-01-25",
-  "type": "",
-  "title": "Cow & Gate and Tesco recall 7+ months Cow & Gate baby food jars as a precaution because a small number may have been tampered with",
-  "product": "Cow & Gate Butternut Squash Chicken & Pasta 7+ months; Cow & Gate Courgette & Hake Rice 7+ months; Cow & Gate Yummy Harvest Chicken 7+ months; Cow & Gate Apple Crumble 7+ months; Cow & Gate Banana Crumble 7+ months; Cow & Gate Peach Apple & Kiwi 7+ months; Cow & Gate Rice Pudding 7+ months; Cow & Gate Creamy Cauliflower Cheese 7+ months; Cow & Gate Garden Pea & Turkey 7+ months; Cow & Gate Potato Spinach & Beef 7+ months; Cow & Gate Potato & Turkey Roast 7+ months; Cow & Gate Spaghetti Bolognese 7+ months; Cow & Gate Succulent Pork Casserole 7+ months; Cow & Gate Tasty Cottage Pie 7+ months; Cow & Gate Tomato & Courgette Pasta 7+ months",
-  "reason": "The possible tampering of this product may present a safety risk.",
-  "url": "https://www.food.gov.uk/news-alerts/alert/fsa-prin-03-2020",
   "country": "United Kingdom",
   "source": "UK FSA"
  }
