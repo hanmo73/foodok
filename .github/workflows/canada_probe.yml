@@ -1,0 +1,14 @@
+name: canada_probe
+
+on:
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch Canada recalls
+        run: |
+          curl -sL -A "foodok.org" "https://recalls-rappels.canada.ca/sites/default/files/opendata-donneesouvertes/HCRSAMOpenData.json" -o ca.json
+          ls -l ca.json
+          head -c 3000 ca.json
