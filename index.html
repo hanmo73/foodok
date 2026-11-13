@@ -198,6 +198,7 @@ footer p{margin:0 0 10px}
       <li><button role="tab" data-tab="sg" aria-selected="false">Singapore SFA</button></li>
       <li><button role="tab" data-tab="uk" aria-selected="false">UK FSA</button></li>
       <li><button role="tab" data-tab="fda" aria-selected="false">US FDA</button></li>
+      <li><button role="tab" data-tab="ca" aria-selected="false">Canada CFIA</button></li>
       <li><button role="tab" data-tab="asean" aria-selected="false">ASEAN &amp; Asia</button></li>
       <li><button role="tab" data-tab="sa" aria-selected="false">South America</button></li>
       <li><button role="tab" data-tab="chem" aria-selected="false">Pesticides &amp; Heavy Metals</button></li>
@@ -556,6 +557,23 @@ footer p{margin:0 0 10px}
       (x.u?'<div class="foot"><a href="'+esc(x.u)+'" target="_blank" rel="noopener">Official notice</a></div>':'')+
       '</article>';
   } };
+ DS.ca = { file:"/canada.json", badge:"OFFICIAL ALERTS · CANADA CFIA", name:"Canada CFIA",
+  line:"Canadian Food Inspection Agency food recalls, ",
+  extra:" Official CFIA recall notices. The feed does not state the origin country.",
+  range:function(a){ return fmtISO(a[a.length-1].d)+" to "+fmtISO(a[0].d); },
+  map:function(r){
+    return { s:r.title||"", d:r.date||"", o:[], n:"Canada CFIA", f:(r.product||"")+" "+(r.reason||""), g:[r.type||"Food Recall"], h:[],
+             t:r.type||"Food Recall", pr:r.product||"", rs:r.reason||"", u:r.url||"" };
+  },
+  card:function(x){
+    var rs = x.rs.length>220 ? x.rs.slice(0,219)+"…" : x.rs;
+    return '<article class="card">'+
+      '<div class="meta">Canada CFIA · <b>'+esc(x.t)+'</b> · '+esc(fmtISO(x.d))+'</div>'+
+      '<h3>'+esc(x.s)+'</h3>'+
+      (rs?'<p>'+esc(rs)+'</p>':'')+
+      (x.u?'<div class="foot"><a href="'+esc(x.u)+'" target="_blank" rel="noopener">Official notice</a></div>':'')+
+      '</article>';
+  } }; 
   var GRP = {};
   function dsLoad(tab){
     var s = DS[tab];
