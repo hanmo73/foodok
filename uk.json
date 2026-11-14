@@ -1,5 +1,16 @@
 [
  {
+  "id": "FSA-AA-53-2026",
+  "date": "2026-11-13",
+  "type": "",
+  "title": "Tesco recalls various Tesco Steak and Guinness Pie products because of undeclared milk",
+  "product": "Tesco Steak and Guinness Pie; Tesco 6 Steak and Guinness Mini Pies",
+  "reason": "Milk\nThese products contain milk making them a possible health risk for anyone with an allergy to milk or intolerance to milk or milk constituents.",
+  "url": "https://alerts.food.gov.uk/news-alerts/alert/fsa-aa-53-2026",
+  "country": "United Kingdom",
+  "source": "UK FSA"
+ },
+ {
   "id": "FSA-AA-52-2026",
   "date": "2026-11-10",
   "type": "",
@@ -10985,17 +10996,6 @@
   "product": "NO CHEESE 2 Cheese and Onion Pasties; NO CHEESE Houmous Style Sauce Pizza; NO CHEESE Mediterranean Garden Pizza; NO CHEESE Italian Garden Pizza; NO CHEESE Houmous Pizza; NO CHEESE Macaroni Cheese",
   "reason": "Milk\nThese products may contain milk making it a possible health risk for anyone with an allergy or intolerance to milk or milk constituents.",
   "url": "https://www.food.gov.uk/news-alerts/alert/fsa-aa-10-2020",
-  "country": "United Kingdom",
-  "source": "UK FSA"
- },
- {
-  "id": "FSA-PRIN-04-2020",
-  "date": "2020-01-28",
-  "type": "",
-  "title": "Lidl GB recalls Kania Oregano because of the possible presence of high levels of pyrrolizidine alkaloids",
-  "product": "Kania Oregano",
-  "reason": "Prolonged consumption of pyrrolizidine alkaloids at high levels can lead to liver disease.",
-  "url": "https://www.food.gov.uk/news-alerts/alert/fsa-prin-04-2020",
   "country": "United Kingdom",
   "source": "UK FSA"
  }
