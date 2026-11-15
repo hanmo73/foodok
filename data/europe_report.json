@@ -1,20 +1,20 @@
 {
-  "built_utc": "2026-11-14T03:57:02+00:00",
+  "built_utc": "2026-11-15T03:58:24+00:00",
   "mode": "live",
-  "rows": 5502,
+  "rows": 5482,
   "date_range": [
-    "2025-11-14",
-    "2026-11-12"
+    "2025-11-17",
+    "2026-11-13"
   ],
-  "rows_with_known_labels": 5147,
-  "rows_with_predicted_labels": 355,
+  "rows_with_known_labels": 5114,
+  "rows_with_predicted_labels": 368,
   "unseen_categories": {},
   "group_counts": {
-    "Not specified": 1413,
-    "Bacteria and mold": 1252,
-    "Pesticide residues": 911,
-    "Mycotoxins": 731,
-    "Chemical contaminants": 341,
+    "Not specified": 1405,
+    "Bacteria and mold": 1248,
+    "Pesticide residues": 907,
+    "Mycotoxins": 728,
+    "Chemical contaminants": 340,
     "Composition and nutrients": 201,
     "Heavy metals": 172,
     "Animal disease and parasites": 109,
