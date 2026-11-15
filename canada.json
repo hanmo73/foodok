@@ -1,5 +1,27 @@
 [
  {
+  "id": "82929",
+  "date": "2026-11-13",
+  "type": "Food Recall (Class 1)",
+  "title": "Certain Plantropy brand Jack’d Up Bites Crispy Protein Bites recalled due to undeclared milk",
+  "product": "Jack’d Up Bites Crispy Protein Bites - Ketchup, Jack’d Up Bites Crispy Protein Bites - Sour Cream & Onion",
+  "reason": "Milk",
+  "url": "https://recalls-rappels.canada.ca/en/alert-recall/certain-plantropy-brand-jack-bites-crispy-protein-bites-recalled-due-undeclared-milk",
+  "country": "Canada",
+  "source": "Canada CFIA"
+ },
+ {
+  "id": "82943",
+  "date": "2026-11-13",
+  "type": "Food Recall (Class 3)",
+  "title": "Producers brand Brown Rice recalled due to presence of insects",
+  "product": "Brown Rice",
+  "reason": "Extraneous Material",
+  "url": "https://recalls-rappels.canada.ca/en/alert-recall/producers-brand-brown-rice-recalled-due-presence-insects",
+  "country": "Canada",
+  "source": "Canada CFIA"
+ },
+ {
   "id": "78452",
   "date": "2026-11-12",
   "type": "Food Recall",
