@@ -1,5 +1,16 @@
 [
  {
+  "id": "82958",
+  "date": "2026-11-14",
+  "type": "Food Recall (Class 1)",
+  "title": "Soup Time brand Baba's Borscht Soup and Wardy's Bow Valley Beef Barley recalled due to undeclared wheat",
+  "product": "Baba's Borscht Soup, Wardy's Bow Valley Beef Barley",
+  "reason": "Wheat - Gluten",
+  "url": "https://recalls-rappels.canada.ca/en/alert-recall/soup-time-brand-baba-s-borscht-soup-and-wardy-s-bow-valley-beef-barley-recalled-due",
+  "country": "Canada",
+  "source": "Canada CFIA"
+ },
+ {
   "id": "82929",
   "date": "2026-11-13",
   "type": "Food Recall (Class 1)",
