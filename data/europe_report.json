@@ -1,31 +1,31 @@
 {
-  "built_utc": "2026-11-18T04:01:36+00:00",
+  "built_utc": "2026-11-19T04:02:33+00:00",
   "mode": "live",
-  "rows": 5486,
+  "rows": 5490,
   "date_range": [
-    "2025-11-18",
-    "2026-11-16"
+    "2025-11-19",
+    "2026-11-17"
   ],
-  "rows_with_known_labels": 5090,
-  "rows_with_predicted_labels": 396,
+  "rows_with_known_labels": 5066,
+  "rows_with_predicted_labels": 424,
   "unseen_categories": {},
   "group_counts": {
-    "Not specified": 1404,
-    "Bacteria and mold": 1251,
-    "Pesticide residues": 904,
-    "Mycotoxins": 736,
-    "Chemical contaminants": 339,
-    "Composition and nutrients": 201,
-    "Heavy metals": 170,
+    "Not specified": 1405,
+    "Bacteria and mold": 1253,
+    "Pesticide residues": 906,
+    "Mycotoxins": 738,
+    "Chemical contaminants": 341,
+    "Composition and nutrients": 200,
+    "Heavy metals": 171,
     "Animal disease and parasites": 107,
     "Additives and colours": 91,
-    "Not registered or not approved": 91,
+    "Not registered or not approved": 89,
     "Allergens": 84,
-    "Labeling and documents": 53,
     "Veterinary drug residues": 52,
+    "Labeling and documents": 52,
     "Other": 44,
     "Foreign bodies": 30,
-    "Spoilage and quality": 28,
+    "Spoilage and quality": 27,
     "GMO": 19
   }
 }

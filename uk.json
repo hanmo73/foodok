@@ -1,5 +1,16 @@
 [
  {
+  "id": "FSA-PRIN-53-2026",
+  "date": "2026-11-18",
+  "type": "",
+  "title": "Card Factory recalls Red and White Candy Canes because they may contain pieces of metal",
+  "product": "Candy Canes, Red & White",
+  "reason": "This product may contain pieces of metal which makes it unsafe to eat.",
+  "url": "https://alerts.food.gov.uk/news-alerts/alert/fsa-prin-53-2026",
+  "country": "United Kingdom",
+  "source": "UK FSA"
+ },
+ {
   "id": "FSA-AA-53-2026",
   "date": "2026-11-13",
   "type": "",
@@ -10985,17 +10996,6 @@
   "product": "Heston Mushroom & Gin Sauce",
   "reason": "Mustard\nThis product contains mustard making it a possible health risk for anyone with an allergy to mustard.",
   "url": "https://www.food.gov.uk/news-alerts/alert/fsa-aa-09-2020",
-  "country": "United Kingdom",
-  "source": "UK FSA"
- },
- {
-  "id": "FSA-AA-10-2020",
-  "date": "2020-01-31",
-  "type": "",
-  "title": "Iceland recalls NO CHEESE products because they may contain milk",
-  "product": "NO CHEESE 2 Cheese and Onion Pasties; NO CHEESE Houmous Style Sauce Pizza; NO CHEESE Mediterranean Garden Pizza; NO CHEESE Italian Garden Pizza; NO CHEESE Houmous Pizza; NO CHEESE Macaroni Cheese",
-  "reason": "Milk\nThese products may contain milk making it a possible health risk for anyone with an allergy or intolerance to milk or milk constituents.",
-  "url": "https://www.food.gov.uk/news-alerts/alert/fsa-aa-10-2020",
   "country": "United Kingdom",
   "source": "UK FSA"
  }
