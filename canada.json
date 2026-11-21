@@ -1,5 +1,27 @@
 [
  {
+  "id": "82979",
+  "date": "2026-11-20",
+  "type": "Food Recall (Class 1)",
+  "title": "Certain Nora's brand Non-Dairy Frozen Desserts recalled due to undeclared peanut",
+  "product": "Strawberries & Crème Non-Dairy Frozen Dessert, Vanilla Bean Non-Dairy Frozen Dessert",
+  "reason": "Peanut",
+  "url": "https://recalls-rappels.canada.ca/en/alert-recall/certain-nora-s-brand-non-dairy-frozen-desserts-recalled-due-undeclared-peanut",
+  "country": "Canada",
+  "source": "Canada CFIA"
+ },
+ {
+  "id": "82984",
+  "date": "2026-11-20",
+  "type": "Food Recall (Class 1)",
+  "title": "Cadbury brand Dairy Milk Oreo Candy (treat size bar) recalled due to undeclared pistachio",
+  "product": "Dairy Milk Oreo Candy (treat size bar)",
+  "reason": "Tree nut",
+  "url": "https://recalls-rappels.canada.ca/en/alert-recall/cadbury-brand-dairy-milk-oreo-candy-treat-size-bar-recalled-due-undeclared-pistachio",
+  "country": "Canada",
+  "source": "Canada CFIA"
+ },
+ {
   "id": "82969",
   "date": "2026-11-18",
   "type": "Food Recall (Class 1)",
