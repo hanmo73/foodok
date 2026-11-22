@@ -1,5 +1,27 @@
 [
  {
+  "id": "FSA-AA-54-2026",
+  "date": "2026-11-21",
+  "type": "",
+  "title": "Healthy Fit recalls Vegan Protein Bar Hazelnut Nougat because of undeclared peanuts",
+  "product": "Healthy Fit Vegan Protein Bar Hazelnut Nougat",
+  "reason": "Allergen: Peanuts\nThis product contains peanuts making it a possible health risk for anyone with an allergy to peanuts.",
+  "url": "https://alerts.food.gov.uk/news-alerts/alert/fsa-aa-54-2026",
+  "country": "United Kingdom",
+  "source": "UK FSA"
+ },
+ {
+  "id": "FSA-PRIN-54-2026",
+  "date": "2026-11-21",
+  "type": "",
+  "title": "Hotel Chocolat recalls several chocolate products because of the possible presence of Salmonella",
+  "product": "Christmas Classic Chocolate Box 9-Piece; Christmas Classic Chocolate Box 18-Piece; Christmas Classic Chocolate Box 18-Piece; Christmas Classic Chocolate Box 24-Piece; Christmas Classic Chocolate Box 24-Piece; Christmas Classic Chocolate Box 48-Piece",
+  "reason": "The possible presence of Salmonella in the products listed above.\nSymptoms caused by salmonella usually include fever, diarrhoea and abdominal cramps. If you are experiencing these symptoms, you should stay away from work, school or nursery until you have stopped having symptoms for at least 48 hours to avoid passing it on to others.",
+  "url": "https://alerts.food.gov.uk/news-alerts/alert/fsa-prin-54-2026",
+  "country": "United Kingdom",
+  "source": "UK FSA"
+ },
+ {
   "id": "FSA-PRIN-53-2026",
   "date": "2026-11-18",
   "type": "",
@@ -10974,28 +10996,6 @@
   "product": "Müller Corner Fruit 6 Pack – Cherry & Blackberry/Raspberry; Müller Corner Fruit 6 Pack – Strawberry & Peach/Apricot; Brooklea Light Fruit 6 Pack – Raspberry and Cranberry, Strawberry; Milbona Fat Free Greek Yoghurt – Strawberry; Milbona Fat Free Yoghurt Multipack – Mixed; Milbona Fat Free Fruit Yoghurt – Strawberry; Müller Corner Favourites 6 Pack – Strawberry, Vanilla/Chocolate Balls & Digestive Biscuit; Müllerlight 6 Pack – Strawberry, Cherry & Raspberry/Cranberry; Müllerlight – Cherry Single; Müllerlight 6 Pack – Mango/Passionfruit, Peach/Pineapple & Mandarin; Müllerlight Greek – Strawberry; Müller Rice 6 Pack – Apple & Raspberry; Müller Bliss Mascarpone Style Yogurt – Peach & Apricot; Brooklea Light Strawberry Single Pot",
   "reason": "The possible presence of metal makes these products unsafe to eat.",
   "url": "https://www.food.gov.uk/news-alerts/alert/fsa-prin-05-2020",
-  "country": "United Kingdom",
-  "source": "UK FSA"
- },
- {
-  "id": "FSA-AA-11-2020",
-  "date": "2020-02-05",
-  "type": "",
-  "title": "Kuhne recalls Made For Meat Chipotle Burger Style because of undeclared milk",
-  "product": "Made For Meat Chipotle Burger Style",
-  "reason": "Milk\nThis product contains milk making it a possible health risk for anyone with an allergy or intolerance to milk or milk constituents.",
-  "url": "https://www.food.gov.uk/news-alerts/alert/fsa-aa-11-2020",
-  "country": "United Kingdom",
-  "source": "UK FSA"
- },
- {
-  "id": "FSA-AA-09-2020",
-  "date": "2020-01-31",
-  "type": "",
-  "title": "Waitrose recalls Heston Mushroom & Gin Sauce because of undeclared mustard",
-  "product": "Heston Mushroom & Gin Sauce",
-  "reason": "Mustard\nThis product contains mustard making it a possible health risk for anyone with an allergy to mustard.",
-  "url": "https://www.food.gov.uk/news-alerts/alert/fsa-aa-09-2020",
   "country": "United Kingdom",
   "source": "UK FSA"
  }
