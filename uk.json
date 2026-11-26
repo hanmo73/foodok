@@ -1,12 +1,23 @@
 [
  {
   "id": "FSA-AA-54-2026",
-  "date": "2026-11-21",
+  "date": "2026-11-25",
   "type": "",
   "title": "Healthy Fit recalls Vegan Protein Bar Hazelnut Nougat because of undeclared peanuts",
   "product": "Healthy Fit Vegan Protein Bar Hazelnut Nougat",
   "reason": "Allergen: Peanuts\nThis product contains peanuts making it a possible health risk for anyone with an allergy to peanuts.",
   "url": "https://alerts.food.gov.uk/news-alerts/alert/fsa-aa-54-2026",
+  "country": "United Kingdom",
+  "source": "UK FSA"
+ },
+ {
+  "id": "FSA-PRIN-55-2026",
+  "date": "2026-11-25",
+  "type": "",
+  "title": "Co-op recalls Co-op King Prawns in a Chilli & Coriander Marinade because of incorrect use by dates",
+  "product": "Co-op King Prawns in a Chilli & Coriander Marinade",
+  "reason": "The product is labelled with incorrect use by dates of 27 December 2026 and 30 December 2026 which makes it unsafe to eat after the correct use by dates of 27 November 2026 and 30 November 2026 respectively.",
+  "url": "https://alerts.food.gov.uk/news-alerts/alert/fsa-prin-55-2026",
   "country": "United Kingdom",
   "source": "UK FSA"
  },
@@ -10985,17 +10996,6 @@
   "product": "All seafood and products of animal origin packed and supplied by The Chicken Guy Ltd. Unit 11 Clayton Industrial Estate, Manchester M11 1BR (which includes raw cut chicken, beef knuckles and frozen prawns) are affected by this alert.",
   "reason": "As these products were not prepared in line with food hygiene and legislative requirements, they may be unsafe.",
   "url": "https://www.food.gov.uk/news-alerts/alert/fsa-fafa-01-2020",
-  "country": "United Kingdom",
-  "source": "UK FSA"
- },
- {
-  "id": "FSA-PRIN-05-2020",
-  "date": "2020-02-06",
-  "type": "",
-  "title": "Müller recalls several products because they may contain small pieces of metal",
-  "product": "Müller Corner Fruit 6 Pack – Cherry & Blackberry/Raspberry; Müller Corner Fruit 6 Pack – Strawberry & Peach/Apricot; Brooklea Light Fruit 6 Pack – Raspberry and Cranberry, Strawberry; Milbona Fat Free Greek Yoghurt – Strawberry; Milbona Fat Free Yoghurt Multipack – Mixed; Milbona Fat Free Fruit Yoghurt – Strawberry; Müller Corner Favourites 6 Pack – Strawberry, Vanilla/Chocolate Balls & Digestive Biscuit; Müllerlight 6 Pack – Strawberry, Cherry & Raspberry/Cranberry; Müllerlight – Cherry Single; Müllerlight 6 Pack – Mango/Passionfruit, Peach/Pineapple & Mandarin; Müllerlight Greek – Strawberry; Müller Rice 6 Pack – Apple & Raspberry; Müller Bliss Mascarpone Style Yogurt – Peach & Apricot; Brooklea Light Strawberry Single Pot",
-  "reason": "The possible presence of metal makes these products unsafe to eat.",
-  "url": "https://www.food.gov.uk/news-alerts/alert/fsa-prin-05-2020",
   "country": "United Kingdom",
   "source": "UK FSA"
  }

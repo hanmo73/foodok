@@ -1,31 +1,31 @@
 {
-  "built_utc": "2026-11-25T04:13:07+00:00",
+  "built_utc": "2026-11-26T04:08:41+00:00",
   "mode": "live",
-  "rows": 5492,
+  "rows": 5493,
   "date_range": [
-    "2025-11-25",
-    "2026-11-23"
+    "2025-11-26",
+    "2026-11-24"
   ],
-  "rows_with_known_labels": 4981,
-  "rows_with_predicted_labels": 511,
+  "rows_with_known_labels": 4962,
+  "rows_with_predicted_labels": 531,
   "unseen_categories": {
     "plant protection products": 1
   },
   "group_counts": {
-    "Not specified": 1403,
-    "Bacteria and mold": 1261,
+    "Not specified": 1407,
+    "Bacteria and mold": 1260,
     "Pesticide residues": 904,
-    "Mycotoxins": 737,
+    "Mycotoxins": 736,
     "Chemical contaminants": 343,
-    "Composition and nutrients": 198,
+    "Composition and nutrients": 199,
     "Heavy metals": 168,
-    "Animal disease and parasites": 108,
+    "Animal disease and parasites": 109,
     "Additives and colours": 93,
-    "Not registered or not approved": 88,
-    "Allergens": 85,
-    "Veterinary drug residues": 53,
+    "Not registered or not approved": 87,
+    "Allergens": 86,
+    "Veterinary drug residues": 52,
     "Labeling and documents": 52,
-    "Other": 44,
+    "Other": 43,
     "Foreign bodies": 30,
     "Spoilage and quality": 25,
     "GMO": 20
