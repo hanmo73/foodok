@@ -1,5 +1,16 @@
 [
  {
+  "id": "FSA-AA-55-2026",
+  "date": "2026-11-26",
+  "type": "",
+  "title": "Dundeis UK Ltd recalls Minton & Donello Original Muesli because of undeclared Brazil nuts (nuts)",
+  "product": "Minton & Donello Original Muesli",
+  "reason": "Allergen: Brazil nuts (nuts)\nThis product contains Brazil nuts (nuts) which are not declared on the label, making it a possible health risk for anyone with an allergy or sensitivity to Brazil nuts (nuts).",
+  "url": "https://alerts.food.gov.uk/news-alerts/alert/fsa-aa-55-2026",
+  "country": "United Kingdom",
+  "source": "UK FSA"
+ },
+ {
   "id": "FSA-AA-54-2026",
   "date": "2026-11-25",
   "type": "",
@@ -10985,17 +10996,6 @@
   "product": "Raw Diced Chicken Dog Food; Raw Chicken & Tripe Dog Food; Raw Chicken & Beef Dog Food; Raw Chicken Dog Food; Raw Chicken Dog Food; Raw Chicken Wing Tips; Raw Tripe; Raw Liver; Raw Minced Chicken & Tripe Dog Food; Raw Chicken Drumsticks",
   "reason": "Happy Hounds is recalling a range of its frozen raw dog food products on a precautionary basis as they may pose a risk to human and animal health. Sampling undertaken by the company has identified elevated levels of bacteria indicating a potential risk. A withdrawal and recall have been actioned by the company.",
   "url": "https://www.food.gov.uk/news-alerts/alert/fsa-prin-06-2020",
-  "country": "United Kingdom",
-  "source": "UK FSA"
- },
- {
-  "id": "FSA-FAFA-01-2020",
-  "date": "2020-02-06",
-  "type": "",
-  "title": "Consumers advised about seafood and meat products supplied by The Chicken Guy Ltd.",
-  "product": "All seafood and products of animal origin packed and supplied by The Chicken Guy Ltd. Unit 11 Clayton Industrial Estate, Manchester M11 1BR (which includes raw cut chicken, beef knuckles and frozen prawns) are affected by this alert.",
-  "reason": "As these products were not prepared in line with food hygiene and legislative requirements, they may be unsafe.",
-  "url": "https://www.food.gov.uk/news-alerts/alert/fsa-fafa-01-2020",
   "country": "United Kingdom",
   "source": "UK FSA"
  }
