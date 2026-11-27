@@ -1,5 +1,16 @@
 [
  {
+  "id": "82999",
+  "date": "2026-11-25",
+  "type": "Food Recall (Class 2)",
+  "title": "Casearia il Ghiottone brand Burattina Fresh Stretched Curd Cheese with Cream recalled due to generic E. coli",
+  "product": "Burattina Fresh Stretched Curd Cheese with Cream",
+  "reason": "E. Coli - non-pathogenic",
+  "url": "https://recalls-rappels.canada.ca/en/alert-recall/casearia-il-ghiottone-brand-burattina-fresh-stretched-curd-cheese-cream-recalled-due",
+  "country": "Canada",
+  "source": "Canada CFIA"
+ },
+ {
   "id": "82994",
   "date": "2026-11-24",
   "type": "Food Recall (Class 2)",
